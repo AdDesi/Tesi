@@ -1,0 +1,4 @@
+\select@language {italian}
+\select@language {italian}
+\contentsline {section}{Introduzione}{3}
+\contentsline {chapter}{\numberline {1}Algoritmi di apprendimento}{5}

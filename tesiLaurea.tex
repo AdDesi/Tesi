@@ -1,11 +1,58 @@
 \documentclass[a4paper,12pt]{report}
-\usepackage[latin1]{inputenc}
 \usepackage[italian]{babel}
-
+\usepackage[latin1]{inputenc}
+\usepackage{graphicx}
+\setcounter{tocdepth}{2}
 \begin{document}
-	\title{Ricerca della tolopologia ottimale di un sistema di deep learning per identificazioni di oggetti architettonici} %da cambiare intestazione titolo
-	\author{D\`{e}sir\`{e}e Adiutori}
-	\date{}
-	\maketitle
 
+%\begin{figure}
+%\centering
+%\includegraphics[scale=0.15]{Logo.jpg}
+%\end{figure}
+\begin{center}
+\textbf{UNIVERSIT\'{A} DEGLI STUDI "ROMA TRE"}\\
+\vspace{0.3cm}
+\textmd{\large Dipartimento di Matematica e Fisica}\\
+\vspace{0.2cm}
+\large{ Corso di Laurea Magistrale in Scienze Computazionali}\\	
+\vspace{1.4cm}	
+\textmd{\Large{Tesi di Laurea Magistrale}}\\
+\vspace{1.6cm}
+\LARGE{\LARGE{\textbf{Ricerca della tolopologia ottimale di un sistema di deep learning per identificazioni di oggetti architettonici}}}\\
+\vspace{5cm}
+\begin{tabular}{ccccccccccc}
+	\large{Candidato}& & & & & & & & & & \large{Relatore}\\
+	\large{Dèsirèe Adiutori} & & & & & & & & & &\large{Prof. Alberto Paoluzzi}
+\end{tabular}\\
+\vspace{4cm}
+\normalsize{Anno Accademico 2017/2018}\\
+\normalsize{Luglio 2018}
+\end{center}
+\newpage
+\tableofcontents
+\newpage
+\section*{Introduzione}
+\addcontentsline{toc}{section}{Introduzione}
+Dalla scoperta dei computer, l'uomo fa sempre più affidamento alle macchine per risolvere problemi complessi di calcolo. Con l'aumentare delle prestazioni dei computer, man mano si sono sviluppati algoritmi di calcolo sempre più efficienti.
+Nel 1959 l'ingegnere del MIT, Arthur Samuel coniò il termine \textit{"machine learning"}, descrivendo l'apprendimento automatico come un "campo di studio che dà ai computer la possibilità di apprendere senza essere programmati esplicitamente per farlo".\\
+Definiamo l'apprendimento automatico come un insieme di metodi in grado di rilevare automaticamente i modelli nei dati e quindi utilizzare i modelli scoperti per prevedere i dati futuri o per eseguire altri tipi di processi decisionali in condizioni di incertezza. L'insegnamento alla macchine è, pertanto, imprescindibile dai dati. Più dati si passano alla macchina, più può imparare. Per questo motivo con l'avvento di Internet, dagli anni '90 ad oggi il tema del "machine learning" è diventato sempre più attuale, la mole di dati reperibile dal web è cospicuo e ha permesso che questo campo sia espnenzialmente progredito.\\
+Il \textit{"deep learning"} è un tipo particolare di machine learning che riguarda l'emulazione di come gli esseri umani apprendono. Esso affronta i problemi del machine learning, rappresentando il mondo come una gerarchia di concetti annidati, dove ogni concetto è definito in relazione a concetti più semplici, e le rappresentazioni astratte vengono calcolate in termini di concetti meno astratti. Il Deep Learning implica l'utilizzo di reti neurali artificiali (\textit{deep artificial neural networks}), algoritmi e sistemi computazionali ispirati dal cervello umano, per affrontare i problemi del Machine Learning. L'analogia di Shehzad Noor Taus Priyo può aiutare a capire meglio cosa siano le reti neurali:\\
+"Immaginiamole come una serie di porte da oltrepassare, dove l'input è l'uomo che le deve oltrepassare e ogni volta che lo fa cambia qualcosa nel suo comportamento, finchè all'ultima porta oltrepassata, l'uomo è diventato una persona del tutto differente rappresentando l'output di questo processo."\\
+Questa tesi si focalizza su un tipo particolare di algoritmo di machine learning: la \textit{Classification} (Classificazione), in particolar modo della classificazione di immagini. L'obiettivo principale è trovare un'architettura ottimale per l'algoritmo che identifica le immagini di oggetti architettonici, per fare questo bisogna trovare la giusta topologia, la giusta profondità e la giusta larghezza di ogni livello della rete neurale.
+\chapter{Algoritmi di apprendimento}
+Gli algoritmi di machine learning sono solitamente divisi in tre tipi principali:
+\begin{itemize}
+\item Supervised learning (apprendimento supervisionato)
+\item Unsupervised learning (apprendimento non supervisionato)
+\item Reinforcement learning (apprendimento per rinforzo)
+\end{itemize}
+
+
+\section{Apprendimento supervisionato}
+Vengono presentati i dati di input e i risultati desiderati. Lo scopo è di apprendere una regola generale che colleghi i dati in ingresso con quelli in uscita.
+
+\subsection{Classificazione}
+\section{Apprendimento non supervisionato}
+\section{Apprendimento per rinforzo}
+\chapter{Reti neurali}
 \end{document}
