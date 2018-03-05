@@ -39,6 +39,7 @@ Definiamo l'apprendimento automatico come un insieme di metodi in grado di rilev
 Il \textit{"deep learning"} è un tipo particolare di machine learning che riguarda l'emulazione di come gli esseri umani apprendono. Esso affronta i problemi del machine learning, rappresentando il mondo come una gerarchia di concetti annidati, dove ogni concetto è definito in relazione a concetti più semplici, e le rappresentazioni astratte vengono calcolate in termini di concetti meno astratti. Il Deep Learning implica l'utilizzo di reti neurali artificiali (\textit{deep artificial neural networks}), algoritmi e sistemi computazionali ispirati dal cervello umano, per affrontare i problemi del Machine Learning. L'analogia di Shehzad Noor Taus Priyo può aiutare a capire meglio cosa siano le reti neurali:\\
 "Immaginiamole come una serie di porte da oltrepassare, dove l'input è l'uomo che le deve oltrepassare e ogni volta che lo fa cambia qualcosa nel suo comportamento, finchè all'ultima porta oltrepassata, l'uomo è diventato una persona del tutto differente rappresentando l'output di questo processo."\\
 Questa tesi si focalizza su un tipo particolare di algoritmo di machine learning: la \textit{Classification} (Classificazione), in particolar modo della classificazione di immagini. L'obiettivo principale è trovare un'architettura ottimale per l'algoritmo che identifica le immagini di oggetti architettonici, per fare questo bisogna trovare la giusta topologia, la giusta profondità e la giusta larghezza di ogni livello della rete neurale.
+ 
 \chapter{Algoritmi di apprendimento}
 Gli algoritmi di machine learning sono solitamente divisi in tre tipi principali:
 \begin{itemize}
@@ -46,12 +47,56 @@ Gli algoritmi di machine learning sono solitamente divisi in tre tipi principali
 \item Unsupervised learning (apprendimento non supervisionato)
 \item Reinforcement learning (apprendimento per rinforzo)
 \end{itemize}
+Quali usare? Perchè sceglierne uno piuttosto che un altro?\\
+La scelta dell'algoritmo da utilizzare dipende dal tipo di dati di cui si dispone.\\ %mettere referenza al paragrafo che tratta i data set
+Ma la scelta finale va fatta solo esclusivamente dopo aver testato l'algoritmo, e si sceglie in base a quello più performante: un insieme di ipotesi
+che funziona bene in un dominio, potrebbe funzionare male in un altro.\\
+\textbf{Teorema del No Free Lunch(Wolpert,1996)}\\
+\textit{Non esiste una definizione universale di algoritmo "migliore".}\\
+\section{Costruzione di un algoritmo di \\ apprendimento}
+Per costruire un algoritmo di apprendimento bisogna avere:
+\begin{itemize}
+\item processi(\textit{task}), compiti che l'algoritmo deve eseguire;
+\item misuratori di rendimento, rilevatori delle caratteristiche dei processi;
+\item esperienze, quantità di dati dal quale imparare.
+\end{itemize}
+I processi di apprendimento automatico descrivono come il sistema dovrebbe elaborare un esempio.
+\newtheorem{defin}{Definizione}
+\begin{defin}
+Un \textbf{esempio} è una raccolta di caratteristiche che sono state misurate quantitativamente da alcuni oggetti o eventi elaborati.\\
+\end{defin}
+Di solito, un esempio viene rappresentato da un vettore $x\in \Re^{n}$, dove ogni elemento $x_{i}$ rappresenta una caratteristica.\\
+Dato un processo si cerca di capire quale sia la caratteristica principale, sulla quale si deve misurare il suo rendimento.\\
+Infine, dobbiamo dare all'agoritmo un'esperienza sulla quale apprendere, che è quella che lo classificherà in uno dei tre tipi principali.
+Questa esperienza l'apprende dai \textit{dataset}: una collezione di esempi.
+I dataset possono essere di vari tipi:\\
+\begin{itemize}
+\item training set (insieme di addestramento)
+\item test set (insieme di prova)
+\item validation set (insieme di validazione)
+\end{itemize}
+L' \textbf{insieme di addestramento} è una parte dell'insieme di dati che vengono utilizzati per addestrare un sistema di apprendimento supervisionato. Da questo insieme, l'algoritmo deve costruire una funzione che capisca quali caratteristiche descrivono le varie categorie.\\
+L' \textbf{insieme di prova} è l'insieme di dati utilizzati per valutare l'apprendimento dell'algoritmo avvenuta tramite l'insieme di addestramento, con il quale forma una partizione del dataset di partenza.
+
+
 
 
 \section{Apprendimento supervisionato}
-Vengono presentati i dati di input e i risultati desiderati. Lo scopo è di apprendere una regola generale che colleghi i dati in ingresso con quelli in uscita.
+Vengono presentati i dati di input e i risultati desiderati. Lo scopo è di apprendere una regola generale che colleghi i dati in ingresso con quelli in uscita.Ovvero: Dato un vettore di input $X=(x_{1},\cdots,x_{}$
+
 
 \subsection{Classificazione}
+La Classificazione viene usata quando è necessario decidere a quale categoria appartiene un determinato dato.Per esempio, data una foto capire a quale categoria appartiene, in questo caso capire a quale tipo di monumento appartiene.\\ 
+Questo tipo di algoritmo deve specificare a quale delle k categorie appartiene un input. Crea una funzione $f:\Re^{n} \rightarrow \{ 1,\cdots,k\}$, quando $y=f(x)$, il modello assegna l'input descritto dal vettore $x$ ad una categoria identificata dal codice numerico $y$. Esistono altre varianti dell'attività di classificazione, ad esempio, dove $f$ genera una distribuzione di probabilità su classi.
+\subsection{Regressione}
+La Regressione prevede il valore futuro di un dato avendo noto il suo valore attuale. Un esempio è la previsione della quotazione delle valute o delle azioni di una società. Nel marketing viene utilizzato per prevedere il tasso di risposta di una campagna sulla base di un dato profilo di clienti; nell'ambito commerciale per stimare come varia il fatturato dell'azienda al mutare della strategia.
+\subsubsection{Regressione lineare}
+Preso un vettore $x\in \Re^{n}$ in input, l'algoritmo cerca di prevedere l'output: $y\in \Re$. Dove $y=f(x)$, con $f$ una funzione lineare.\\
+Sia $\hat{y}$ il valore di output che l'algoritmo prevede. Definiamo l'output come:\\
+$$\hat{y}=w^{\top} x$$
+dove $w\in \Re^{n}$ è un vettore di parametri e $w^{\top}$ il suo trasposto.\\
+
+
 \section{Apprendimento non supervisionato}
 \section{Apprendimento per rinforzo}
 \chapter{Reti neurali}
