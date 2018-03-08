@@ -1,0 +1,36 @@
+\begin{thebibliography}{1}
+
+\bibitem{Samuel}
+Arthur Samuel.
+\newblock
+  \url{https://www.ibm.com/developerworks/community/blogs/jfp/entry/What_Is_Machine_Learning?lang=en},
+  1959.
+
+\bibitem{analogia}
+Shehzad Noor~Taus Priyo.
+\newblock
+  \url{https://towardsdatascience.com/intro-to-deep-learning-d5caceedcf85},
+  2017.
+
+\bibitem{NFL}
+David~H. Wolper and William~G. Macready.
+\newblock No free lunch theorems for optimization, 1996.
+
+\bibitem{rinforzo}
+Frank~L Lewis.
+\newblock {\em Reinforcement learning and approximate dynamic programming for
+  feedback control}.
+\newblock Wiley, 2013.
+
+\bibitem{deep}
+Ian Goodfellow, Yoshua Bengio, and Aaron Courville.
+\newblock {\em Deep Learning}.
+\newblock MIT Press, 2016.
+\newblock \url{http://www.deeplearningbook.org}.
+
+\bibitem{machine}
+K.P. Murphy.
+\newblock {\em Machine Learning: A Probabilistic Perspective}.
+\newblock Adaptive computation and machine learning. MIT Press, 2012.
+
+\end{thebibliography}
