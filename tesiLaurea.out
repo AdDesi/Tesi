@@ -2,9 +2,10 @@
 \BOOKMARK [0][-]{chapter.1}{Algoritmi di apprendimento}{}% 2
 \BOOKMARK [1][-]{section.1.1}{Costruzione di un algoritmo di apprendimento}{chapter.1}% 3
 \BOOKMARK [1][-]{section.1.2}{Apprendimento supervisionato}{chapter.1}% 4
-\BOOKMARK [2][-]{subsection.1.2.1}{Classificazione}{section.1.2}% 5
-\BOOKMARK [2][-]{subsection.1.2.2}{Regressione}{section.1.2}% 6
-\BOOKMARK [1][-]{section.1.3}{Apprendimento non supervisionato}{chapter.1}% 7
-\BOOKMARK [1][-]{section.1.4}{Apprendimento per rinforzo}{chapter.1}% 8
-\BOOKMARK [0][-]{chapter.2}{Reti neurali}{}% 9
-\BOOKMARK [0][-]{chapter.2}{Bibliografia}{}% 10
+\BOOKMARK [2][-]{subsection.1.2.1}{Regressione}{section.1.2}% 5
+\BOOKMARK [1][-]{section.1.3}{Apprendimento non supervisionato}{chapter.1}% 6
+\BOOKMARK [1][-]{section.1.4}{Apprendimento per rinforzo}{chapter.1}% 7
+\BOOKMARK [0][-]{chapter.2}{Reti neurali}{}% 8
+\BOOKMARK [0][-]{chapter.3}{Classificazione}{}% 9
+\BOOKMARK [0][-]{chapter.4}{TensorFlow}{}% 10
+\BOOKMARK [0][-]{chapter.4}{Bibliografia}{}% 11
