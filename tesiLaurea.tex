@@ -3,6 +3,7 @@
 \usepackage[latin1]{inputenc}
 \usepackage{amsfonts}
 \usepackage{amsmath}
+\usepackage{empheq}
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{breakurl}
@@ -164,7 +165,7 @@ Un modo per equilibrare questo compromesso è usare la convalida incrociata (\tex
 Alcune varianti di convalida incrociata verranno analizzate in seguito.
 
 \section{Apprendimento supervisionato}
-Gli algoritmi di apprendimento supervisionato vengono utilizzati per risolvere problemi di classificazione e di regressione, che analizzeremo rispettivamente in \ref{classificazione} e \ref{regressione}.
+Gli algoritmi di apprendimento supervisionato vengono utilizzati per risolvere problemi di classificazione e di regressione, che analizzeremo rispettivamente nel cap. \ref{classificazione} e nel paragrafo \ref{regressione}.
 Si parla di apprendimento supervisionato quando il dataset che si utilizza contiene delle variabili, una delle quali è un'etichetta. Dato un vettore di input $x=(x_{1},\cdots,x_{n})$, ogni $x_{i}$ è un vettore d-dimensionale di numeri rappresentanti una caratteristica, da questi dati si costruisce l'insieme di addestramento di cardinalità N: $D={\{ (x_{i},y_{i})\}}^{N}_{i=1}$, dove $y=(y_{1},\cdots,y_{m})$ è l'output dei risultati desiderati e $y_{i}$ è l'etichetta.
 Lo scopo è di apprendere una regola generale che colleghi i dati in ingresso con quelli in uscita, in modo che l'algoritmo apprenda a classificare un esempio completamente nuovo, non contenente l'etichetta.\\
 Se $y_{i}$ è di tipo testuale si parla di classificazione, quando invece è di tipo numerico si parla di regressione. Se indichiamo con C il numero delle classi a cui può appartenere l'output: $y\in \{1,...,C\}$, se $C=2$ la classificazione sarà binaria (in questo caso spesso $y\in \{0,1\}$); se $C>2$ sarà multiclasse.\\
@@ -174,9 +175,9 @@ La Regressione prevede il valore futuro di un dato, avendo noto il suo valore at
 punti che descrivono la distribuzione delle Y sulle X. 
 \subsubsection{Regressione lineare}
 Preso un vettore $x\in \mathbb{R}^{n}$ in input, l'algoritmo cerca di prevedere l'output: $y\in \mathbb{R}$. Dove $y=f(x)$, con $f$ una funzione lineare:
-$$
-y=\alpha+\beta x \qquad \qquad (retta\;di\;regressione)
-$$
+\begin{flushright}
+$y=\alpha+\beta x \qquad \qquad (retta\;di\;regressione)$
+\end{flushright}
 Sia $\hat{y}$ il valore di output che l'algoritmo prevede. Definiamo l'output come:
 $$\hat{y}=\alpha+\beta x+\epsilon$$
 dove $\epsilon$ è la componente di errore.\\
@@ -186,16 +187,14 @@ Usiamo il metodo dei minimi quadrati (\textit{least squares}), che minimizza l'e
 \sum_{i=1}^{n}(\hat{y}_{i}-y_{i})^{2}&=&\sum_{i=1}^{n}(\hat{y}_{i}-(\alpha+\beta x_{i}))^{2}\nonumber \\
 &=&\sum_{i=1}^{n}(\hat{y}_{i}-\alpha-\beta x_{i})^{2}=\min \nonumber
 \end{eqnarray}
-Per trovare i valori di $\alpha$ e $\beta$ risolviamo il sistema
-\begin{subequations}
-\begin{align}
-\frac{d (\, \sum_{i=1}^{n}(\hat{y}_{i}- \alpha - \beta x_{i})^{2})}{d \, \alpha}=0\label{a}\\
-\frac{d (\, \sum_{i=1}^{n}(\hat{y}_{i}- \alpha - \beta x_{i})^{2})}{d \, \beta}=0 \label{b}
-\end{align}
-\end{subequations} % vedere come mettere le graffe
-Dalla \ref{a} otteniamo:
+Per trovare i valori di $\alpha$ e $\beta$ risolviamo il sistema:
+\begin{empheq}[left=\empheqlbrace]{align}
+\frac{d (\, \sum_{i=1}^{n}(\hat{y}_{i}- \alpha - \beta x_{i})^{2})}{d \, \alpha} = 0 \label{a} \\
+\frac{d (\, \sum_{i=1}^{n}(\hat{y}_{i}- \alpha - \beta x_{i})^{2})}{d \, \beta} = 0 \label{b}
+\end{empheq}
+Dalla (\ref{a}) otteniamo:
 $$\alpha=\mathbb{E}[y]-\beta \mathbb{E}[x]$$
-e dalla \ref{b}:
+e dalla (\ref{b}):
 $$\beta=\frac{\sum_{i=1}^{n}(x_{i}-\mathbb{E}[x])(y_{i}-\mathbb{E}[y])}{\sum_{i=1}^{n}(x_{i}-\mathbb{E}[x])^2}=\frac{Cov(x,y)}{Var(x)}$$
 ottenendo così i valori dei parametri che cercavamo.\\
 
