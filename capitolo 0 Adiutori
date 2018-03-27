@@ -1,0 +1,215 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage[english]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{empheq}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{breakurl}
+\setcounter{tocdepth}{2}
+\begin{document}
+
+%\begin{figure}
+%\centering
+%\includegraphics[scale=0.15]{Logo.jpg}
+%\end{figure}
+\begin{center}
+\textbf{UNIVERSIT\'{A} DEGLI STUDI "ROMA TRE"}\\
+\vspace{0.3cm}
+\textmd{\large Dipartimento di Matematica e Fisica}\\
+\vspace{0.2cm}
+\large{ Corso di Laurea Magistrale in Scienze Computazionali}\\	
+\vspace{1.4cm}	
+\textmd{\Large{Tesi di Laurea Magistrale}}\\
+\vspace{1.6cm}
+\LARGE{\LARGE{\textbf{Ricerca della tolopologia ottimale di un sistema di deep learning per identificazioni di oggetti architettonici}}}\\
+\vspace{5cm}
+\begin{tabular}{ccccccccccc}
+	\large{Candidato}& & & & & & & & & & \large{Relatore}\\
+	\large{Dèsirèe Adiutori} & & & & & & & & & &\large{Prof. Alberto Paoluzzi}
+\end{tabular}\\
+\vspace{4cm}
+\normalsize{Anno Accademico 2017/2018}\\
+\normalsize{Luglio 2018}
+\end{center}
+\newpage
+\textbf{Introduction}
+Since the invention of computer, man increasingly relies on machines to solve complex computational problems. With the growth of computer performances, the computational algorithms have become progressively more efficient. In 1959, Arthur Samuel, a MIT engineer, defined the "machine learning" as a "field of study that gives computers the ability to learn without being explicitly programmed".\\
+We define machine learning as a set of methods that can automatically detect patterns from data, and then use the uncovered patterns to predict future  data, or to perform other kinds of decision making under uncertainty.
+Teaching to machines would be not possible without data and, in generally, the more data are provided to a machine, the more it is able to learn. Thus, with the internet, the concept of "machine learning" has become more and more important since 90s, thanks to the enormous quantity of data that can be found on the internet.\\
+\textit{"Deep learning"} is a particular kind of machine learning that concerns the imitation of the way people learn. It tackles learning machine problems 
+by learning to represents the world as a nested hierarchy of concepts, with 
+each concept defined in relation to simpler concepts, and more abstract representations computed in terms of less abstract ones.
+The Deep learning entails using artificial neural networks:\textit{deep artificial neural networks}, algorithms and computational systems inspired by human brain in order to face machine learning problems. Shehzad Noor Taus Priyo expressed a similarity that can help us to understand better what neural networks are:\\
+"We can imagine the neural networks as a sequence of doors a man has to cross. The input is represented by the man and every time he crosses a door, there is a change in his behaviour. At the end of the sequence the man who has become a completely different person represents the output of this process". 
+This thesis focuses on a particular kind of machine learning algorithm: Classification, in particular on Imagines Classification. The main goal is to seek an optimal architecture for the algorithm that enables it to identify the images of architectural objects by finding the correct topology, depth and width for every level of the neural networks.
+\newpage
+\textbf{Learning Algorithms}\\
+Most machine learning algorithms can be divided into three categories:
+\begin{itemize}
+\item Supervised learning
+\item Unsupervised learning
+\item Reinforcement learning
+\end{itemize}
+The choice of the algorithm depends on the kind of data we are provided.\\
+However, the final choice needs to be done exclusively once the algorithm is tested,  because a set of assumptions that works well in one domain may work poorly in another.\\
+\textbf{Theorem: No Free Lunch}\\
+\textit{No machine learning algorithm is universally any better than any other.}\\
+\section{Building a learning algorithm}
+Building an algorithm requires:
+\begin{itemize}
+\item task, operations that the algorithm must perform;
+\item performance measures,
+\item esperiences, data to learn from
+\end{itemize}
+Machine learning tasks describes how the machine learning system should process an example.
+\newtheorem{defin}{Definition}
+\begin{defin}
+An example is a collection of features that have been quantitatively measured from some object or event that we want the machine learning system to process.
+\end{defin}
+We typically represent an example as a vector  $x\in \mathbb{R}^{n}$, where each entry  $x_{i}$ of the vector is another feature.\\
+In order to evaluate the abilities of a machine learning algorithm, we must design a quantitative measure of its performance, that is specific by the task.
+Finally, we have to give the algorithm an experience on which it is possible to learn. Such experience will enable to classify the algorithm into one of the three main kind of algorithms and is learnt thanks to the datasets: a collection of many examples. We have different types of datasets:\\
+\begin{itemize}
+\item training set
+\item test set
+\item validation set
+\end{itemize}
+The \textbf{training set} is a part of the data set that can be used to train a supervised learning system. From this set the algorithm has to build a function that understands which characters describe the various categories.\\
+The \textbf{test set}, with the training set, constitute a partition of the starting dataset. Those new pieces of data are used to assess the learning of the "trained" algorithm.\\
+The \textbf{validation set} is used similarly to the test set, but we already know the output of the input data (it's possible that a part of them belongs to the training set) and from the outpout we can evaluate if the output is optimal or not.\\
+These three sets can be used at the same time. The choice of the cardinality of these sets is not universal and depends on the type of problem faced.
+\begin{defin}
+The \textbf{training error} is an error measure compute on the training set.
+\end{defin}
+\begin{defin}
+The \textbf{generalization} is the ability to perform well on previously unobserved inputs (test set).
+\end{defin}
+\begin{defin}
+The \textbf{generalization error} is  an error measure compute on the test set.\\It also called the test error.
+\end{defin}
+We may suppose that in each dataset the examples are independent one from each others, and that the train set and test set are identically distributed, drawn from the same probability distribution, as each other.
+\begin{defin}
+A \textbf{loss function} $L(y,\hat{y})$ is a function that measure the distance (or error) between the model outputs $\hat{y}$ and the target (truth) values $y$.
+\end{defin}
+Several loss functions can be adopted, an example, is the so called Mean Sqared error (MSE)
+$$L(y,\hat{y}=\frac{1}{n}\sum_{i=1}^{n}(\hat{y}-y)^2$$
+The prediction function will depend on the vector of parameters $w$ and the goal is to choose its optimal value i.e. the value of $w$ which minimize the training error. 
+According to the learning method and to the specific problem, several uncostrained minimization algorithms can be applied. A first example of unconstrained optimization method for a given problem 
+$$f(x^{*})=\min_{x\in \mathbb{R}^{n}}f(x), \qquad \qquad f\in C^{2}$$
+is the metod of gradient descent, which is based on the following recursive equation
+\begin{equation} \label{eq:min}
+x_{k+1}=x_{k}+\beta_{k}d_{k}
+\end{equation}
+where $x_{0}$ is given, $\beta_{k}\in \mathbb{R^{+}}$ is the step and $d_{k}\in \mathbb{R}^{n}$ is the direction along which the solution moves; such a direction is descendent i.e. $(d_{k},\nabla f(x_{k}))<0$. The step and the direction are suitably chosen at each recursion such that $f(x_{k+1})<f(x_{k})$.\\
+Namely, for the step we solve
+$$f(x_{k}+\beta_{k}d_{k})=\min_{\beta}\{f(x_{k}+\beta d_{k})\}\qquad \qquad (exact research strategy)$$
+and for the direction we choose the value $$d_{k}=-\nabla f(x_{k})$$ Note that the directional derivative of $f$ along $d_{k}$ is $$\frac{\partial f}{\partial d_{k}}(x_{k})=\frac{(d_{k},\nabla f(x_{k}))}{\parallel d_{k}\parallel}=-\parallel \nabla f(x_{k})\parallel$$ and from the Cuchy-Schwartz inequality, it follows that $$\frac{\mid (d_{k},\nabla f(x_{k}))\mid}{\parallel d_{k}\parallel}\leq \frac{\parallel d_{k} \parallel \parallel \nabla f(x_{k})\parallel}{\parallel d_{k}\parallel}=\parallel \nabla f(x_{k})\parallel$$ which means that the direction of research is exactly the one such that the directional derivative of $f$ is negative and with maximum absolute value.\\
+The stopping criteria are: $\parallel x_{k+1}-x{k}\parallel \leq m$, $\parallel \nabla f(x_{k+1})\parallel \leq m\prime$ or $k>k_{max}$, where $m$ and $m^{\prime}$ are given thresholds, and $k_{max}$ is the maximum accepted number of iterations.\\
+The above results are guaranteed by the following convergence theorems:
+\newtheorem{teo}{Teorema}
+\begin{teo}
+Let $f(x)\in C^{1}$, strictly convex on the set  $\Sigma_{0}=\{x\in\mathbb{R^{n}}:f(x)\leq f(x_{0})\}$, and let $\{x_{k}\}$ be a sequence generated by the algorithm (\ref{eq:min}). Suppose
+\begin{enumerate}
+\item $\Sigma_{0}$ is a compact set;
+\item the direction $d_{k}$ are  such that $\frac{(d_{k},\nabla f(x_{k}))}{\parallel d_{k}\quad \parallel \parallel \nabla f(x_{k})\parallel}\leq - \cos \theta$ for $k\in \textit{I}$, with $\textit{I}$ unlimited set of indices;
+\item for $k\in \textit{I}$, $\beta_{k}$ are obtained by exact research.
+\end{enumerate}
+Then the sequence $\{x_{k}\}$ converges to the only one minimum point $x^{*}$ of $f$.
+\end{teo}
+\begin{teo}
+Let $f(x)\in C^{2}$,  strictly convex on the set (suppose it be compact) $\Sigma_{0}=\{x\in\mathbb{R^{n}}:f(x)\leq f(x_{0})\}$, and let $\{x_{k}\}$  be a sequence generated by the algorithm (\ref{eq:min}), with $d_{k}=-\nabla f(x_{k})$.\\
+If the  $\beta_{k}$ step are obtained by exact research, than the sequence $x_{k}$ converges to the only one minimum point $x^{*}$ of $f$.
+\end{teo}
+
+
+
+Minimize the training error does not necessarily entail the optimization of the algorithm learning: we can have the underfitting fenomena, it occurs when the model is not able to obtain a sufficiently low error value on the training set.
+We must also evaluate other factors: test set analysis.\\
+From eq.(\ref{train-error}) we compute the error training:
+\begin{equation}\label{test-error}
+L(y,\hat{y})_{test}=\frac{1}{n}\sum_{i=1}^{n}(\hat{y}_{(test)}-y_{(test)})_{i}^2
+\end{equation}
+Vorremmo che ,con i parametri trovati per minimizzare l'errore di allenamento, anche questo errore sia minimo (l'ottimalità è 0). Ma come detto in precedenza non sempre questo accade, vorremmo quindi che il divario tra i due errori sia minimo. In caso contrario si verifica il fenomeno di adattamento eccessivo (\textit{overfitting}) del modello all'insieme di dati che descrive, tramite un eccessivo numero di parametri. Il modello quindi non sarà generalizzabile ad un nuovo insieme di dati.\\
+We consider the expected test error, calcolato prendendo una coppia di punti $(X,Y)$ from test set:
+\begin{equation}\label{test}
+\mathbb{E} [L(y,\hat{y})_{test}]=\mathbb{E} [(Y-\hat{y}(X))^{2}]
+\end{equation}
+and we define the true function as:
+$$y(X)=\mathbb{E}(Y|X)$$
+we would still incure some error, due to noise, what we call estimation bias.\\
+Over different copies of the training set, we end up constructing substantially different functions $\hat{y}$, this is another source of error, that we'll call estimation variance. We can write the model:
+$$Y=y(X)+\epsilon$$ where we'll assume that $\epsilon$ is indipendent of $X$, with $\mathbb{E}[X]=0$ and $Var(X)=\sigma^{2}$.\\
+We'll look at the expected test error equation (\ref{test}):
+\begin{eqnarray}
+\mathbb{E} [L(y,\hat{y})_{test}] &=&\mathbb{E} [(Y-\hat{y}(X))^{2}|X=x]\nonumber\\
+&=&\mathbb{E}[(Y-y(x))^2 |X=x]+\mathbb{E}[(y(x)-\hat{y}(x))^{2}|X=x]\nonumber\\
+&=&\sigma^{2}+\mathbb{E}[(y(x)-\hat{y}(x))^{2}].
+\end{eqnarray}
+The first term $\sigma^{2}$ is the Bayes error. The second term can be further decomposed as
+\begin{eqnarray}
+\mathbb{E}[(y(x)-\hat{y}(x))^{2}]&=&(\mathbb{E}[\hat{y}(x)]-y(x))^{2}+\mathbb{E}[(\hat{y}(x)-\mathbb{E}[\hat{y}(x)])^{2}]\nonumber\\
+&=&Bias(\hat{y}(x))^{2}+Var(\hat{y}(x))
+\end{eqnarray}
+We have the bias-variance tradeoff:
+\begin{equation}
+\mathbb{E} [L(y,\hat{y})_{test}]=\sigma^2+Bias(\hat{y}(x))^2 + Var(\hat{y}(x))
+\end{equation}
+If we have high bias and low variance, we will incure in underfitting. If we have low bias and high variance, we will incure in overfitting.\cite{errval}
+The most common way to negotiate this trade-off is to use cross-validation.
+This procedure is based on the idea of repeating the training and testing computation on different randomly chosen subsets or splits of the original dataset.\\
+
+\textbf{Supervised learning}\\
+Gli algoritmi di apprendimento supervisionato vengono utilizzati per risolvere problemi di classificazione e di regressione.
+Si parla di apprendimento supervisionato quando il dataset che si utilizza contiene delle variabili, una delle quali è un'etichetta.
+Given an input vector $x=(x_{1},\cdots,x_{n})$, each $x_{i}$ is a d-dimensional vector of numbers representing a features, da questi dati si costruisce l'insieme di addestramento di cardinalità N: $D={\{ (x_{i},y_{i})\}}^{N}_{i=1}$, where $y=(y_{1},\cdots,y_{m})$ è l'output dei risultati desiderati e $y_{i}$ è l'etichetta. Lo scopo è di apprendere una regola generale che colleghi i dati in ingresso con quelli in uscita, in modo che l'algoritmo apprenda a classificare un esempio completamente nuovo, non contenente l'etichetta.\\
+When $y_{i}$ is nominal, the problem is known as classification, and when $y_{i}$ is real-valued, the problem is known as regression.
+ Se indichiamo con C il numero delle classi a cui può appartenere l'output: $y\in \{1,...,C\}$, if $C = 2$, this is called binary classification (in which case we often assume $y\in \{0,1\}$); if $C > 2$, this is called multiclass classification.\\
+
+\textbf{Classification}\\
+La Classificazione viene usata quando è necessario decidere a quale categoria appartiene un determinato dato.Per esempio, data una foto capire a quale categoria appartiene, in questo caso capire a quale tipo di monumento appartiene.\\
+The learning algorithm is asked to specify which of k categories some input belongs to. It produce a function $f:\mathbb{R}^{n} \rightarrow \{ 1,\cdots,k\}$, when
+$y=f(x)$, the model assigns an input described by vector $x$ to a category
+identified by numeric code $y$. There are other variants of the classification
+task, for example, where $f$ outputs a probability distribution over classes.\\
+
+
+\textbf{Regression}\\
+La Regressione prevede il valore futuro di un dato, avendo noto il suo valore attuale. Un esempio è la previsione della quotazione delle valute o delle azioni di una società. Nel marketing viene utilizzato per prevedere il tasso di risposta di una campagna sulla base di un dato profilo di clienti; nell'ambito commerciale per stimare come varia il fatturato dell'azienda al mutare della strategia. Questo avviene costruendo una funzione che meglio si adatta ai
+punti che descrivono la distribuzione delle Y sulle X. 
+\textbf{Linear Regression}
+The goal is to build a system that can take a vector $x\in \mathbb{R}^{n}$ as input and predict the value of a scalar $y\in \mathbb{R}$, as its output. Where $y=f(x)$, and $f$ is a linear function:
+\begin{flushright}
+$y=\alpha+\beta x \qquad \qquad (retta\;di\;regressione)$
+\end{flushright}
+Let $\hat{y}$ be the value that our model predicts $y$ should take on. We define the output to be:\\
+$$\hat{y}=\alpha+\beta x+\epsilon$$
+where $\epsilon$ is that error.\\
+Ora per identificare la retta che meglio si adatta ai punti, che descrivono la distribuzione delle $y$ sulle $x$, bisogna stimare i valori dei parametri $\alpha$ e $\beta$, tramite i dati ossrvati su un esempio.\\
+Usiamo il metodo dei minimi quadrati (\textit{least squares}), che minimizza l'errore $\epsilon$.
+\begin{eqnarray}
+\sum_{i=1}^{n}(\hat{y}_{i}-y_{i})^{2}&=&\sum_{i=1}^{n}(\hat{y}_{i}-(\alpha+\beta x_{i}))^{2}\nonumber \\
+&=&\sum_{i=1}^{n}(\hat{y}_{i}-\alpha-\beta x_{i})^{2}=\min \nonumber
+\end{eqnarray}
+Per trovare i valori di $\alpha$ e $\beta$ risolviamo il sistema
+\begin{empheq}[left=\empheqlbrace]{align}
+\frac{d (\, \sum_{i=1}^{n}(\hat{y}_{i}- \alpha - \beta x_{i})^{2})}{d \, \alpha} = 0 \label{a} \\
+\frac{d (\, \sum_{i=1}^{n}(\hat{y}_{i}- \alpha - \beta x_{i})^{2})}{d \, \beta} = 0 \label{b}
+\end{empheq}
+Solving from (\ref{a}) we obtein:
+$$\alpha=\mathbb{E}[y]-\beta \mathbb{E}[x]$$
+and from (\ref{b}):
+$$\beta=\frac{\sum_{i=1}^{n}(x_{i}-\mathbb{E}[x])(y_{i}-\mathbb{E}[y])}{\sum_{i}^{n}(x_{i}-\mathbb{E}[x])^2}=\frac{Cov(x,y)}{Var(x)}$$
+ottenendo così i valori dei parametri che cercavamo.\\
+
+
+\textbf{Unsupervised learning}\\
+Gli algoritmi di apprendimento non supervisionato vengono utilizzati per risolvere problemi di raggruppamento.
+Here we are only given inputs,$D={\{ x_{i}\}}^{N}_{i=1}$ and the goal is to find "interesting patterns" in the data. This is sometimes called knowledge discovery.  A differenza del caso supervisionato, questo apprendimento non ha una classificazione o un risultato finale con il quale determinare se il risultato è attendibile, ma generalizza le caratteristiche dei dati e in base ad esse attrubuisce ad un input un output: serve generalmente ad estrarre informazioni non ancora note. In the context of depp learning, we usually want to learn the entire probability distribution that generated a dataset.Questa tecnica si chiama \textit{clustering}.\\
+
+\textbf{Reinforcement learning}\\
+Reinforcement learning algorithm are used to solve regression problems.
+The goal of this algorithm is to create a system capable of learning and adapting to changes, in the environment in which they are located, through a "reward" called reinforcement, given by the performance evaluation. These algorithms are constructed on the idea that the correct results should be remembered, by means of a reinforcement signal, such that they become more likely to be used another time; vice versa if the results is wrong, the signal will be a penalty, such that they will have a lower probability to be used in future.
+
+\end{document}
