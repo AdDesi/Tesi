@@ -58,7 +58,7 @@ Quali usare? Perchè sceglierne uno piuttosto che un altro?\\
 La scelta dell'algoritmo da utilizzare dipende dal tipo di dati di cui si dispone. Ma la scelta finale va fatta solo esclusivamente dopo aver testato l'algoritmo, e si sceglie in base a quello più performante: un insieme di ipotesi che funziona bene in un dominio, potrebbe funzionare male in un altro.\\
 \textbf{Teorema del No Free Lunch \cite[Wolper,1996]{NFL}}\\
 \textit{Non esiste una definizione universale di algoritmo "migliore".}
-\section{Costruzione di un algoritmo di apprendimento}\label{Costruzione di un algoritmo di apprendimento}
+\section{Costruzione di un algoritmo di apprendimento}\label{Costruzione}
 Per costruire un algoritmo di apprendimento bisogna avere:
 \begin{itemize}
 \item processi(\textit{task}), compiti che l'algoritmo deve eseguire;
@@ -211,7 +211,47 @@ Lo scopo di questo algoritmo è di realizzare un sistema in grado di apprendere e
 \chapter{Classificazione}\label{classificazione}
 La Classificazione viene usata quando è necessario decidere a quale categoria appartiene un determinato dato.Per esempio, data una foto capire a quale categoria appartiene, in questo caso capire a quale tipo di monumento appartiene.\\ 
 Questo tipo di algoritmo deve specificare a quale delle k categorie appartiene un input. Crea una funzione $f:\mathbb{R}^{n} \rightarrow \{ 1,\cdots,k\}$, quando $y=f(x)$, il modello assegna l'input descritto dal vettore $x$ ad una categoria identificata dal codice numerico $y$. Esistono altre varianti dell'attività di classificazione, ad esempio, dove $f$ genera una distribuzione di probabilità su classi.
+
+
+
 \chapter{TensorFlow}
+TensorFlow (TF) è una libreria software open source, sviluppata da Google, utilizzata per implementare l'apprendimento automatico e i sistemi di deep learning.\\
+TensorFlow fornisce API native in linguaggio: Python, C/C++, Java, Go, e RUST. Noi useremo il linguaggio di programmazione Python.\\
+In generale un algoritmo scritto in TF rispetta la seguente struttura:
+\begin{enumerate}
+\item Importare ed analizzare l'insieme di dati
+\item Creare colonne di caratteristiche per descrivere i dati
+\item Selezionare il tipo di modello
+\item Provare il modello
+\item Valutare l'efficacia del modello
+\item Lasciare che il modello addestrato faccia previsioni (test)
+\end{enumerate}
+che è in linea con la descrizione di un generico algoritmo di apprendimento descritto in (\ref{Costruzione}). La vera innovazione di TF è come descrive il modello, poichè lo fa costruendo un grafico computazionale: \textit{Data Flow Graph}. In questo grafico ogni nodo rappresenta l'istanza di un'operazione matematica, mentre ogni spigolo rappresenta un tensore, su cui vengono eseguite le operazioni.
+\begin{defin}
+Un \textbf{tensore} in TF  è una matrice n-dimensionale di tipi di dati di base (es: float32, int32,string, ecc..). Viene chiamato tf.Tensor ed è descritto da tre parametri:\begin{enumerate}
+\item grado  (\textit{rank})
+\item corpo (\textit{shape})
+\item tipo (\textit{type})
+\end{enumerate}
+\end{defin}
+\textbf{1)} Il grado di un oggetto tf.Tensor è il suo numero di dimensioni. Come mostra la seguente figura %inserire figura dei tensori
+, ogni rank in TensorFlow corrisponde a una diversa entità matematica:
+
+
+\textbf{2)}Il corpo di un tf.Tensore è il numero di elementi in ogni dimensione. TF automaticamente deduce il corpo durante la costruzione del grafico.
+\textbf{3)} Il tipo è il tipo di dato a cui appartongono gli elementi del tensore.%controllare che viene bene con i numeri
+
+
+I principali tipi di tensori sono:
+\begin{itemize}
+\item Variabili (\textit{tf.Variable}): i parametri dell'algoritmo che verranno cambiati per ottimizzare l'algoritmo
+\item Costanti (\textit{tf.constant})
+\item Segnaposto(\textit{tf.placeholder}): consentono di inserire dati e di creare operazioni per costruire il grafico computazionale, possono dipendere da altri dati ad esempio il risultato previsto di un calcolo. Possono essere usati più volte e non dare lo stesso risultato.
+\item Tensore sparso (\textit{tf.SparseTensor})
+\end{itemize}
+
+
+
 \clearpage
 \addcontentsline{toc}{chapter}{Bibliografia}
 \bibliographystyle{unsrt}
