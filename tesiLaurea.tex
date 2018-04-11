@@ -210,9 +210,51 @@ Lo scopo di questo algoritmo è di realizzare un sistema in grado di apprendere e
 \chapter{Reti neurali}
 \chapter{Classificazione}\label{classificazione}
 La Classificazione viene usata quando è necessario decidere a quale categoria appartiene un determinato dato.Per esempio, data una foto capire a quale categoria appartiene, in questo caso capire a quale tipo di monumento appartiene.\\ 
-Questo tipo di algoritmo deve specificare a quale delle k categorie appartiene un input. Crea una funzione $f:\mathbb{R}^{n} \rightarrow \{ 1,\cdots,k\}$, quando $y=f(x)$, il modello assegna l'input descritto dal vettore $x$ ad una categoria identificata dal codice numerico $y$. Esistono altre varianti dell'attività di classificazione, ad esempio, dove $f$ genera una distribuzione di probabilità su classi.
+Questo tipo di algoritmo deve specificare a quale delle k categorie appartiene un input. Crea una funzione $f:\mathbb{R}^{n} \rightarrow \{ 1,\cdots,k\}$, quando $y=f(x)$, il modello assegna l'input descritto dal vettore $x$ ad una categoria identificata dal codice numerico $y$. Esistono altre varianti dell'attività di classificazione, ad esempio, dove $f$ genera una distribuzione di probabilità su classi.\\
+Vediamo ora qualcuno degli algoritmi usati per classificare dati.
 
+\section{K-Nearest Neighbor}
+Questo è un algoritmo non parametrico, ovvero il numero di parametri cresce con la quantità di dati di addestramento.
+Dato un set di dati di addestramento $(x_1,x_2,\cdots,x_n)$, corrispondenti ai risultati $(y_1,y_2,\cdots,y_n)$, questo metodo ,dato un nuovo punto $z$, cerca di prevedere la sua classe di appartenenza osservando, tra l'insieme di punti adiacenti, quelli a lui più vicini. Il numero di punti adiacenti da considerare dipende dal parametro $k$: si osservano le classi a cui appartengono i $k$ punti più vicini e la classe più ricorrente sarà assegnata al punto $z$.\\
+Vediamo ora come affrontare il problema:\\
+Supponiamo di avere un set di dati che comprende $N_k$ punti appartenenti alla classe $C_k$ con $N$ punti in totale, ovvero: $\sum_{k}N_k = N$. Se vogliamo classificare un nuovo punto $x$, disegniamo una sfera centrata su $x$ contenente  K punti qualsiasi, indipendentemente da come siano classificati. Vogliamo ora calcolare la funzione di probabilità di $x$ che (essendo in un caso di classificazione i valori sono discreti) sarà la densità discreta:
+\begin{equation}\label{dens}
+P=\int_R p(x) dx
+\end{equation}
+Supponiamo ora di aver raccolto un set di dati comprendente N osservazioni con probabilità uniforme $p(x)$ di essere all'interno della regione R, quindi la probabiltà di avere K punti all'interno di R sarà data dalla distribuzione binomiale:
+\begin{equation}\label{binomiale}
+P(X=K)=\frac{N!}{K!(N-K)!}P^K (1-P)^N-K,
+\end{equation} 
+dove il valore atteso e la varianza sono date da:
+\begin{equation}
+\mathbb{E}[K]=NP \qquad \qquad Var[K]=NP(1-P)
+\end{equation}
+Per N grandi, applichiamo il Teorema di De Moivre-Laplace alla eq.\ref{binomiale} e otteniamo che la distribuzione binomiale si comporta come una distribuzione normale con stessa media e varianza della binomiale, perciò possiamo assumere: \begin{equation} \label{eq1}
+K\simeq NP
+\end{equation}
+Ora se assumiamo che la regione R sia sufficientemente piccola e che la densità di probabilità $p(x)$ sia approssimativamente costante in R, da \ref{dens} otteniamo:
+\begin{equation} \label{eq2}
+P\simeq p(x)V
+\end{equation}
+dove V è il volume della sfera R. Combinando le eq. \ref{eq1},\ref{eq2} otteniamo:
+\begin{equation}
+p(x)=\frac{K}{NV}
+\end{equation}
+che fornisce le seguenti stime:
+\begin{eqnarray}
+p(x\textbar C_k)=\frac{K_k}{N_k V}\\
+p(x)=\frac{K}{NV}\\
+p(C_k)=\frac{N_k}{N}
+\end{eqnarray}
+che sostituite nel Teorema di Bayes otteniamo:%segnarsi da qualche parte la dimostrazione
+\begin{equation}
+p(C_k\textbar x)=\frac{p(x\textbar C_k)p(C_k)}{p(x)}=\frac{K_k}{K}
+\end{equation} 
+Quindi per minimizzare la probabilità di errore di classificazione, bisogna assegnare al nuovo punto x la classe con probabilità più alta ovvero quando il valore $\frac{K_k}{K}$ è massimo.\\
+L'obiettivo del metodo è quindi chiaro: per classificare un nuovo punto, identifichiamo i K punti più vicini all'insieme di allenamento e quindi assegniamo il nuovo punto alla classe che ha il maggior numero di rappresentanti tra i K punti. Rimane solo la scelta della metrica da usare per calcolare la distanza tra i punti, solitamente viene usata la distanza Euclidea, ma questo dipende dal problema e dalla tipologia del dato da analizzare.
+Lo svantaggio di questo algortimo è chiaro: il numero di distanze da calcolare aumenta con l'aumentare dell'insieme di addestramento. Oltre a rallentare il tempo di calcolo, si usa anche una considerevole quantità di memoria, per ovviare a questo si divide l'insieme di allenamento in sottoinsiemi di cardinalità n, dove n di solito è un divisore della cardinalità dell'insieme totale e prende il nome di \textit{batch size}. Diminuendo il numero di dati per l'addestramento i calcoli e la memoria necessari diminuiscono notevolmente, in quanto i paragoni e i dati significativi da mantenere sono minori.%inserire conlcusione vantaggi e svantaggi fatta bene e foto che chisrisce il metodo 
 
+\section{Alberi di decisione}
 
 \chapter{TensorFlow}
 TensorFlow (TF) è una libreria software open source, sviluppata da Google, utilizzata per implementare l'apprendimento automatico e i sistemi di deep learning.\\
