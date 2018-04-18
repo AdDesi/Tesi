@@ -208,8 +208,41 @@ Gli algoritmi di apprendimento per rinforzo vengono utilizzati per risolvere pro
 Lo scopo di questo algoritmo è di realizzare un sistema in grado di apprendere ed adattarsi ai cambiamenti dell'ambiente in cui si trovano, attraverso la distribuzione di una "ricompensa" detta rinforzo, data dalla valutazione delle prestazioni. Questi algoritmi sono costruiti sull'idea che i risultati corretti dovrebbero essere ricordati, per mezzo di un segnale di rinforzo, in modo che diventino più probabili e quindi più facilmente riottenuti nelle volte future; viceversa se il rusultato è errato , il segnale sarà una penalità, ovvero si avrà una probabilità più bassa legata a quel determinato output.\cite{rinforzo}
 
 \chapter{Reti neurali}
+Le reti neurali sono i modelli di deep learning per eccellenza. Sono un sistema di elaborazione di informazioni ispirato al funzionamento del sistema nervoso umano.
+La rete è strutturata come un grafo aciclico orientato in un verso solo. I nodi sono raggruppati in strati (\textit{layers}): il primo strato contiene i nodi di input  $x_1,\cdots,x_n$, ognuno di essi forma con lo strato successivo un grafo fortemente connesso, dove ad ogni arco è associato un peso $w_i$. L'ultimo strato contiene i nodi di output. Gli strati tra il primo e l'ultimo strato sono chiamati strati nasconti (\textit{hidden layers}). La lunghezza complessiva del percorso conferisce profondità al modello, da cui deriva il nome dell'apprendimento: "deep learning".
+In base all'architettura scelta, esistono vari modelli di  reti neurali;
+la scelta dell'architettura della rete è molto importante, poichè in base al numero di nodi usati per ogni strato e alla profondità, il costo computazionale cresce o diminuisce: per esempio la scelta di un'architettura poco profonda e con una elevata quantità di nodi per strato causa un costo computazionale elevato e un massiccio utilizzo della memoria.\\
+Lo scopo di questa tesi è di trovare l'architettura ottimale per un algoritmo di classificazione di immagini considerando anche le geolocalizzazione dell'oggetto e del suo visualizzatore. 
+Ritornando alle reti neurali, in generale, abbiamo detto che si ispirano al nostro sistema nervoso; vediamo brevemente in che modo:\\
+Ogni neurone, nel nostro cervello, riceve un'intera serie di segnali da altri neuroni, li somma all'interno del suo corpo cellulare e, sulla base della somma, aggiusta la frequenza delle scariche da inviare alla
+cellula successiva. I neuroni ricevono sia segnali eccitatori, ovvero che tendono ad aumentare la loro frequenza di scarica, che segnali inibitori, che tendono invece a diminuirla, ma nonostante ricevano due tipi di segnali, ne emettono poi di un solo tipo. Analogamente: ogni neurone aritificiale, rappresentato da un nodo, diventa attivo se la quantità totale di segnale che riceve supera la soglia di attivazione, definita dalla cosiddetta funzione di attivazione. Se un nodo diventa attivo, emette un segnale che viene trasmesso lungo i canali di trasmissione fino all'altra unità a cui è collegato.\\
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[trim=0 7cm 11cm 0]{reteneurale}
+\caption{modello non lineare di un neurone artificiale}\label{neurone}
+\end{figure}
+La figura \ref{neurone}, indipendentemente dal modello di rete utilizzato, mostra l'elaborazione eseguita da un neurone artificiale.\\
+Siano $x_1,\cdots,x_n$ i dati in input, rappresentati dagli $n$ nodi del primo strato, nel k-esimo neurone l'informazione viene elaborata come:
+$$y_k=f(b_k+\sum_{i=1}^n w_{ki} x_i)$$
+dove:\\
+\begin{itemize}
+\item $y_k$ è l'output generato dal neurone k;
+\item $b_k$ è il valore soglia del neurone k;
+\item $w_{ki}$ è il peso associato all'arco che collega il nodo i-esimo al neurone $k$;
+\item $f(\cdot)$ è la funzione di attivazione.
+\end{itemize}
+La funzione di attivazione è una funzione non lineare, usata per limitare il valore dell' output, così da non consumare eccessiva memoria; vedremo in seguito il suo effettivo utilizzo. 
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{network-neurale}
+\caption{modello di rete deep feedforward con uno strato}\label{rete}
+\end{figure}
+Il motivo principale per cui vengono scelte le reti neurali è la possibilità di parallelizzare i calcoli.
+
 \chapter{Classificazione}\label{classificazione}
-La Classificazione viene usata quando è necessario decidere a quale categoria appartiene un determinato dato.Per esempio, data una foto capire a quale categoria appartiene, in questo caso capire a quale tipo di monumento appartiene.\\ 
+La Classificazione viene usata quando è necessario decidere a quale categoria appartiene un determinato dato.Per esempio, data una foto capire a quale categoria appartiene, in questa tesi vogliamo classificare immagini, più precisamente: capire a quale tipo di monumento corrispone una determinata immagine.\\ 
 Questo tipo di algoritmo deve specificare a quale delle k categorie appartiene un input. Crea una funzione $f:\mathbb{R}^{n} \rightarrow \{ 1,\cdots,k\}$, quando $y=f(x)$, il modello assegna l'input descritto dal vettore $x$ ad una categoria identificata dal codice numerico $y$. Esistono altre varianti dell'attività di classificazione, ad esempio, dove $f$ genera una distribuzione di probabilità su classi.\\
 Vediamo ora qualcuno degli algoritmi usati per classificare dati.
 
