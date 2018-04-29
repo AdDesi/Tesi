@@ -241,6 +241,31 @@ La funzione di attivazione è una funzione non lineare, usata per limitare il val
 \end{figure}
 Il motivo principale per cui vengono scelte le reti neurali è la possibilità di parallelizzare i calcoli.
 
+
+
+
+
+
+
+\section{ImageNet}
+In Internet oramai sono presenti milioni di milioni di immagini e di video, usati per i modelli e gli algoritmi più sofisticati e robusti, per aiutare gli utenti ad indicizzare, recuperare, organizzare e interagire con questi dati.
+Un esempio banale è la ricerca dell'immagine di un cane su Google: se noi volessimo ricercare una razza canina in particolare, come fa l'algoritmo a farci visualizzare un cane di razza Labrador piuttosto che Beagle? Tramite categorie e sottocategorie. Ma esattamente come tali dati possono essere utilizzati e organizzati è un problema che non è ancora stato risolto.\\
+Di solito i motori di ricerca possono trovare una determinata immagine solo se il testo inserito corrisponde al testo con cui è stato etichettato. Ma le etichette possono essere inaffidabili, inutili (nel caso di dialetti e nomignoli) o semplicemente inesistenti. Si vuole quindi cercare un metodo per far imparare alle macchine come riconoscere oggetti simili senza etichetta, rendendo possibile un notevole aumento dell'accuratezza del riconoscimento.\\
+Si è creato così \textbf{ImageNet}: un grande database visivo contenente oltre 14 milioni di immagini etichettate, progettato per l'utilizzo nella ricerca di software per il riconoscimento di oggetti visivi.\\
+ImageNet si basa sulla struttura gerarchica fornita da un altro database: \textit{WordNet}. WordNet è un database semantico-lessicale per la lingua inglese elaborato dal linguista George Armitage Miller presso l'Università di Princeton, che si propone di organizzare, definire e descrivere i concetti espressi dai vocaboli. L'organizzazione del lessico si avvale di raggruppamenti di termini con significato affine, chiamati \textit{"synset"} (dalla contrazione di synonym set), e del collegamento dei loro significati attraverso diversi tipi di relazioni chiaramente definite. All'interno dei synset le differenze di significato sono numerate e definite.\cite{wordnet}\\
+%chiedere se devo specificare che questa è la grafica bitmap%
+Un'immagine digitale è formata da diversi quadratini disposti in modo regolare, su una griglia di punti equidistanti, questi quadratini sono detti \textit{pixel (picture elements)}. I pixel presenti in um'immagine ne determinano la dimensione e la risoluzione, per esempio un'immagine di dimensione $320 x 240$ pixel indica che sono presenti 240 pixel orizzontali e 320 verticali. Più i pixel sono numerosi, e quindi più piccoli e fitti, più la risoluzione è alta. In ogni pixel risiede un'informazione espressa in bit riguardante (generalmente) il colore: un pixel da 1 bit può avere solo $2^1$colori, mentre uno da 1 byte (8bit)  può rappresentare $2^8=256$ colori. Il numero di colori possibili è detto anche profondità. Le rappresentazioni delle immagini a colori variano a seconda dei campi di colore che si usano, solitamente, ogni campo viene rappresentato da 1 byte e rappresenta il livello di intensità dei colori fondamentali. Il modello più utilizzato è quello RGB, dove per ogni pixel vengono utilizzati 3byte:
+\begin{itemize}
+\item 1 byte per la componente rossa (R)
+\item 1 byte per la componente verde (G)
+\item 1 byte per la componente blu (B)
+\end{itemize}
+ma ne esistono anche altri come, ad esempio, CMYK (ciano, magenta, giallo e nero).
+
+
+
+
+
 \chapter{Classificazione}\label{classificazione}
 La Classificazione viene usata quando è necessario decidere a quale categoria appartiene un determinato dato.Per esempio, data una foto capire a quale categoria appartiene, in questa tesi vogliamo classificare immagini, più precisamente: capire a quale tipo di monumento corrispone una determinata immagine.\\ 
 Questo tipo di algoritmo deve specificare a quale delle k categorie appartiene un input. Crea una funzione $f:\mathbb{R}^{n} \rightarrow \{ 1,\cdots,k\}$, quando $y=f(x)$, il modello assegna l'input descritto dal vettore $x$ ad una categoria identificata dal codice numerico $y$. Esistono altre varianti dell'attività di classificazione, ad esempio, dove $f$ genera una distribuzione di probabilità su classi.\\
@@ -331,5 +356,5 @@ I principali tipi di tensori sono:
 \addcontentsline{toc}{chapter}{Bibliografia}
 \bibliographystyle{unsrt}
 \bibliography{bibliografia}
-\nocite{deep,machine}
+\nocite{deep,machine,imagenet}
 \end{document}

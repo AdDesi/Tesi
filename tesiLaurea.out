@@ -6,8 +6,9 @@
 \BOOKMARK [1][-]{section.1.3}{Apprendimento non supervisionato}{chapter.1}% 6
 \BOOKMARK [1][-]{section.1.4}{Apprendimento per rinforzo}{chapter.1}% 7
 \BOOKMARK [0][-]{chapter.2}{Reti neurali}{}% 8
-\BOOKMARK [0][-]{chapter.3}{Classificazione}{}% 9
-\BOOKMARK [1][-]{section.3.1}{K-Nearest Neighbor}{chapter.3}% 10
-\BOOKMARK [1][-]{section.3.2}{Alberi di decisione}{chapter.3}% 11
-\BOOKMARK [0][-]{chapter.4}{TensorFlow}{}% 12
-\BOOKMARK [0][-]{Item.12}{Bibliografia}{}% 13
+\BOOKMARK [1][-]{section.2.1}{ImageNet}{chapter.2}% 9
+\BOOKMARK [0][-]{chapter.3}{Classificazione}{}% 10
+\BOOKMARK [1][-]{section.3.1}{K-Nearest Neighbor}{chapter.3}% 11
+\BOOKMARK [1][-]{section.3.2}{Alberi di decisione}{chapter.3}% 12
+\BOOKMARK [0][-]{chapter.4}{TensorFlow}{}% 13
+\BOOKMARK [0][-]{Item.12}{Bibliografia}{}% 14
