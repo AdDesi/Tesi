@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500) (preloaded format=pdflatex 2018.1.19)  23 MAR 2018 00:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500) (preloaded format=latex 2018.1.19)  12 JUN 2018 16:26
 entering extended mode
 **./bibliografia.bib
 (bibliografia.bib
@@ -24,11 +24,11 @@ If that doesn't work, type  X <return>  to quit.
 
  
 Here is how much of TeX's memory you used:
- 9 strings out of 493312
- 319 string characters out of 3138893
- 53761 words of memory out of 3000000
+ 9 strings out of 493313
+ 319 string characters out of 3138919
+ 53758 words of memory out of 3000000
  3655 multiletter control sequences out of 15000+200000
  3640 words of font info for 14 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 5i,0n,4p,33b,14s stack positions out of 5000i,500n,10000p,200000b,50000s
-!  ==> Fatal error occurred, no output PDF file produced!
+ 6i,0n,4p,33b,14s stack positions out of 5000i,500n,10000p,200000b,50000s
+No pages of output.
