@@ -3,6 +3,7 @@
 \usepackage[latin1]{inputenc}
 \usepackage{amsfonts}
 \usepackage{amsmath}
+\DeclareMathOperator*{\argmin}{argmin}
 \usepackage{empheq}
 \usepackage[dvipdfm]{graphicx}
 \usepackage{bmpsize}
@@ -104,7 +105,7 @@ Si possono usare varie misure, ad esempio l'errore quadratico medio(MSE):
 \begin{equation}\label{train-error}
 L(y,\hat{y})_{train}=\frac{1}{n}\sum_{i=1}^{n}(\hat{y}_{(train)}-y_{(train)})_{i}^2
 \end{equation}
-La nostra funzione di predizione dipenderï¿½ da dei parametri, rappresentati da un vettore $w$, lo scopo ï¿½ di minimizzare l'errore di allenamento variando $w$.
+La nostra funzione di predizione dipender\'{a} da dei parametri, rappresentati da un vettore $w$, lo scopo\`e di minimizzare l'errore di allenamento variando $w$.
 In base al tipo di apprendimento e al problema da affrontare, verranno usati vari algoritmi per risolvere problemi di minimizzazione libera. Gli algoritmi che risolverono il problema:
 \begin{equation}\label{minimi}
 f(x^{*})=\min_{x\in \mathbb{R}^{n}}f(x),\qquad \qquad f\in C^{2}
@@ -146,8 +147,8 @@ Consideriamo il valore atteso dell'errore di prova, calcolato prendendo una copp
 \end{equation}
 e definiamo la funzione dell'output effettivo come:
 $$y(X)=\mathbb{E}(Y|X)$$
-la quale avrï¿½ sicuramente un errore, dovuto da qualche interferenza che chiameremo: distorzione stimata (\textit{estimation bias}).\\
-Ma con diversi insiemi di allenamento, possiamo costruire diverse funzioni $\hat{y}$, e anche questo ï¿½ un'altra fonte di errore: la varianza stimata (\textit{estimation variance}). Possiamo quindi scrivere l'output come:
+la quale avr\'{a} sicuramente un errore, dovuto da qualche interferenza che chiameremo: distorzione stimata (\textit{estimation bias}).\\
+Ma con diversi insiemi di allenamento, possiamo costruire diverse funzioni $\hat{y}$, e anche questo \`e un'altra fonte di errore: la varianza stimata (\textit{estimation variance}). Possiamo quindi scrivere l'output come:
 $$Y=y(X)+\epsilon$$ con $\epsilon$ indipendente da $X$ tale che $\mathbb{E}[X]=0$ e $Var(X)=\sigma^{2}$.\\
 Possiamo quindi riscrivere l'equazione \ref{test} come:
 \begin{eqnarray}
@@ -211,7 +212,7 @@ All'algoritmo viene passato solo l'input: $D={\{ x_{i}\}}^{N}_{i=1}$ e cerca una
 Gli algoritmi di apprendimento per rinforzo vengono utilizzati per risolvere problemi di regressione.
 Lo scopo di questo algoritmo \`e di realizzare un sistema in grado di apprendere ed adattarsi ai cambiamenti dell'ambiente in cui si trovano, attraverso la distribuzione di una "ricompensa" detta rinforzo, data dalla valutazione delle prestazioni. Questi algoritmi sono costruiti sull'idea che i risultati corretti dovrebbero essere ricordati, per mezzo di un segnale di rinforzo, in modo che diventino più probabili e quindi più facilmente riottenuti nelle volte future; viceversa se il rusultato \`e errato , il segnale sarà una penalità, ovvero si avrà una probabilità più bassa legata a quel determinato output.\cite{rinforzo}
 
-\chapter{Reti neurali}
+\chapter{Reti neurali artificiali}
 Le reti neurali sono i modelli di deep learning per eccellenza. Sono un sistema di elaborazione di informazioni ispirato al funzionamento del sistema nervoso umano.\\
 La rete \`e strutturata come un grafo orientato. I nodi sono raggruppati in strati (\textit{layers}): il primo strato contiene i nodi di input  $x_1,\cdots,x_n$, connessi con lo strato successivo, dove ad ogni arco \`e associato un peso $w_i$. L'ultimo strato contiene i nodi di output. Gli strati tra il primo e l'ultimo strato sono chiamati strati nasconti (\textit{hidden layers}). La lunghezza complessiva del percorso determina la profondità del modello, da cui deriva il nome dell'apprendimento: "deep learning".\\
 In base all'architettura scelta, esistono vari modelli di  reti neurali;
@@ -228,7 +229,7 @@ cellula successiva. I neuroni ricevono sia segnali eccitatori, ovvero che tendon
 \end{figure}
 La figura \ref{neurone}, indipendentemente dal modello di rete utilizzato, mostra l'elaborazione eseguita da un neurone artificiale.\\
 Siano $x_1,\cdots,x_n$ i dati in input, rappresentati dagli $n$ nodi del primo strato, nel k-esimo neurone l'informazione viene elaborata come:
-$$y_k=f(b_k+\sum_{i=1}^n w_{ki} x_i)$$
+$$y_k=f(b_k+\sum_{i=1}^n w_{ki}\cdot x_i)$$
 dove:\\
 \begin{itemize}
 \item $y_k$ \`e l'output generato dal neurone k;
@@ -262,23 +263,129 @@ $$
 $$
 ma ha un intervallo di output più ampio. Questo le consente di produrre anche output di segno negativo.\\
 Anche la tangente iperbolica \`e una funzione monotona e differenziabile.\\
-Purtroppo essendo funzioni limitate, per valori alti tendono ad un valore specifico: $\lim_{x \to +\infty} \tanh(x)=1$, questo comportamento può portare ad una perdita di informazioni: se $x$ corrisoponde ad un valore elevato e subisce una grande variazione, per la funzione invece avrà avuto una variazione minima. Lo stesso problema si presenta con le derivate, provocando la "scomparsa del gradiente"(\textit{vanishing gradient}); ma questo argomento verrà affrontato in %inserire \ref{} del paragrafo sulla backpropagation
+Purtroppo essendo funzioni limitate, per valori alti tendono ad un valore specifico: $\lim_{x \to +\infty} \tanh(x)=1$, questo comportamento può portare ad una perdita di informazioni: se $x$ corrisoponde ad un valore elevato e subisce una grande variazione, per la funzione invece avrà avuto una variazione minima. Lo stesso problema si presenta con le derivate, provocando la "scomparsa del gradiente"(\textit{vanishing gradient}), fondamentale per approssimare al meglio la funzione; ma questo argomento verrà affrontato in \ref{back-prop}.
 \subsubsection{ReLu}
+La funzione ReLu (Rectified Linear Unit) \`e la funzione pi\'{u} utilizzata nel deep learning e, in particolare, nelle reti convoluzionali. \`{E} definita:
+$$Relu:\mathbb{R}\longrightarrow [0,\infty)$$
+$$
+Relu(x)=
+\left\{
+\begin{array}{rl}
+x & \mbox{se } x \geq 0 \\
+0 & \mbox{se } x < 0
+\end{array}
+\right.
+$$
+Sia la funzione, che la sua derivata sono monotone. A differenza delle funzioni precedenti, la sua derivata \`e molto semplice da calcolare:
+$$
+Relu(x)^{\prime}=
+\left\{
+\begin{array}{rl}
+1 & \mbox{se } x \geq 0 \\
+0 & \mbox{se } x < 0
+\end{array}
+\right.
+$$
+e non rischia di incorrere nella sparizione del gradiente. Si potrebbero avere problemi nell'origine, per la presenza di un punto angoloso, poich\'{e} la derivata è indefinita ma, per convenzione, viene definita uguale a zero.\\
+Risulta immediato il motivo per cui sono molto utilizzate nelle reti formate da tanti strati: mappando i valori negativi in zero, permette di tenere solo i valori positivi, riducendo di molto il numero di neuroni attivati. \\
+\section{Addestramento di una rete}
+Come visto in \ref{Costruzione}, per addestrare un algoritmo si ha bisogno di una funzione di perdita e di un metodo per minimizzare l'errore di valutazione. L'addestramento di una rete neurale si basa sugli stessi principi:\\
+si definisce una mappa $$y=f(x,\theta)$$ e si cerca il valore del parametro $\theta$ che più accuratamente approssima la funzione.
+Bisogna quindi trovare dei parametri che minimizzano la funzione di perdita:
+$$L[y,f(x,\theta)]$$
+ovvero, trovare $\hat{\theta}$ tali che:
+$$\hat{\theta}=\argmin_{\theta} \left\{ \frac{1}{n} \sum_{i=1}^{n} L[y_i,f(x_i,\theta)] \right\}$$
+Questo processo è necessario per approssimare una determinata funzione $f^*$, che descrive il comportamento della rete.\\
+Durante l'addestramento, la rete viene provata pi\'{u} volte, ogni volta con un inpur diverso, fino a che l'errore di addestramento \`e molto piccolo. In questa fase, ad ogni iterazione viene passato in input un insieme di addestramento, viene fissato un valore $\theta_{0}$ iniziale, e tramite la funzione di perdita, si calcola l'errore di addestramento. In questo modo la rete ha il valore di quanto ciascun neurone di output sia lontano dal proprio valore atteso, e in che direzione (positiva o negativa).Per esempio, nel caso di riconoscimento dei numeri scritti a mano (MNIST):\\
+Se il risultato atteso è 6, ci aspettiamo il valore 1 nel neurone 6 e 0 in tutti gli altri. Se al neurone 6 \`e associato il valore $0.7$, allora la correzione da fare  è di 0.3. Quindi la rete ripete l'addestramento aggiornando il peso corrispondente al neurone valutato con $\theta_{1}$ e cos\'{i} via, fino a che il valore corrispondente al neurone 6 \`e molto vicino a 1. Viceversa, se il neurone 4 invece di 0 presenta 0.8, allora la correzione sarà -0.8 e si aggiorneranno i pesi relativi a questo neurone in modo da abbassarne drasticamente l'output.\\
+L'algoritmo appena descritto a parole prende il nome di \textit{back propagation}.
+\subsubsection{Algoritmo di back propagation}\label{back-prop}
+Consideriamo una rete neuronale composta da L strati, dove l'output \`e composto da un valore solamente.
+L'algoritmo di back propagation si divide in due fasi:
+\begin{itemize}
+\item propagazione in avanti
+\item propagazione all'indietro
+\end{itemize}
+Durante la propagazione in avanti, si calcolano tutti i valori dei nodi presenti nella rete $a_{i}^k$:
+\begin{equation}\label{eq0}
+a_{i}^{k}=b_{i}^{k}+\sum_{j=1}^{r_{k-1}} w_{ji}^{k}\cdot o_{j}^{k-1}
+\end{equation}
+dove:
+\begin{itemize}
+\item $w_{ij}^{k}$ \`e il peso associato all'arco che collega il nodo i del k-esimo strato con il nodo j;
+\item $b_{i}^{k}$ \`e il valore soglia del nodo i nel k-esimo strato;
+\item $o_{i}^{k}$ \`e l'output del nodo i nel k-esimo strato;
+\item $r_k$ \`e il numero di nodi presenti nel k-esimo strato.
+\end{itemize}
+Calcolato l'ultimo valore $a^{L}$, corrispondente all'output della rete, inizia la seconda fase. Per calcolare il gradiente della funzione di perdita $L[y,f(x,\theta)]$, si applica la regola della catena per il calcolo e poich\'{e} $\theta = (W^1,W^2,\cdots ,W^{L-1})$, abbiamo:
+\begin{equation}\label{eq1}
+\frac{\partial L}{\partial w_{ij}^k}=\frac{\partial L}{\partial a_j^k}\frac{\partial a_j^k}{\partial w_{ij}^k}.
+\end{equation}
+Ora definiamo il punto di forza di questo algoritmo, che consiste nell'introdurre una quantit\'{a} di costo (anche chiamata errore):
+\begin{equation}\label{eq2}
+\delta_j^k\equiv \frac{\partial L}{\partial a_j^k}
+\end{equation}
+attraverso la quale si calcolano le derivate parziali in modo iterativo, ripercorrendo la rete all'indietro.\\
+Dall'eq \ref{eq0}, ricaviamo:
+\begin{equation}
+\frac{\partial a_j^k}{\partial w_{ij}^k}=\frac{\partial}{\partial w_{ij}^k}\left( \sum_{l=0}^{r_{k-1}}w_{lj}^k o_l^{k-1}\right)=o_i^{k-1}
+\end{equation}
+che sostituita nell'eq \ref{eq1} otteniamo:
+\begin{equation}
+\frac{\partial L}{\partial w_{ij}^k}=\delta_j^k o_i^{k-1}
+\end{equation}
+Partendo dallo strato dell'output, considerando come funzione di perdita: $$L=\frac{1}{2}(\hat{y}-y)^2=\frac{1}{2}(g_o(a^L)-y)^2,$$
+\begin{equation}
+\delta^{L}=(g_o(a^L)-y)g_o^{\prime}(a^L)=(\hat{y}-y)g_o^{\prime}(a^L).
+\end{equation}
+dove $g_o$ \`e la funzione di perdita per l'output.
+Quindi la derivata parziale della funzione di perdita \`e:
+\begin{equation}
+\frac{\partial L}{\partial w_{iL-1}^L}=\delta^L o_i^{L-1}
+\end{equation}
+Per gli strati nascosti invece abbiamo:
+\begin{equation}\label{eq3}
+\delta_j^k=\sum_{l=1}^{r_{k+1}}\frac{\partial L}{\partial a_l^{k+1}}\frac{\partial a_l^{k+1}}{a_j^k}=\sum_{l=1}^{r_{k+1}} \delta_l^{k+1} \frac{\partial a_l^{k+1}}{a_j^k},
+\end{equation}
+Sostituendo in \ref{eq3} la \ref{eq0} e denotando con $g$ la funzione di perdita dello strato nascosto, si ottiene la formula di propagazione all'indietro:
+\begin{equation}
+\delta_j^k=g^{\prime}(a_j^k)\sum_{l=1}^{r_{k+1}}w_{jl}^{k+1}\delta_l{k+1}
+\end{equation} 
+e la derivata parziale della funzione di perdita rispetto ai pesi degli strati nascosti $w_{ij}^{k+1}$ , $1\leq k < L$, si ottiene con:
+\begin{equation}
+\frac{\partial L}{\partial w_{ij}^k}=\delta_j^k o_i^{k-1}=g^{\prime}(a_j^k)o_i^{k-1}\sum_{l=1}^{r_{k+1}}w_{jl}^{k+1}\delta_l{k+1}
+\end{equation}
+Ora pu\'{o} avvenire l'aggiornamento dei pesi tramite il metodo SGD (Stochastic Gradient Descent), ovvero in formule:
+\begin{equation}\label{eq4}
+w_{ij}^{k+1}=w_{ij}^k + \eta \frac{\partial L}{\partial w_{ij}}
+\end{equation}
+dove $\eta \in (0,1]$ rappresenta il fattore di apprendimento (\textit{learning rate}).\\
+La scelta del fattore di apprendimento influenza molto il comportamento dell'algoritmo, infatti se scegliamo valori troppo piccoli, la convergenza sarà lenta, mentre se scegliamo valori troppo grandi si rischia di avere una rete instabile con comportamento oscillatorio.\\
+Un metodo semplice per incrementare il fattore di apprendimento, senza il rischio di rendere la rete instabile, è quello di modificare la regola di aggiornamento inserendo un ulteriore parametro $\alpha$, detto momento nell'equazione \ref{eq4}:
+\begin{equation}
+w_{ij}^{k+1}=\alpha w_{ij}^k + \eta \frac{\partial C}{\partial w_{ij}}.
+\end{equation}
+Se si espande ricorsivamente la formula si ottiene:
+\begin{equation}
+w_{ij}^{k+1}=\eta \sum_{l=1}{k+1}\alpha_{k+1-l}\frac{\partial L}{\partial w_{ij}^l}
+\end{equation}
+Inserendo il momento si ha il vantaggio che se la derivata parziale tende a mantenere lo stesso segno su iterazioni consecutive, grazie alla sommatoria, l'aggiornamento produce valori pi\'{u} ampi e quindi tende ad accelerare nelle discese del gradiente. Se invece la derivata ha segni opposti ad iterazioni consecutive, la sommatoria tende a diminuire l'ampiezza dell'aggiornamento, in questo modo non si corre il rischio di avere dei loop infiniti nel caso di minimi locali della funzione d'errore.\\
+A tal proposito generalmente i criteri di arresto dell'algoritmo possono essere:
+\begin{itemize}
+\item $\lVert \nabla L\rVert < \epsilon$
+\item $L[y,f(x,\theta)]=0$;
+\item $L_i[y,f(x,\theta_i)]-L_j[y,f(x,\theta_j)]<<\epsilon^{\prime}$
+\end{itemize}
+dove $L_i$ e $L_j$ sono due epoche consecutive. Un'epoca corrisponde alle due fasi di propagazione necessarie per un aggiornamento dei pesi.
 
-\section{Reti Feed-forward}
-Le reti Feed-forward sono le reti neurali profonde con la struttura più semplice. La loro struttura è rappresentata da un grafo aciclico diretto in un'unica direzione, dove ogni nodo di uno strato ï¿½ connesso con tutti i nodi dello strato successivo. Nessun nodo è connesso con un nodo appartanente allo stesso strato.
+\section{Reti Deep Feed-forward}
+Le reti Feed-forward sono le reti neurali profonde con la struttura più semplice, composte da almeno uno strato nascosto. La loro struttura è rappresentata da un grafo aciclico diretto in un'unica direzione, dove ogni nodo di uno strato \`e connesso con tutti i nodi dello strato successivo e nessun nodo è connesso con un nodo appartanente allo stesso strato.
 \begin{figure}[ht]
 \centering
 \includegraphics[scale=0.5]{network-neurale}
 \caption{modello di rete deep feedforward con uno strato}\label{rete}
 \end{figure}
-Questa tipologia di rete definisce una mappa $$y=f(x,\theta)$$ e cerca il valore del parametro $\theta$ che più accuratamente approssima la funzione.
-Bisogna quindi trovare dei parametri che minimizzano la funzione di perdita:
-$$L[y,f(x,\theta)]$$
-ovvero, trovare $\hat{\theta}$ tali che:
-$$\hat{\theta}=arg min $$
-Il processo in cui avviene questo processo è di approssimare una determinata funzione $f^*$  L'algoritmo che usano è quello della \textit{back propagation}. L'aggiornamento dei pesi in fase di apprendimento viene svolto usando il metodo SGD (Stochastic Gradient Descent), ovvero in formule:
-$$w_{ij}(t+1)=w_{ij}(t)+ \eta \frac{\partial C}{\partial w_{ij}}$$
+\section{Reti Convoluzionali}
 
 
 
@@ -298,7 +405,7 @@ Un'immagine digitale ï¿½ formata da diversi quadratini disposti in modo regolare
 \item 1 byte per la componente blu (B)
 \end{itemize}
 ma ne esistono anche altri come, ad esempio, CMYK che considera come colori fondamentali: ciano, magenta, giallo e nero.\\
-Tipicamente nel data set di ImageNet la dimensione media delle immagini ï¿½ di circa $400x350$
+Tipicamente nel data set di ImageNet la dimensione media delle immagini \`e di circa $400x350$
 
 
 
@@ -307,7 +414,7 @@ Tipicamente nel data set di ImageNet la dimensione media delle immagini ï¿½ di c
 
 
 \chapter{Classificazione}\label{classificazione}
-La Classificazione viene usata quando ï¿½ necessario decidere a quale categoria appartiene un determinato dato.Per esempio, data una foto capire a quale categoria appartiene, in questa tesi vogliamo classificare immagini, piï¿½ precisamente: capire a quale tipo di monumento corrispone una determinata immagine.\\ 
+La Classificazione viene usata quando \`e necessario decidere a quale categoria appartiene un determinato dato.Per esempio, data una foto capire a quale categoria appartiene, in questa tesi vogliamo classificare immagini, pi\'{u} precisamente: capire a quale tipo di monumento corrispone una determinata immagine.\\ 
 Questo tipo di algoritmo deve specificare a quale delle k categorie appartiene un input. Crea una funzione $f:\mathbb{R}^{n} \rightarrow \{ 1,\cdots,k\}$, quando $y=f(x)$, il modello assegna l'input descritto dal vettore $x$ ad una categoria identificata dal codice numerico $y$. Esistono altre varianti dell'attivitï¿½ di classificazione, ad esempio, dove $f$ genera una distribuzione di probabilitï¿½ su classi.\\
 Vediamo ora qualcuno degli algoritmi usati per classificare dati.
 
