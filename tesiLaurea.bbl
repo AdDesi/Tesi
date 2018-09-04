@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{Samuel}
 Arthur Samuel.
@@ -16,21 +16,38 @@ Shehzad Noor~Taus Priyo.
 David~H. Wolper and William~G. Macready.
 \newblock No free lunch theorems for optimization, 1996.
 
+\bibitem{an}
+Roberto Ferretti.
+\newblock Appunti del corso di analisi numerica.
+
+\bibitem{errval}
+Ryan Tibshirani.
+\newblock Error and validation.
+
 \bibitem{rinforzo}
 Frank~L Lewis.
 \newblock {\em Reinforcement learning and approximate dynamic programming for
   feedback control}.
 \newblock Wiley, 2013.
 
+\bibitem{wordnet}
+Sito~Ufficiale dell'Universit\'{a}~di Princetone.
+\newblock What is wordnet?
+\newblock \url{https://wordnet.princeton.edu/}.
+
 \bibitem{deep}
 Ian Goodfellow, Yoshua Bengio, and Aaron Courville.
 \newblock {\em Deep Learning}.
 \newblock MIT Press, 2016.
-\newblock \url{http://www.deeplearningbook.org}.
 
 \bibitem{machine}
 K.P. Murphy.
 \newblock {\em Machine Learning: A Probabilistic Perspective}.
 \newblock Adaptive computation and machine learning. MIT Press, 2012.
+
+\bibitem{imagenet}
+Kai~Li Jia Deng Wei Dong Richard~Socher, Li-Jia~Li and Li~Fei-Fei.
+\newblock Imagenet: A large-scale hierarchical image database.
+\newblock {\em Dept. of Computer Science, Princeton University, USA}, 2010.
 
 \end{thebibliography}
