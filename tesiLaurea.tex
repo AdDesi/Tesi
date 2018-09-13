@@ -1,4 +1,6 @@
-\documentclass[a4paper,12pt]{report}
+
+ \documentclass[a4paper,12pt,oneside]{book}
+ %\documentclass[a4paper,12pt]{report}
 \usepackage[italian]{babel}
 \usepackage[latin1]{inputenc}
 \usepackage{amsfonts}
@@ -122,7 +124,7 @@ x_{k+1}=x_{k}+\beta_{k}d_{k}
 dove $x_{0}$ \`e assegnato, $\beta_{k}\in \mathbb{R^{+}}$ \`e il passo e $d_{k}\in \mathbb{R}^{n}$ \`e la direzione lungo la quale ci si muove che, essendo di discesa, sar� tale che: $(d_{k},\nabla f(x_{k}))<0$. Sia il passo che la direzione vanno scelti opportunamente ad ogni iterazione, in modo che $f(x_{k+1})<f(x_{k})$.\\
 Per ogni passo imponiamo:
 $$f(x_{k}+\beta_{k}d_{k})=\min_{\beta}\{f(x_{k}+\beta d_{k})\}\qquad \qquad (strategia\: \: di\: \: ricerca\: \: esatta)$$
-Mentre per la direzione: $d_{k}=-\nabla f(x_{k})$. La derivata direzionale di $f$ nella direzione $d_{k}$ vale $$\frac{\partial f}{\partial d_{k}}(x_{k})=\frac{(d_{k},\nabla f(x_{k}))}{\parallel d_{k}\parallel}=-\parallel \nabla f(x_{k})\parallel$$ e per la disuguaglianza di Cauchy-Schwartz si ha anche: $$\frac{\mid (d_{k},\nabla f(x_{k}))\mid}{\parallel d_{k}\parallel}\leq \frac{\parallel d_{k}\quad \parallel \parallel \nabla f(x_{k})\parallel}{\parallel d_{k}\parallel}=\parallel \nabla f(x_{k})\parallel$$ che mostra come la direzione di ricerca sia quella in cui la derivata direzionale di $f$ \`e negativa e di modulo massimo.\\
+Mentre per la direzione: $d_{k}=-\nabla f(x_{k})$. La derivata direzionale di $f$ nella direzione $d_{k}$ vale $$\frac{\partial f}{\partial d_{k}}(x_{k})=\frac{(d_{k},\nabla f(x_{k}))}{\parallel d_{k}\parallel}=-\parallel \nabla f(x_{k})\parallel$$ e per la disuguaglianza di Cauchy-Schwartz si ha anche: $$\frac{\mid (d_{k},\nabla f(x_{k}))\mid}{\parallel d_{k}\parallel}\leq \frac{\parallel d_{k} \parallel \quad \parallel \nabla f(x_{k})\parallel}{\parallel d_{k}\parallel}=\parallel \nabla f(x_{k})\parallel$$ che mostra come la direzione di ricerca sia quella in cui la derivata direzionale di $f$ \`e negativa e di modulo massimo.\\
 Le condizioni di arresto del metodo sono: $\parallel x_{k+1}-x{k}\parallel \leq m$, $\parallel \nabla f(x_{k+1})\parallel \leq m\prime$ oppure $k>k_{max}$, dove $m$ e $m\prime$ sono soglie date e $k_{max}$ il numero massimo di iterazioni da effettuare.\\
 I risultati ottenuti sono garantiti dai seguenti teoremi di convergenza:
 \newtheorem{teo}{Teorema}
@@ -614,7 +616,7 @@ La Classificazione viene usata quando \`e necessario decidere a quale categoria 
 Questo tipo di algoritmo deve specificare a quale delle k categorie appartiene un input. Crea una funzione $f:\mathbb{R}^{n} \rightarrow \{ 1,\cdots,k\}$, quando $y=f(x)$, il modello assegna l'input descritto dal vettore $x$ ad una categoria identificata dal codice numerico $y$.\\
 Esistono altre varianti dell'attivit\'{a} di classificazione, ad esempio, dove $f$ genera una distribuzione di probabilit\'{a} su classi.\\
 Vediamo ora qualcuno degli algoritmi usati per classificare dati.
-\section{K-Nearest Neighbor}
+\section{K-Nearest Neighbor}\label{knn}
 Questo \`e un algoritmo non parametrico, ovvero il numero di parametri cresce con la quantit\'{a} di dati di addestramento.
 Dato un set di dati di addestramento $(x_1,x_2,\cdots,x_n)$, corrispondenti ai risultati $(y_1,y_2,\cdots,y_n)$, questo metodo ,dato un nuovo punto $z$, cerca di prevedere la sua classe di appartenenza osservando, tra l'insieme di punti adiacenti, quelli a lui pi\`{u} vicini. Il numero di punti adiacenti da considerare dipende dal parametro $k$: si osservano le classi a cui appartengono i $k$ punti pi\'{u} vicini e la classe pi\'{u} ricorrente sar\`{a} assegnata al punto $z$.\\ 
 Si supponi di avere un set di dati che comprende $N_k$ punti appartenenti alla classe $C_k$ con $N$ punti in totale, ovvero: $\sum_{k}N_k = N$. Se si vuole classificare un nuovo punto $x$, si disegna una sfera centrata in $x$ contenente  K punti qualsiasi, indipendentemente da come siano classificati.\\
@@ -705,6 +707,7 @@ I principali tipi di tensori sono:
 \newpage
 \section*{Classificazione}
 Di seguito viene riportato un esempio di codice per la classificazione di numeri scritti a mano estratti dal dataset di MNIST. L'algoritmo utilizzato \`{e} dei K-nearest neighbour,in due versioni: la prima non utilizza il batch size mentre la seconda si.\\
+\textbf{Classificazione con k=5}
 \begin{lstlisting}[language={Python},tabsize=2]
 import matplotlib.pyplot as plt
 import numpy as np
@@ -713,8 +716,8 @@ from PIL import Image
 from tensorflow.examples.tutorials.mnist import input_data
 sess=tf.Session()
 mnist=input_data.read_data_sets("MNIST_data/",one_hot=True)
-train_size=1000
-test_size=15
+train_size=2000
+test_size=200
 train_set=np.random.choice(len(mnist.train.images),train_size,
 		replace=False)
 test_set=np.random.choice(len(mnist.test.images),test_size,
@@ -751,8 +754,8 @@ for i in range(len(x_vals_test)):
 accuracy = ok/len(x_vals_test)
 print("Accuracy on test set:",accuracy)
 \end{lstlisting}
-L'accuratezza \`{e} del: 
-\textbf{Versione con batch size}
+Usando un insieme di addestramento di cardinalit\`{a} $2000$, e uno di test di cardinalit\`{a} $200$, si \`{e} ottenuta un'accuratezza dell'$89\%$ e il tempo impiegato di esecuzione \`{e} di $19.398$ secondi.\\
+\textbf{Versione con batch size=10}
 \begin{lstlisting}[language={Python},tabsize=2]
 import matplotlib.pyplot as plt
 import numpy as np
@@ -761,8 +764,8 @@ from PIL import Image
 from tensorflow.examples.tutorials.mnist import input_data
 sess=tf.Session()
 mnist=input_data.read_data_sets("MNIST_data/",one_hot=True)
-train_size=1000
-test_size=15
+train_size=2000
+test_size=200
 train_set=np.random.choice(len(mnist.train.images),
 			 train_size,replace=False)
 test_set=np.random.choice(len(mnist.test.images),
@@ -784,24 +787,32 @@ predict_indices=tf.gather(y_target_train,neighbour_indices)
 count_of_predict=tf.reduce_sum(predict_indices,reduction_indices=1)
 prediction=tf.argmax(count_of_predict,axis=1)
 test_output=[]
+actual_vals = []
 batch_size=10
 ok=0
 init=tf.global_variables_initializer()
 sess.run(init)
-for i in range(len(x_vals_test)/batch_size):
+for i in range(int(np.ceil(len(x_vals_test)/batch_size))):
+	min_index=i*batch_size
+	max_index=min((i+1)*batch_size,len(x_vals_train))
+	x_batch=x_vals_test[min_index:max_index]
+	y_batch=y_vals_test[min_index:max_index]
 	predictions=sess.run(prediction,feed_dict={x_data_train:
-					x_vals_train,x_data_test:x_vals_test,
+					x_vals_train,x_data_test:x_batch,
 					y_target_train:y_vals_train,
-					y_target_test: y_vals_test})
-    test_output.extend(predictions)
-    print("test n:",i,"Classe predetta:",test_output[i],
-				"Classe vera:", np.argmax(y_vals_test[i]),"\n\r")
-    if test_output[i]==np.argmax(y_vals_test[i]):
-         ok=ok+1
+					y_target_test: y_batch})
+	test_output.extend(predictions)
+	actual_vals.extend(np.argmax(y_batch, axis=1))
+for i in range(len(x_vals_test)):
+	print("test n:",i,"Classe predetta:",test_output[i],
+				"Classe vera:", actual_vals[i],"\n\r")
+	if test_output[i]==np.argmax(y_vals_test[i]):
+		ok=ok+1
 accuracy=ok/len(x_vals_test)
 print("Accuracy on test set:",accuracy)
 \end{lstlisting}
-L'accuratezza questa volta \`{e} del:
+Utilizzando insiemi di addestramento e di test con le stesse cardinalit\`{a} dell'implementazione precedente, ma inserendo il parametro di batch size, si ottiene una velocit\`{a} di esecuzione maggiore: $15,535$ secondi ($\sim 4$s in meno). In accordo con la spiegazione dell'algoritmo in \ref{knn}, ci si aspettava un risultato di questo tipo. Purtroppo guadagnando velocit\`{a} di esecuzione si \`{e} perso qualcosa nell'accuratezza: da $89\%$ a $87\%$. Vale la pena sottolineare che, come detto pi\`{u} volte, non esiste un algoritmo migliore di un altro, ma il pi\`{u} adatto in base al problema da affrontare. Infatti se si aumenta il numero di esempi per l'insieme di addestramento e si inserisce il parametro di batch size, l'algoritmo sale di accuratezza pur mantenendo una velocit\`{a} di esecuzione bassa.  
+
 %inserire foto delle schermate dell'output a confronto
 \clearpage
 \addcontentsline{toc}{chapter}{Bibliografia}
