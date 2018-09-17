@@ -48,12 +48,13 @@
 \section*{Introduzione}
 \addcontentsline{toc}{section}{Introduzione}
 Dall'invenzione dei computer, l'uomo fa sempre pi\`{u} affidamento sulle macchine per risolvere problemi complessi di calcolo. Con l'aumentare delle prestazioni dei computer, man mano si sono sviluppati algoritmi di calcolo sempre pi\`{u} efficienti.
-Nel 1959 l'ingegnere del MIT, Arthur Samuel coni\'{o} il termine \textit{"machine learning"}, descrivendo l'apprendimento automatico come un "campo di studio che d\'{a} ai computer la possibilit\'{a} di apprendere senza essere programmati esplicitamente per farlo".\cite{Samuel} \\
-Definiamo l'apprendimento automatico come un insieme di metodi in grado di rilevare automaticamente i modelli tramite dei dati e quindi utilizzare i modelli scoperti per prevedere i dati futuri o per eseguire altri tipi di processi decisionali in condizioni di incertezza. L'insegnamento alla macchina \`e, pertanto, imprescindibile dai dati. Generalmente, pi\`{u} dati si passano alla macchina, pi\`{u} pu\'{o} imparare. Per questo motivo con l'avvento di Internet, dagli anni '90 ad oggi il tema del "machine learning" \`e diventato sempre pi\`{u} attuale, la mole di dati reperibile dal web \`e cospicuo e ha permesso che questo campo sia esponenzialmente progredito.\\
-Il \textit{"deep learning"} \`e un tipo particolare di machine learning, che riguarda l'emulazione di come gli esseri umani apprendono. Esso affronta i problemi del machine learning, rappresentando il mondo come una gerarchia di concetti annidati: ogni concetto \`e definito in relazione a concetti pi\`{u} semplici e le rappresentazioni astratte vengono calcolate in termini di concetti meno astratti. Il Deep Learning implica l'utilizzo di reti neurali artificiali (\textit{deep artificial neural networks}), algoritmi e sistemi computazionali, ispirati al cervello umano, per affrontare i problemi del Machine Learning.\\
-L'analogia di Shehzad Noor Taus Priyo pu\'{o} aiutare a capire meglio cosa siano le reti neurali:\\
+Nel 1959 l'ingegnere del MIT, Arthur Samuel coni\`{o} il termine \textit{"machine learning"}, descrivendo l'apprendimento automatico come un "campo di studio che d\`{a} ai computer la possibilit\`{a} di apprendere senza essere programmati esplicitamente per farlo".\cite{Samuel} \\
+Definiamo l'apprendimento automatico come un insieme di metodi in grado di rilevare automaticamente i modelli tramite dei dati e quindi utilizzare i modelli scoperti per prevedere i dati futuri o per eseguire altri tipi di processi decisionali in condizioni di incertezza. L'insegnamento alla macchina \`e, pertanto, imprescindibile dai dati. Generalmente, pi\`{u} dati si passano alla macchina, pi\`{u} pu\`{o} imparare. Per questo motivo con l'avvento di Internet, dagli anni '90 ad oggi il tema del "machine learning" \`e diventato sempre pi\`{u} attuale, la mole di dati reperibile dal web \`e cospicuo e ha permesso che questo campo sia esponenzialmente progredito.\\
+Il \textit{"deep learning"} \`e un tipo particolare di machine learning, che riguarda l'emulazione di come gli esseri umani apprendono. Esso affronta i problemi del machine learning, rappresentando il mondo come una gerarchia di concetti annidati: ogni concetto \`e definito in relazione a concetti pi\`{u} semplici e le rappresentazioni astratte vengono calcolate in termini di concetti meno astratti. Il Deep Learning implica l'utilizzo di reti neurali artificiali (\textit{deep artificial neural networks}) algoritmi e sistemi computazionali, ispirati al cervello umano, per affrontare i problemi del Machine Learning.\\
+L'analogia di Shehzad Noor Taus Priyo pu\`{o} aiutare a capire meglio cosa siano le reti neurali:\\
 "Immaginiamole come una serie di porte da passare, dove l'input \`e l'uomo che le deve oltrepassare e ogni volta che lo fa cambia qualcosa nel suo comportamento finch\'{e}, all'ultima porta oltrepassata, l'uomo \`e diventato una persona del tutto differente, rappresentando l'output di questo processo."\cite{analogia} \\
-Questa tesi si focalizza su un problema particolare di machine learning: la Classificazione (\textit{Classification}), in particolar modo della classificazione di immagini. L'obiettivo principale \`e trovare un'architettura ottimale per l'algoritmo che identifica le immagini di oggetti architettonici, per fare questo bisogna trovare la giusta topologia, la giusta profondit\'{a} e la giusta larghezza di ogni livello della rete neurale, in due parole: l'architettura ottimale. %aggiungere coordinate geofisiche
+Questa tesi si focalizza su un problema particolare di machine learning: la Classificazione (\textit{Classification}) in particolar modo della classificazione di immagini. L'obiettivo principale \`e trovare un'architettura ottimale per l'algoritmo che identifica le immagini di oggetti architettonici, inserendo tra i parametri anche le coordinate geofisiche dell'oggetto. Per fare questo bisogna trovare la giusta topologia, la giusta profondit\`{a} e la giusta larghezza di ogni livello della rete neurale, in due parole: l'architettura ottimale.\\
+Nel primo capitolo si descrive cosa sono e come sono strutturati gli algoritmi di apprendimento. Nel secondo si introduce il concetto di rete neurale, ponendo particolare attenzione sulle reti neurali di tipo convoluzionale. Nel terzo capitolo si approfondiscono gli algoritmi di apprendimento dedicati alla Classificazione. Nel quarto si descrive il linguaggio di programmazione TensorFlow di Python, mostrando alcuni esempi concreti di programmazione per la classificazione di oggetti; in particolar modo viene mostrato il codice utilizzato per la classificazione di oggetti architettonici e quello per la realizzazione di un App, per dispositivo Android, che lo implementi (prevalentemente codice Java). Infine nell'ultima parte vengono mostrati i risultati ottenuti.
  
 \chapter{Algoritmi di apprendimento}
 Gli algoritmi di machine learning sono solitamente divisi in tre tipi principali:
@@ -76,11 +77,15 @@ Per costruire un algoritmo di apprendimento bisogna avere:
 I processi di apprendimento automatico descrivono come il sistema dovrebbe elaborare un esempio.
 \newtheorem{defin}{Definizione}
 \begin{defin}
-Un \textbf{esempio} \`e una raccolta di caratteristiche che sono state misurate quantitativamente da alcuni oggetti o eventi elaborati.
+Un \textbf{esempio} \`e una raccolta di caratteristiche che sono state misurate quantitativamente da alcuni oggetti o eventi elaborati. 
 \end{defin}
-Di solito, un esempio viene rappresentato da un vettore $x\in \mathbb{R}^{n}$, dove ogni elemento $x_{i}$ rappresenta una caratteristica.
+Di solito, un esempio viene rappresentato da un vettore $x\in \mathbb{R}^{n}$, dove ogni elemento $x_{i}$ rappresenta una caratteristica.\\
+Ad esempio, se si considera un fiore: le caratteristiche che lo descrivono sono la lunghezza e la larghezza dei suoi petali e il colore. Quindi in questo caso la metrica usata \`e la distanza euclidea tra le due estremit\`{a} del petalo:\\
+se si considera $x=(x_1,x_2,x_3)$ il fiore con queste 3 caratteristiche, si ha che:
+$$x_{1}=d(h_{min},h_{max})\qquad x_{2}=d(b_{min},b_{max})\qquad x_{3}=stringa$$
+dove $h_{min}$ e $h_{max}$ rappresentano i due punti relativi alle estremit\`{a} del petalo e $d:\mathbb{R} \times \mathbb{R} \longrightarrow \mathbb{R}$ t.c $d(x,y)=\sqrt{(x-y)^{2}}=|x-y|$.\\
 Dato un processo si cerca di capire quale sia la caratteristica principale, sulla quale si deve misurare il suo rendimento.
-Infine, dobbiamo dare all'algoritmo un'esperienza sulla quale apprendere, che \`e quella che lo classificher\'{a} in uno dei tre tipi principali.
+Infine, dobbiamo dare all'algoritmo un'esperienza sulla quale apprendere, che \`e quella che lo classificher\`{a} in uno dei tre tipi principali.
 Questa esperienza l'apprende dai \textit{dataset}: una collezione di esempi.\\
 I dataset possono essere di vari tipi:
 \begin{itemize}
@@ -90,41 +95,41 @@ I dataset possono essere di vari tipi:
 \end{itemize}
 L' \textbf{insieme di addestramento} \`e una parte dell'insieme di dati che vengono utilizzati per addestrare un sistema di apprendimento supervisionato. Da questo insieme, l'algoritmo deve costruire una funzione che capisca, dai parametri, quali caratteristiche descrivono le varie categorie.\\
 L' \textbf{insieme di prova} \`e un insieme di dati che, con l'insieme di addestramento, forma una partizione del dataset di partenza. Questi nuovi dati vengono utilizzati per valutare l'apprendimento dell'algoritmo "addestrato".\\
-L' \textbf{insieme di validazione} \`e usato in maniera analoga all'insieme di prova, ma dei dati inseriti per testare l'algoritmo gi\'{a} si conosce la risposta (una parte di essi pu\'{o} far parte dell'insieme di addestramento) e da questa si valuta se l'output ottenuto \`e ottimale o meno.\\
-Questi tre insiemi possono coesistere e la scelta delle loro cardinalit\'{a} non \`e universale: dipende dal tipo di problema che viene affrontato.\\
+L' \textbf{insieme di validazione} \`e usato in maniera analoga all'insieme di prova, ma dei dati inseriti per testare l'algoritmo gi\`{a} si conosce la risposta (una parte di essi pu\`{o} far parte dell'insieme di addestramento) e da questa si valuta se l'output ottenuto \`e ottimale o meno.\\
+Questi tre insiemi possono coesistere e la scelta delle loro cardinalit\`{a} non \`e universale: dipende dal tipo di problema che viene affrontato.\\
 Vediamo ora come valutare l'efficienza di un algoritmo:
 \begin{defin}
-L'\textbf{errore di allenamento}(\textit{training error}) \`e una misura di errore che si pu\'{o} calcolare sul set di allenamento. Indica quanto l'algortimo sta apprendendo.
+L'\textbf{errore di allenamento}(\textit{training error}) \`e una misura di errore che si pu\`{o} calcolare sul set di allenamento. Indica quanto l'algortimo sta apprendendo.
 \end{defin}
 \begin{defin}
-La \textbf{generalizzazione} \`e la capacit\'{a} di un algoritmo di essere ottimale in seguito ad un input proveniente dall' insieme di prova.
+La \textbf{generalizzazione} \`e la capacit\`{a} di un algoritmo di essere ottimale in seguito ad un input proveniente dall' insieme di prova.
 \end{defin}
 \begin{defin}
-L'\textbf{errore di generalizzazione}(\textit{generalization error}) \`e una misura di errore che si pu\'{o} calcolare sull'insieme di prova. Verifica se l'algoritmo ha imparato o solo memorizzato.
+L'\textbf{errore di generalizzazione}(\textit{generalization error}) \`e una misura di errore che si pu\`{o} calcolare sull'insieme di prova. Verifica se l'algoritmo ha imparato o solo memorizzato.
 Esso viene detto anche errore di test (\textit{test error}).
 \end{defin}
-Ipotizziamo che tutti gli esempi siano eventi indipendenti e che tuti gli insiemi, in cui partizioniamo l'insieme di dati, hanno la stessa distribuzione di probabilit\'{a} uniforme.
+Si ipotizza che tutti gli esempi siano eventi indipendenti e che tuti gli insiemi, in cui si partiziona l'insieme di dati, hanno la stessa distribuzione di probabilit\`{a} uniforme.
 \begin{defin}
-Una \textbf{funzione di perdita} (\textit{loss function}) $L(y,\hat{y})$ \`e una funzione che misura la distanza (o l'errore) tra i valori di output previsto $\hat{y}$ e i valori effettivi ${y}$.
+Una \textbf{funzione di perdita} (\textit{loss function}) $L(y,\hat{y}):\mathbb{R}^{n} \times \mathbb{R}^{n} \rightarrow \mathbb{R}$ \`e una funzione che misura la distanza (o l'errore) tra i valori di output previsto $\hat{y}$ e i valori effettivi ${y}$.
 \end{defin}
 Si possono usare varie misure, ad esempio l'errore quadratico medio(MSE):
 \begin{equation}\label{train-error}
 L(y,\hat{y})_{train}=\frac{1}{n}\sum_{i=1}^{n}(\hat{y}_{(train)}-y_{(train)})_{i}^2
 \end{equation}
-La nostra funzione di predizione dipender\'{a} da dei parametri, rappresentati da un vettore $w$, lo scopo\`e di minimizzare l'errore di allenamento variando $w$.
+La funzione di predizione dipender\`{a} da dei parametri, rappresentati da un vettore $w$, lo scopo \`e di minimizzare l'errore di allenamento variando $w$.
 In base al tipo di apprendimento e al problema da affrontare, verranno usati vari algoritmi per risolvere problemi di minimizzazione libera. Gli algoritmi che risolverono il problema:
 \begin{equation}\label{minimi}
-f(x^{*})=\min_{x\in \mathbb{R}^{n}}f(x),\qquad \qquad f\in C^{2}
+f(x^{*})=\min_{x\in \mathbb{R}^{n}}f(x),\qquad \qquad f\in C^{2}(\mathbb{R}^{n},\mathbb{R})
 \end{equation}
-Per risolvere problemi di questo tipo, spesso viene utilizzato il metodo di discesa del gradiente.\cite{an} \\
+Per risolvere problemi di questo tipo, spesso viene utilizzato il metodo di discesa del gradiente \cite{an}. \\
 La struttura generale di un metodo di discesa iterativo di minimizzazione \`e:
 \begin{equation}\label{eq:min}
 x_{k+1}=x_{k}+\beta_{k}d_{k}
 \end{equation}
-dove $x_{0}$ \`e assegnato, $\beta_{k}\in \mathbb{R^{+}}$ \`e il passo e $d_{k}\in \mathbb{R}^{n}$ \`e la direzione lungo la quale ci si muove che, essendo di discesa, sar� tale che: $(d_{k},\nabla f(x_{k}))<0$. Sia il passo che la direzione vanno scelti opportunamente ad ogni iterazione, in modo che $f(x_{k+1})<f(x_{k})$.\\
+dove $x_k$ rappresenta il valore della x al k-esimo passo. Si parte dal valore $x_{0}$ assegnato, $\beta_{k}\in \mathbb{R^{+}}$ \`e il passo e $d_{k}\in \mathbb{R}^{n}$ \`e la direzione lungo la quale ci si muove che, essendo di discesa, sar\`{a} tale che: $(d_{k},\nabla f(x_{k}))<0$. Sia il passo che la direzione vanno scelti opportunamente ad ogni iterazione, in modo che $f(x_{k+1})<f(x_{k})$.\\
 Per ogni passo imponiamo:
 $$f(x_{k}+\beta_{k}d_{k})=\min_{\beta}\{f(x_{k}+\beta d_{k})\}\qquad \qquad (strategia\: \: di\: \: ricerca\: \: esatta)$$
-Mentre per la direzione: $d_{k}=-\nabla f(x_{k})$. La derivata direzionale di $f$ nella direzione $d_{k}$ vale $$\frac{\partial f}{\partial d_{k}}(x_{k})=\frac{(d_{k},\nabla f(x_{k}))}{\parallel d_{k}\parallel}=-\parallel \nabla f(x_{k})\parallel$$ e per la disuguaglianza di Cauchy-Schwartz si ha anche: $$\frac{\mid (d_{k},\nabla f(x_{k}))\mid}{\parallel d_{k}\parallel}\leq \frac{\parallel d_{k} \parallel \quad \parallel \nabla f(x_{k})\parallel}{\parallel d_{k}\parallel}=\parallel \nabla f(x_{k})\parallel$$ che mostra come la direzione di ricerca sia quella in cui la derivata direzionale di $f$ \`e negativa e di modulo massimo.\\
+Mentre per la direzione: $d_{k}=-\nabla f(x_{k})$. La derivata direzionale di $f$ nella direzione $d_{k}$ vale $$\frac{\partial f}{\partial d_{k}}(x_{k})=\frac{(d_{k},\nabla f(x_{k}))}{\parallel d_{k}\parallel}=-\parallel \nabla f(x_{k})\parallel$$ e per la disuguaglianza di Cauchy-Schwartz si ha anche: $$\frac{\mid (d_{k},\nabla f(x_{k}))\mid}{\parallel d_{k}\parallel}\leq \frac{\parallel d_{k} \parallel \parallel \nabla f(x_{k})\parallel}{\parallel d_{k}\parallel}=\parallel \nabla f(x_{k})\parallel$$ che mostra come la direzione di ricerca sia quella in cui la derivata direzionale di $f$ \`e negativa e di modulo massimo.\\
 Le condizioni di arresto del metodo sono: $\parallel x_{k+1}-x{k}\parallel \leq m$, $\parallel \nabla f(x_{k+1})\parallel \leq m\prime$ oppure $k>k_{max}$, dove $m$ e $m\prime$ sono soglie date e $k_{max}$ il numero massimo di iterazioni da effettuare.\\
 I risultati ottenuti sono garantiti dai seguenti teoremi di convergenza:
 \newtheorem{teo}{Teorema}
@@ -141,21 +146,21 @@ Allora la successione $\{x_{k}\}$ converge all'unico punto $x^{*}$ di minimo per
 Sia $f(x)\in C^{2}$, strettamente convessa sull'insieme (che si suppone compatto) $\Sigma_{0}=\{x\in\mathbb{R}^{n}:f(x)\leq f(x_{0})\}$, e la successione $\{x_{k}\}$ sia generata tramite l'algoritmo (\ref{eq:min}), con $d_{k}=-\nabla f(x_{k})$.\\
 Allora, se i passi $\beta_{k}$ sono determinati tramite ricerca esatta, la successione $x_{k}$ converge all'unico punto $x^{*}$ di minimo per f.
 \end{teo}
-Minimizzare l'errore di allenamento non necessariamente comporta l'ottimizzazione di apprendimento dell'algoritmo, potrebbe verificarsi il fenomeno di adattamento insufficiente (\textit{underfitting}),ovvero non si hanno abbastanza dati per creare un modello di predizione accurato . Bisogna quindi valutare anche altri fattori: analizzare l'insieme di prova.\\
-Ricordandoci dell'eq.\ref{train-error}, calcoliamo l'errore di prova:
+Minimizzare l'errore di allenamento non necessariamente comporta l'ottimizzazione di apprendimento dell'algoritmo, potrebbe verificarsi il fenomeno di adattamento insufficiente (\textit{underfitting}) ovvero non si hanno abbastanza dati per creare un modello di predizione accurato. Bisogna quindi valutare anche altri fattori: analizzare l'insieme di prova.\\
+Ricordandoci dell'eq.\ref{train-error} calcoliamo l'errore di prova:
 \begin{equation}\label{test-error}
 L(y,\hat{y})_{test}=\frac{1}{n}\sum_{i=1}^{n}(\hat{y}_{(test)}-y_{(test)})_{i}^2
 \end{equation}
-Vorremmo che ,con i parametri trovati per minimizzare l'errore di allenamento, anche questo errore sia minimo (l'ottimalit\'{a} \`e 0). Ma come detto in precedenza non sempre questo accade, vorremmo quindi che il divario tra i due errori sia minimo. In caso contrario si verifica il fenomeno di adattamento eccessivo (\textit{overfitting}) del modello all'insieme di dati che descrive, tramite un eccessivo numero di parametri. Il modello quindi non sar\'{a} generalizzabile ad un nuovo insieme di dati.\\
+Vorremmo che, con i parametri trovati per minimizzare l'errore di allenamento, anche questo errore sia minimo (l'ottimalit\`{a} \`e 0). Ma come detto in precedenza non sempre questo accade, vorremmo quindi che il divario tra i due errori sia minimo. In caso contrario si verifica il fenomeno di adattamento eccessivo (\textit{overfitting}) del modello all'insieme di dati che descrive, tramite un eccessivo numero di parametri. Il modello quindi non sar\`{a} generalizzabile ad un nuovo insieme di dati.\\
 Consideriamo il valore atteso dell'errore di prova, calcolato prendendo una coppia di punti $(X,Y)$dall'insieme di prova:
 \begin{equation}\label{test}
 \mathbb{E} [L(y,\hat{y})_{test}]=\mathbb{E} [(Y-\hat{y}(X))^{2}]
 \end{equation}
 e definiamo la funzione dell'output effettivo come:
 $$y(X)=\mathbb{E}(Y|X)$$
-la quale avr\'{a} sicuramente un errore, dovuto da qualche interferenza che chiameremo: distorzione stimata (\textit{estimation bias}).\\
+la quale avr\`{a} sicuramente un errore, dovuto da qualche interferenza che chiameremo: distorsione stimata (\textit{estimation bias}).\\
 Ma con diversi insiemi di allenamento, possiamo costruire diverse funzioni $\hat{y}$, e anche questo \`e un'altra fonte di errore: la varianza stimata (\textit{estimation variance}). Possiamo quindi scrivere l'output come:
-$$Y=y(X)+\epsilon$$ con $\epsilon$ indipendente da $X$ tale che $\mathbb{E}[X]=0$ e $Var(X)=\sigma^{2}$.\\
+$$Y=y(X)+\epsilon$$ con $\epsilon$ variabile aleatoria indipendente da $X$ , con $X$ distibuzione normale tale che: $\mathbb{E}[X]=0$ e $Var(X)=\sigma^{2}$.\\
 Possiamo quindi riscrivere l'equazione \ref{test} come:
 \begin{eqnarray}
 \mathbb{E} [L(y,\hat{y})_{test}] &=&\mathbb{E} [(Y-\hat{y}(X))^{2}|X=x]\nonumber\\
@@ -167,11 +172,11 @@ dove $\sigma^{2}$ \`e chiamato errore Bayes e
 \mathbb{E}[(y(x)-\hat{y}(x))^{2}]&=&(\mathbb{E}[\hat{y}(x)]-y(x))^{2}+\mathbb{E}[(\hat{y}(x)-\mathbb{E}[\hat{y}(x)])^{2}]\nonumber\\
 &=&Bias(\hat{y}(x))^{2}+Var(\hat{y}(x))
 \end{eqnarray}
-Si ottiene cos\'{\i} il compromesso distorzione-varianza (\textit{bias-variance tradeoff}):
+Si ottiene cos\'{\i} il compromesso distorsione-varianza (\textit{bias-variance tradeoff}):
 \begin{equation}
 \mathbb{E} [L(y,\hat{y})_{test}]=\sigma^2+Bias(\hat{y}(x))^2 + Var(\hat{y}(x))
 \end{equation}
-Se la distorzione ha valori alti e la varianza bassi avremo un fenomeno di adattamento insufficiente, mentre se la distorzione ha valori bassi e la varianza alti avremo un adatteamento eccessivo.\cite{errval}
+Se la distorsione ha valori alti e la varianza bassi avremo un fenomeno di adattamento insufficiente, mentre se la distorsione ha valori bassi e la varianza alti avremo un adatteamento eccessivo.\cite{errval}
 Un modo per equilibrare questo compromesso \`e usare la convalida incrociata (\textit{Cross-Validation}), che consiste nel ripetere l'addestramento e il test dell'algoritmo ogni volta su sottoinsiemi scelti in maniera casuale.\\
 Alcune varianti di convalida incrociata verranno analizzate in seguito.
 
@@ -272,7 +277,7 @@ $$
 \tanh(x)=2 \cdot S(2x)-1
 $$
 ma ha un intervallo di output pi\`{u} ampio, che le consente di produrre anche output di segno negativo. Anche questa funzione \`e monotona e differenziabile.\\
-Purtroppo essendo funzioni limitate, per valori alti tendono ad un valore specifico: $$\lim_{x \to +\infty} \tanh(x)=1$$. Questo comportamento pu\'{o} portare ad una perdita di informazioni: se $x$ corrisoponde ad un valore elevato e subisce una grande variazione, per la funzione invece avr\'{a} subito una variazione minima.\\
+Purtroppo essendo funzioni limitate, per valori alti tendono ad un valore specifico: $$\lim_{x \to +\infty} \tanh(x)=1$$. Questo comportamento pu\`{o} portare ad una perdita di informazioni: se $x$ corrisoponde ad un valore elevato e subisce una grande variazione, per la funzione invece avr\'{a} subito una variazione minima.\\
 Lo stesso problema si presenta con le derivate, provocando la "scomparsa del gradiente"(\textit{vanishing gradient}), fondamentale per approssimare al meglio la funzione; ma questo argomento verr\'{a} affrontato in \ref{back-prop}.
 \subsubsection{ReLu}
 La funzione ReLu (Rectified Linear Unit) \`e la funzione pi\'{u} utilizzata nel deep learning e, in particolare, nelle reti convoluzionali. \`{E} definita:

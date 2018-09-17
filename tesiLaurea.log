@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500) (preloaded format=pdflatex 2018.1.19)  12 SEP 2018 09:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500) (preloaded format=pdflatex 2018.1.19)  17 SEP 2018 12:12
 entering extended mode
 **./tesiLaurea.tex
 (tesiLaurea.tex
@@ -446,118 +446,118 @@ ea.toc)
  [2
 
 ]
-[3]
+[3] [4]
 Capitolo 1.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 61.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 62.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 61.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 62.
 \c@defin=\count135
- [4
+ [5
 
-] [5]
+] [6] [7]
 \c@teo=\count136
- [6] [7]
-Overfull \hbox (4.14668pt too wide) in paragraph at lines 179--184
+ [8]
+Overfull \hbox (4.14668pt too wide) in paragraph at lines 184--189
 \OT1/cmr/m/n/12 me di ad-de-stra-men-to di car-di-na-lita N: $\OML/cmm/m/it/12
  D \OT1/cmr/m/n/12 = [][]$, do-ve $\OML/cmm/m/it/12 y \OT1/cmr/m/n/12 = (\OML/c
 mm/m/it/12 y[]; []  ; y[]\OT1/cmr/m/n/12 )$
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 179--184
+Underfull \hbox (badness 10000) in paragraph at lines 184--189
 
  []
 
-[8] [9]
-Underfull \hbox (badness 10000) in paragraph at lines 210--212
+[9] [10]
+Underfull \hbox (badness 10000) in paragraph at lines 215--217
 
  []
 
-[10pdfTeX warning (ext4): destination with the same identifier (name{equation.1
+[11pdfTeX warning (ext4): destination with the same identifier (name{equation.1
 .2.9}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.221 
-      ] [11]
+l.226 
+      ] [12]
 Capitolo 2.
 
-Underfull \hbox (badness 10000) in paragraph at lines 223--231
+Underfull \hbox (badness 10000) in paragraph at lines 228--236
 
  []
 
-[12
+[13
 
 ]
 File: reteneurale.eps Graphic file (type eps)
 <reteneurale.eps>
 
-Underfull \hbox (badness 10000) in paragraph at lines 241--243
+Underfull \hbox (badness 10000) in paragraph at lines 246--248
 
  []
 
-[13
+[14
 Non-PDF special ignored!]
 File: funzioniAttivazione.eps Graphic file (type eps)
 <funzioniAttivazione.eps>
 
-Overfull \hbox (84.97243pt too wide) in paragraph at lines 255--256
+Overfull \hbox (84.97243pt too wide) in paragraph at lines 260--261
 [][] 
  []
 
-[14
-Non-PDF special ignored!] [15] [16] [17] [18] [19]
+[15
+Non-PDF special ignored!] [16] [17] [18] [19] [20]
 File: vanish.eps Graphic file (type eps)
 <vanish.eps>
- [20
+ [21
 Non-PDF special ignored!pdfTeX warning (ext4): destination with the same identi
 fier (name{equation.2.2.15}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.441 \end{equation}
+l.446 \end{equation}
                     ]
 File: derivataSigmoid.ps Graphic file (type eps)
 <derivataSigmoid.ps>
- [21
+ [22
 Non-PDF special ignored!]pdfTeX warning (ext4): destination with the same ident
 ifier (name{equation.2.2.21}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.459 \begin{equation}
+l.464 \begin{equation}
                       pdfTeX warning (ext4): destination with the same identifi
 er (name{equation.2.2.21}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.459 \begin{equation}
+l.464 \begin{equation}
                       pdfTeX warning (ext4): destination with the same identifi
 er (name{equation.2.2.21}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.459 \begin{equation}
+l.464 \begin{equation}
                       pdfTeX warning (ext4): destination with the same identifi
 er (name{equation.2.2.21}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.459 \begin{equation}
+l.464 \begin{equation}
                       
 File: derivataRelu.eps Graphic file (type eps)
 <derivataRelu.eps>
- [22
+ [23
 Non-PDF special ignored!]
 File: network-neurale.eps Graphic file (type eps)
 <network-neurale.eps>
 
-Overfull \hbox (18.52086pt too wide) in paragraph at lines 472--473
+Overfull \hbox (18.52086pt too wide) in paragraph at lines 477--478
  [][] 
  []
 
-[23
-Non-PDF special ignored!] [24]
-Overfull \hbox (73.83414pt too wide) detected at line 514
+[24
+Non-PDF special ignored!] [25]
+Overfull \hbox (73.83414pt too wide) detected at line 519
 \OT1/cmr/m/n/12 (\OML/cmm/m/it/12 f \OMS/cmsy/m/n/12  \OML/cmm/m/it/12 g\OT1/c
 mr/m/n/12 )(\OML/cmm/m/it/12 t\OT1/cmr/m/n/12 ) := [][] \OML/cmm/m/it/12 f\OT1/
 cmr/m/n/12 (\OML/cmm/m/it/12 \OT1/cmr/m/n/12 )\OML/cmm/m/it/12 g\OT1/cmr/m/n/1
@@ -572,199 +572,199 @@ OML/cmm/m/it/12 z\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 f\OT1/cmr/m/n/12 (\OML/cmm/m
 \OT1/cmr/m/n/12 )
  []
 
-[25]
+[26]
 File: Immagine3D.eps Graphic file (type eps)
 <Immagine3D.eps>
 
-Overfull \hbox (102.84125pt too wide) in paragraph at lines 549--550
+Overfull \hbox (102.84125pt too wide) in paragraph at lines 554--555
  [][] 
  []
 
-[26]
+[27]
 File: CNN.eps Graphic file (type eps)
 <CNN.eps>
- [27
-Non-PDF special ignored!] [28
-Non-PDF special ignored!] [29]
+ [28
+Non-PDF special ignored!] [29
+Non-PDF special ignored!] [30]
 File: finestra.eps Graphic file (type eps)
 <finestra.eps>
 
-Overfull \hbox (42.61624pt too wide) in paragraph at lines 583--584
+Overfull \hbox (42.61624pt too wide) in paragraph at lines 588--589
  [][] 
  []
 
-[30
+[31
 Non-PDF special ignored!]
 File: panoramicaConv.eps Graphic file (type eps)
 <panoramicaConv.eps>
 
-Overfull \hbox (86.78125pt too wide) in paragraph at lines 608--609
+Overfull \hbox (86.78125pt too wide) in paragraph at lines 613--614
  [][] 
  []
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[31] [32
+[32] [33
 Non-PDF special ignored!]
 Capitolo 3.
-[33
+[34
 
-] [34] [35]
+] [35] [36]
 Capitolo 4.
-[36
+[37
 
 ]
 File: flowgraph.eps Graphic file (type eps)
 <flowgraph.eps>
 File: tensori.eps Graphic file (type eps)
 <tensori.eps>
- [37
-Non-PDF special ignored!] [38
+ [38
+Non-PDF special ignored!] [39
 Non-PDF special ignored!]
-Overfull \hbox (18.89929pt too wide) in paragraph at lines 716--717
+Overfull \hbox (18.89929pt too wide) in paragraph at lines 721--722
 [][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (25.94928pt too wide) in paragraph at lines 718--719
-[][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (47.09924pt too wide) in paragraph at lines 721--722
-[][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
 Overfull \hbox (25.94928pt too wide) in paragraph at lines 723--724
-[][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (47.09924pt too wide) in paragraph at lines 730--731
-[][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (40.04926pt too wide) in paragraph at lines 731--732
-[][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (54.14923pt too wide) in paragraph at lines 732--733
-[][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (68.2492pt too wide) in paragraph at lines 733--734
-[][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (32.99927pt too wide) in paragraph at lines 738--739
-[][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (82.34918pt too wide) in paragraph at lines 739--740
-[][][][][][][][][][][][][] 
- []
-
-[39]
-Overfull \hbox (32.99927pt too wide) in paragraph at lines 746--747
-[][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (32.99927pt too wide) in paragraph at lines 747--748
-[][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (18.89929pt too wide) in paragraph at lines 750--751
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (4.79932pt too wide) in paragraph at lines 751--752
-[][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (18.89929pt too wide) in paragraph at lines 764--765
-[][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (25.94928pt too wide) in paragraph at lines 766--767
 [][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (47.09924pt too wide) in paragraph at lines 778--779
+Overfull \hbox (47.09924pt too wide) in paragraph at lines 726--727
+[][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (25.94928pt too wide) in paragraph at lines 728--729
+[][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (47.09924pt too wide) in paragraph at lines 735--736
 [][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (40.04926pt too wide) in paragraph at lines 779--780
+Overfull \hbox (40.04926pt too wide) in paragraph at lines 736--737
 [][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (54.14923pt too wide) in paragraph at lines 780--781
+Overfull \hbox (54.14923pt too wide) in paragraph at lines 737--738
 [][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (47.09924pt too wide) in paragraph at lines 781--782
-[][][][][][][][][][][][][][][][][][][] 
- []
-
-[40]
-Overfull \hbox (25.94928pt too wide) in paragraph at lines 786--787
-[][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (82.34918pt too wide) in paragraph at lines 787--788
-[][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (18.89929pt too wide) in paragraph at lines 795--796
+Overfull \hbox (68.2492pt too wide) in paragraph at lines 738--739
 [][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (18.89929pt too wide) in paragraph at lines 800--801
+Overfull \hbox (32.99927pt too wide) in paragraph at lines 743--744
+[][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (82.34918pt too wide) in paragraph at lines 744--745
+[][][][][][][][][][][][][] 
+ []
+
+[40]
+Overfull \hbox (32.99927pt too wide) in paragraph at lines 751--752
 [][][][][][][][][][][][][][][][] 
  []
 
-[41] (tesiLaurea.bbl
+
+Overfull \hbox (32.99927pt too wide) in paragraph at lines 752--753
+[][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (18.89929pt too wide) in paragraph at lines 755--756
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (4.79932pt too wide) in paragraph at lines 756--757
+[][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (18.89929pt too wide) in paragraph at lines 769--770
+[][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (25.94928pt too wide) in paragraph at lines 771--772
+[][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (47.09924pt too wide) in paragraph at lines 783--784
+[][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (40.04926pt too wide) in paragraph at lines 784--785
+[][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (54.14923pt too wide) in paragraph at lines 785--786
+[][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (47.09924pt too wide) in paragraph at lines 786--787
+[][][][][][][][][][][][][][][][][][][] 
+ []
+
+[41]
+Overfull \hbox (25.94928pt too wide) in paragraph at lines 791--792
+[][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (82.34918pt too wide) in paragraph at lines 792--793
+[][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (18.89929pt too wide) in paragraph at lines 800--801
+[][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (18.89929pt too wide) in paragraph at lines 805--806
+[][][][][][][][][][][][][][][][] 
+ []
+
+[42] (tesiLaurea.bbl
 Underfull \hbox (badness 2486) in paragraph at lines 10--14
 []\OT1/cmr/m/n/12 Shehzad Noor Taus Priyo.  []$\OT1/cmtt/m/n/12 https : / / tow
 ardsdatascience . com /
  []
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 822.
- [42
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 827.
+ [43
 
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 822.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 827.
  (tesiLaurea.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 822.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 822.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 827.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 827.
 Package rerunfilecheck Info: File `tesiLaurea.out' has not changed.
 (rerunfilecheck)             Checksum: 949782A093D32BCD5F66912953FAC93B;1184.
  ) 
 Here is how much of TeX's memory you used:
  9604 strings out of 493312
- 136744 string characters out of 3138893
- 275517 words of memory out of 3000000
- 12725 multiletter control sequences out of 15000+200000
+ 136736 string characters out of 3138893
+ 275518 words of memory out of 3000000
+ 12724 multiletter control sequences out of 15000+200000
  15437 words of font info for 57 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  35i,13n,72p,853b,2016s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -784,9 +784,9 @@ onts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
 1/public/amsfonts/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public
 /amsfonts/cm/cmtt12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfont
 s/symbols/msbm10.pfb>
-Output written on tesiLaurea.pdf (42 pages, 357115 bytes).
+Output written on tesiLaurea.pdf (43 pages, 359335 bytes).
 PDF statistics:
- 654 PDF objects out of 1000 (max. 8388607)
- 274 named destinations out of 1000 (max. 500000)
+ 659 PDF objects out of 1000 (max. 8388607)
+ 275 named destinations out of 1000 (max. 500000)
  145 words of extra memory for PDF output out of 10000 (max. 10000000)
 
