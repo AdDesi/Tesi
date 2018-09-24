@@ -93,7 +93,8 @@ I dataset possono essere di vari tipi:
 \item di prova ( \textit{test set})
 \item di validazione ( \textit{validation set})
 \end{itemize}
-L' \textbf{insieme di addestramento} \`e una parte dell'insieme di dati che vengono utilizzati per addestrare un sistema di apprendimento supervisionato. Da questo insieme, l'algoritmo deve costruire una funzione che capisca, dai parametri, quali caratteristiche descrivono le varie categorie.\\
+L' \textbf{insieme di addestramento} \`e una parte dell'insieme di dati che vengono utilizzati per addestrare un sistema di apprendimento supervisionato.\\
+Da questo insieme, l'algoritmo deve costruire una funzione che capisca, dai parametri, quali caratteristiche descrivono le varie categorie.\\
 L' \textbf{insieme di prova} \`e un insieme di dati che, con l'insieme di addestramento, forma una partizione del dataset di partenza. Questi nuovi dati vengono utilizzati per valutare l'apprendimento dell'algoritmo "addestrato".\\
 L' \textbf{insieme di validazione} \`e usato in maniera analoga all'insieme di prova, ma dei dati inseriti per testare l'algoritmo gi\`{a} si conosce la risposta (una parte di essi pu\`{o} far parte dell'insieme di addestramento) e da questa si valuta se l'output ottenuto \`e ottimale o meno.\\
 Questi tre insiemi possono coesistere e la scelta delle loro cardinalit\`{a} non \`e universale: dipende dal tipo di problema che viene affrontato.\\
@@ -110,7 +111,7 @@ Esso viene detto anche errore di test (\textit{test error}).
 \end{defin}
 Si ipotizza che tutti gli esempi siano eventi indipendenti e che tuti gli insiemi, in cui si partiziona l'insieme di dati, hanno la stessa distribuzione di probabilit\`{a} uniforme.
 \begin{defin}
-Una \textbf{funzione di perdita} (\textit{loss function}) $L(y,\hat{y}):\mathbb{R}^{n} \times \mathbb{R}^{n} \rightarrow \mathbb{R}$ \`e una funzione che misura la distanza (o l'errore) tra i valori di output previsto $\hat{y}$ e i valori effettivi ${y}$.
+Una \textbf{funzione di perdita} (\textit{loss function}) $$L(y,\hat{y}):\mathbb{R}^{n} \times \mathbb{R}^{n} \rightarrow \mathbb{R}$$ \`e una funzione che misura la distanza (o l'errore) tra i valori di output previsto $\hat{y}$ e i valori effettivi ${y}$.
 \end{defin}
 Si possono usare varie misure, ad esempio l'errore quadratico medio(MSE):
 \begin{equation}\label{train-error}
@@ -126,24 +127,25 @@ La struttura generale di un metodo di discesa iterativo di minimizzazione \`e:
 \begin{equation}\label{eq:min}
 x_{k+1}=x_{k}+\beta_{k}d_{k}
 \end{equation}
-dove $x_k$ rappresenta il valore della x al k-esimo passo. Si parte dal valore $x_{0}$ assegnato, $\beta_{k}\in \mathbb{R^{+}}$ \`e il passo e $d_{k}\in \mathbb{R}^{n}$ \`e la direzione lungo la quale ci si muove che, essendo di discesa, sar\`{a} tale che: $(d_{k},\nabla f(x_{k}))<0$. Sia il passo che la direzione vanno scelti opportunamente ad ogni iterazione, in modo che $f(x_{k+1})<f(x_{k})$.\\
+dove $x_k$ rappresenta il valore della x al k-esimo passo. Si parte dal valore $x_{0}$ assegnato, $\beta_{k}\in \mathbb{R^{+}}$ \`e il passo e $d_{k}\in \mathbb{R}^{n}$ \`e la direzione lungo la quale ci si muove che, essendo di discesa, sar\`{a} tale che: $(d_{k},\nabla f(x_{k}))<0$. Sia il passo che la direzione vanno scelti opportunamente ad ogni iterazione, in modo che $$f(x_{k+1})<f(x_{k})$$
 Per ogni passo imponiamo:
 $$f(x_{k}+\beta_{k}d_{k})=\min_{\beta}\{f(x_{k}+\beta d_{k})\}\qquad \qquad (strategia\: \: di\: \: ricerca\: \: esatta)$$
 Mentre per la direzione: $d_{k}=-\nabla f(x_{k})$. La derivata direzionale di $f$ nella direzione $d_{k}$ vale $$\frac{\partial f}{\partial d_{k}}(x_{k})=\frac{(d_{k},\nabla f(x_{k}))}{\parallel d_{k}\parallel}=-\parallel \nabla f(x_{k})\parallel$$ e per la disuguaglianza di Cauchy-Schwartz si ha anche: $$\frac{\mid (d_{k},\nabla f(x_{k}))\mid}{\parallel d_{k}\parallel}\leq \frac{\parallel d_{k} \parallel \parallel \nabla f(x_{k})\parallel}{\parallel d_{k}\parallel}=\parallel \nabla f(x_{k})\parallel$$ che mostra come la direzione di ricerca sia quella in cui la derivata direzionale di $f$ \`e negativa e di modulo massimo.\\
-Le condizioni di arresto del metodo sono: $\parallel x_{k+1}-x{k}\parallel \leq m$, $\parallel \nabla f(x_{k+1})\parallel \leq m\prime$ oppure $k>k_{max}$, dove $m$ e $m\prime$ sono soglie date e $k_{max}$ il numero massimo di iterazioni da effettuare.\\
+Le condizioni di arresto del metodo sono: 
+$$\parallel x_{k+1}-x{k}\parallel \leq m,\qquad \parallel \nabla f(x_{k+1})\parallel \leq m\prime$$ oppure: $$k>k_{max}$$ dove $m$ e $m'$ sono soglie date e $k_{max}$ il numero massimo di iterazioni da effettuare.\\
 I risultati ottenuti sono garantiti dai seguenti teoremi di convergenza:
 \newtheorem{teo}{Teorema}
 \begin{teo}
-Sia $f(x)\in C^{1}$, strettamente convessa sull'insieme $\Sigma_{0}=\{x\in\mathbb{R}^{n}:f(x)\leq f(x_{0})\}$, e la successione $\{x_{k}\}$ sia generata tramite l'algoritmo (\ref{eq:min}). Si supponga
+Sia $f(x)\in C^{1}$, strettamente convessa sull'insieme\\ $\Sigma_{0}=\{x\in\mathbb{R}^{n}:f(x)\leq f(x_{0})\}$, e la successione $\{x_{k}\}$ sia generata tramite l'algoritmo (\ref{eq:min}). Si supponga:
 \begin{enumerate}
 \item che l'insieme $\Sigma_{0}$ sia compatto;
-\item che le direzioni $d_{k}$ siano t.c. $\frac{(d_{k},\nabla f(x_{k}))}{\parallel d_{k}\quad \parallel \parallel \nabla f(x_{k})\parallel}\leq - \cos \theta$ per $k\in \textit{I}$, con $\textit{I}$ insieme illimitato di indici;
+\item che le direzioni $d_{k}$ siano t.c. $\frac{(d_{k},\nabla f(x_{k}))}{\parallel d_{k} \parallel \parallel \nabla f(x_{k})\parallel}\leq - \cos \theta$ per $k\in \textit{I}$, con $\textit{I}$ insieme illimitato di indici;
 \item che per $k\in \textit{I}$, $\beta_{k}$ sia ottenuto tramite ricerca esatta.
 \end{enumerate}
 Allora la successione $\{x_{k}\}$ converge all'unico punto $x^{*}$ di minimo per $f$.
 \end{teo}
 \begin{teo}
-Sia $f(x)\in C^{2}$, strettamente convessa sull'insieme (che si suppone compatto) $\Sigma_{0}=\{x\in\mathbb{R}^{n}:f(x)\leq f(x_{0})\}$, e la successione $\{x_{k}\}$ sia generata tramite l'algoritmo (\ref{eq:min}), con $d_{k}=-\nabla f(x_{k})$.\\
+Sia $f(x)\in C^{2}$, strettamente convessa sull'insieme (che si suppone compatto) $\Sigma_{0}=\{x\in\mathbb{R}^{n}:f(x)\leq f(x_{0})\}$, e la successione $\{x_{k}\}$ sia generata tramite l'algoritmo (\ref{eq:min}) con $d_{k}=-\nabla f(x_{k})$.\\
 Allora, se i passi $\beta_{k}$ sono determinati tramite ricerca esatta, la successione $x_{k}$ converge all'unico punto $x^{*}$ di minimo per f.
 \end{teo}
 Minimizzare l'errore di allenamento non necessariamente comporta l'ottimizzazione di apprendimento dell'algoritmo, potrebbe verificarsi il fenomeno di adattamento insufficiente (\textit{underfitting}) ovvero non si hanno abbastanza dati per creare un modello di predizione accurato. Bisogna quindi valutare anche altri fattori: analizzare l'insieme di prova.\\
@@ -152,13 +154,14 @@ Ricordandoci dell'eq.\ref{train-error} calcoliamo l'errore di prova:
 L(y,\hat{y})_{test}=\frac{1}{n}\sum_{i=1}^{n}(\hat{y}_{(test)}-y_{(test)})_{i}^2
 \end{equation}
 Vorremmo che, con i parametri trovati per minimizzare l'errore di allenamento, anche questo errore sia minimo (l'ottimalit\`{a} \`e 0). Ma come detto in precedenza non sempre questo accade, vorremmo quindi che il divario tra i due errori sia minimo. In caso contrario si verifica il fenomeno di adattamento eccessivo (\textit{overfitting}) del modello all'insieme di dati che descrive, tramite un eccessivo numero di parametri. Il modello quindi non sar\`{a} generalizzabile ad un nuovo insieme di dati.\\
-Consideriamo il valore atteso dell'errore di prova, calcolato prendendo una coppia di punti $(X,Y)$dall'insieme di prova:
+Consideriamo il valore atteso dell'errore di prova, calcolato prendendo una coppia di punti $(X,Y)$ dall'insieme di prova:
 \begin{equation}\label{test}
 \mathbb{E} [L(y,\hat{y})_{test}]=\mathbb{E} [(Y-\hat{y}(X))^{2}]
 \end{equation}
 e definiamo la funzione dell'output effettivo come:
 $$y(X)=\mathbb{E}(Y|X)$$
-la quale avr\`{a} sicuramente un errore, dovuto da qualche interferenza che chiameremo: distorsione stimata (\textit{estimation bias}).\\
+la quale avr\`{a} sicuramente un errore, dovuto da qualche interferenza,\\
+che chiameremo: distorsione stimata (\textit{estimation bias}).\\
 Ma con diversi insiemi di allenamento, possiamo costruire diverse funzioni $\hat{y}$, e anche questo \`e un'altra fonte di errore: la varianza stimata (\textit{estimation variance}). Possiamo quindi scrivere l'output come:
 $$Y=y(X)+\epsilon$$ con $\epsilon$ variabile aleatoria indipendente da $X$ , con $X$ distibuzione normale tale che: $\mathbb{E}[X]=0$ e $Var(X)=\sigma^{2}$.\\
 Possiamo quindi riscrivere l'equazione \ref{test} come:
@@ -176,45 +179,74 @@ Si ottiene cos\'{\i} il compromesso distorsione-varianza (\textit{bias-variance 
 \begin{equation}
 \mathbb{E} [L(y,\hat{y})_{test}]=\sigma^2+Bias(\hat{y}(x))^2 + Var(\hat{y}(x))
 \end{equation}
-Se la distorsione ha valori alti e la varianza bassi avremo un fenomeno di adattamento insufficiente, mentre se la distorsione ha valori bassi e la varianza alti avremo un adatteamento eccessivo.\cite{errval}
+Se la distorsione ha valori alti e la varianza bassi avremo un fenomeno di adattamento insufficiente, mentre se la distorsione ha valori bassi e la varianza alti avremo un adatteamento eccessivo.\cite{errval}\\
 Un modo per equilibrare questo compromesso \`e usare la convalida incrociata (\textit{Cross-Validation}), che consiste nel ripetere l'addestramento e il test dell'algoritmo ogni volta su sottoinsiemi scelti in maniera casuale.\\
 Alcune varianti di convalida incrociata verranno analizzate in seguito.
-
+\newpage
 \section{Apprendimento supervisionato}
 Gli algoritmi di apprendimento supervisionato vengono utilizzati per risolvere problemi di classificazione e di regressione, che analizzeremo rispettivamente nel cap. \ref{classificazione} e nel paragrafo \ref{regressione}.\\
 Si parla di apprendimento supervisionato quando il dataset che si utilizza contiene delle variabili, una delle quali \`e un'etichetta.\\
-Dato un vettore di input $x=(x_{1},\cdots,x_{n})$, ogni $x_{i}$ \`e un vettore d-dimensionale di numeri rappresentanti una caratteristica, da questi dati si costruisce l'insieme di addestramento di cardinalit\'{a} N: $D={\{ (x_{i},y_{i})\}}^{N}_{i=1}$, dove $y=(y_{1},\cdots,y_{m})$ \`e l'output dei risultati desiderati e $y_{i}$ \`e l'etichetta.
+Dato un vettore di input $x=(x_{1},\cdots,x_{n})$ ogni $x_{i}$ \`e un vettore d-dimensionale di numeri rappresentanti una caratteristica, da questi dati si costruisce l'insieme di addestramento di cardinalit\`{a} N: $D={\{ (x_{i},y_{i})\}}^{N}_{i=1}$, dove $y=(y_{1},\cdots,y_{m})$ \`e l'output dei risultati desiderati e $y_{i}$ \`e l'etichetta.
 Lo scopo \`e di apprendere una regola generale che colleghi i dati in ingresso con quelli in uscita, in modo che l'algoritmo apprenda a classificare un esempio completamente nuovo, non contenente l'etichetta.\\
-Se $y_{i}$ \`e di tipo testuale si parla di classificazione, quando invece \`e di tipo numerico si parla di regressione. Se indichiamo con C il numero delle classi a cui pu\'{o} appartenere l'output: $y\in \{1,...,C\}$, se $C=2$ la classificazione sar\'{a} binaria (in questo caso spesso $y\in \{0,1\}$); se $C>2$ sar\'{a} multiclasse.\\
+Se $y_{i}$ \`e di tipo testuale si parla di classificazione, quando invece \`e di tipo numerico si parla di regressione. Se indichiamo con C il numero delle classi a cui pu\`{o} appartenere l'output: $y\in \{1,...,C\}$, se $C=2$ la classificazione sar\`{a} binaria (in questo caso spesso $y\in \{0,1\}$); se $C>2$ sar\'{a} multiclasse.\\
 
 \subsection{Regressione}\label{regressione}
-La Regressione prevede il valore futuro di un dato, avendo noto il suo valore attuale. Un esempio \`e la previsione della quotazione delle valute o delle azioni di una societ\'{a}. Nel marketing viene utilizzato per prevedere il tasso di risposta di una campagna sulla base di un dato profilo di clienti; nell'ambito commerciale per stimare come varia il fatturato dell'azienda al mutare della strategia. Questo avviene costruendo una funzione che meglio si adatta ai
-punti che descrivono la distribuzione delle Y sulle X. 
+La Regressione prevede il valore futuro di un dato, avendo noto il suo valore attuale. Un esempio \`e la previsione della quotazione delle valute o delle azioni di una societ\`{a}. Nel marketing viene utilizzato per prevedere il tasso di risposta di una campagna sulla base di un dato profilo di clienti; nell'ambito commerciale per stimare come varia il fatturato dell'azienda al mutare della strategia. Questo avviene costruendo una funzione che meglio si adatta ai punti che descrivono la distribuzione delle Y, in funzione delle X, precedentemente osservate. Ovvero: osservati n esempi per cui $f(x_i)=y_i$, $\forall i=1,\cdots ,n$ si cerca di prevedere il valore di $\hat{y}$, dato un nuovo valore $\hat{x}$, tramite la stima della funzione $f$.
 \subsubsection{Regressione lineare}
-Preso un vettore $x\in \mathbb{R}^{n}$ in input, l'algoritmo cerca di prevedere l'output: $y\in \mathbb{R}$. Dove $y=f(x)$, con $f$ una funzione lineare:
+Preso un vettore $x\in \mathbb{R}^{n}$ in input, l'algoritmo cerca di prevedere l'output: $y\in \mathbb{R}$. Dove $y=f(x)$ con $f$ una funzione lineare:
 \begin{flushright}
 $y=\alpha+\beta x \qquad \qquad (retta\;di\;regressione)$
 \end{flushright}
 Sia $\hat{y}$ il valore di output che l'algoritmo prevede. Definiamo l'output come:
 $$\hat{y}=\alpha+\beta x+\epsilon$$
 dove $\epsilon$ \`e la componente di errore.\\
-Ora per identificare la retta che meglio si adatta ai punti, che descrivono la distribuzione delle $y$ sulle $x$, bisogna stimare i valori dei parametri $\alpha$ e $\beta$, tramite i dati ossrvati su un esempio.\\
-Usiamo il metodo dei minimi quadrati (\textit{least squares}), che minimizza l'errore $\epsilon$.
+Ora per identificare la retta che meglio si adatta ai punti $P_i(x_i,y_i)$ del sistema cartesiano bidimensionale, bisogna stimare i valori dei parametri $\alpha$ e $\beta$, tramite i dati ossrvati su un esempio.\\
+Usiamo il metodo dei minimi quadrati (\textit{least squares}) che minimizza $\epsilon$.
 \begin{eqnarray}
 \sum_{i=1}^{n}(\hat{y}_{i}-y_{i})^{2}&=&\sum_{i=1}^{n}(\hat{y}_{i}-(\alpha+\beta x_{i}))^{2}\nonumber \\
 &=&\sum_{i=1}^{n}(\hat{y}_{i}-\alpha-\beta x_{i})^{2}=\min \nonumber
 \end{eqnarray}
 Per trovare i valori di $\alpha$ e $\beta$ risolviamo il sistema:
+$$\begin{cases}
+\frac{\partial (\, \sum_{i=1}^{n}(\hat{y}_{i}- \alpha - \beta x_{i})^{2})}{\partial \, \alpha} = 0  \nonumber\\
+\frac{\partial (\, \sum_{i=1}^{n}(\hat{y}_{i}- \alpha - \beta x_{i})^{2})}{\partial \, \beta} = 0 \nonumber
+\end{cases} {\LARGE \Longrightarrow} \quad
+\begin{cases}
+-2\sum_{i=1}^{n}(\hat{y}_{i}- \alpha - \beta x_{i})=0 \nonumber\\
+-2\sum_{i=1}^{n}(\hat{y}_{i}- \alpha - \beta x_{i})x_{i}=0 \nonumber
+\end{cases}$$ 
+$\Longrightarrow 
+\begin{cases}
+\sum_{i=1}^{n}\hat{y}_{i} - n\alpha - \beta \sum_{i=1}^{n} x_{i}=0 \nonumber\\
+\sum_{i=1}^{n}x_{i}\hat{y}_{i}- \alpha \sum_{i=1}^{n} x_i - \beta \sum_{i=1}^{n}x_{i}^2=0 \nonumber
+\end{cases}$\\
+\\
+Ponendo $\bar{y}=\mathbb{E}[\hat{y}]=\frac{\sum_{i=1}^{n}\hat{y}_i}{n}$, si ottiene:
 \begin{empheq}[left=\empheqlbrace]{align}
-\frac{d (\, \sum_{i=1}^{n}(\hat{y}_{i}- \alpha - \beta x_{i})^{2})}{d \, \alpha} = 0 \label{a} \\
-\frac{d (\, \sum_{i=1}^{n}(\hat{y}_{i}- \alpha - \beta x_{i})^{2})}{d \, \beta} = 0 \label{b}
+&\bar{y} - \alpha - \beta \bar{x}=0 \label{eqa}\\
+&\sum_{i=1}^{n}x_{i}\hat{y}_{i}- \alpha n \bar{x} - \beta \sum_{i=1}^{n}x_{i}^2=0 \label{eqb}
 \end{empheq}
-Dalla (\ref{a}) otteniamo:
-$$\alpha=\mathbb{E}[y]-\beta \mathbb{E}[x]$$
-e dalla (\ref{b}):
-$$\beta=\frac{\sum_{i=1}^{n}(x_{i}-\mathbb{E}[x])(y_{i}-\mathbb{E}[y])}{\sum_{i=1}^{n}(x_{i}-\mathbb{E}[x])^2}=\frac{Cov(x,y)}{Var(x)}$$
-ottenendo cos\'{\i} valori dei parametri che cercavamo.\\
 
+Dall'eq \ref{eqa} si ricava $\alpha=\bar{y}-\beta \bar{x}$, che sostituata nella \ref{eqb} si ottiene:
+\begin{eqnarray}
+\sum_{i=1}^{n}x_{i}\hat{y}_{i}- (\bar{y}-\beta \bar{x}) n \bar{x} - \beta \sum_{i=1}^{n}x_{i}^2&=&\sum_{i=1}^{n}x_{i}\hat{y}_{i}- n \bar{x} \bar{y}+n \beta \bar{x}^2 - \beta \sum_{i=1}^{n}x_{i}^2=\nonumber \\
+&= &\frac{\sum_{i=1}^{n}x_{i}\hat{y}_{i}}{n}- \bar{x} \bar{y}+\beta (\bar{x}^2 -\frac{ \sum_{i=1}^{n}x_{i}^2}{n})=0 \nonumber
+\end{eqnarray}
+da cui si ottiene:
+\begin{equation}\label{eqbeta}
+\beta=\frac{\frac{\sum_{i=1}^{n}x_i \hat{y}}{n}-\bar{x}\bar{y}}{\frac{\sum_{i=1}^{n}x_{i}^2}{n}-\bar{x}^2}
+\end{equation}
+ricordando le definizioni di Covarianza e Varianza: 
+\begin{eqnarray}
+Cov(x,y)&=&\mathbb{E}[x,y]-\mathbb{E}[x]\\
+Var(x)&=&\mathbb{E}[x^2]-\mathbb{E}[x]^2
+\end{eqnarray}
+sostituendole nell'eq \ref{eqbeta},si ricava $\beta$, quindi i parametri che si cercavano per $\alpha$ e $\beta$ sono:
+\begin{eqnarray}
+\alpha &=&\mathbb{E}[y]-\beta \mathbb{E}[x]\\
+\beta &=&\frac{Cov(x,y)}{Var(x)}
+\end{eqnarray}
+oppure $\beta=\frac{Cov(x,y)}{\sigma^2)}$, dove $\sigma=\sqrt{Var(x)}$ \`e la deviazione standard.
 
 \section{Apprendimento non supervisionato}
 Gli algoritmi di apprendimento non supervisionato vengono utilizzati per risolvere problemi di raggruppamento.
