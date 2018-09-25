@@ -238,23 +238,120 @@ da cui si ottiene:
 \end{equation}
 ricordando le definizioni di Covarianza e Varianza: 
 \begin{eqnarray}
-Cov(x,y)&=&\mathbb{E}[x,y]-\mathbb{E}[x]\\
-Var(x)&=&\mathbb{E}[x^2]-\mathbb{E}[x]^2
+Cov(x,y)&=&\mathbb{E}[xy]-\mathbb{E}[x] \mathbb{E}[y]\\
+Var(x)&=&\mathbb{E}[x^2]-(\mathbb{E}[x])^2
 \end{eqnarray}
-sostituendole nell'eq \ref{eqbeta},si ricava $\beta$, quindi i parametri che si cercavano per $\alpha$ e $\beta$ sono:
+sostituendole nell'eq \ref{eqbeta}, si ricava $\beta$, quindi i parametri che si cercavano per $\alpha$ e $\beta$ sono:
 \begin{eqnarray}
-\alpha &=&\mathbb{E}[y]-\beta \mathbb{E}[x]\\
-\beta &=&\frac{Cov(x,y)}{Var(x)}
+\alpha &=&\mathbb{E}[\hat{y}]-\beta \mathbb{E}[x]\\
+\beta &=&\frac{Cov(x,\hat{y})}{Var(x)}
 \end{eqnarray}
-oppure $\beta=\frac{Cov(x,y)}{\sigma^2)}$, dove $\sigma=\sqrt{Var(x)}$ \`e la deviazione standard.
+oppure $\beta=\frac{Cov(x,\hat{y})}{\sigma^2}$, dove $\sigma=\sqrt{Var(x)}$ \`e la deviazione standard.
 
 \section{Apprendimento non supervisionato}
 Gli algoritmi di apprendimento non supervisionato vengono utilizzati per risolvere problemi di raggruppamento.
-All'algoritmo viene passato solo l'input: $D={\{ x_{i}\}}^{N}_{i=1}$ e cerca una relazione tra i dati per capire se e come essi siano collegati tra di loro. Non contenendo alcuna informazione preimpostata, l'algoritmo \`e chiamato a creare una "nuova conoscenza" (\textit{knowledge discovery}). A differenza del caso supervisionato, questo apprendimento non ha una classificazione o un risultato finale con il quale determinare se il risultato \`e attendibile, ma generalizza le caratteristiche dei dati e in base ad esse attribuisce ad un input un output: serve generalmente ad estrarre informazioni non ancora note, "creando" esso stesso delle classi in cui dividere i dati. Questa tecnica si chiama \textit{clustering}.
+All'algoritmo viene passato solo l'input: $D={\{ x_{i}\}}^{N}_{i=1}$ e cerca una relazione tra i dati per capire se e come essi siano collegati tra di loro. Non contenendo alcuna informazione preimpostata, l'algoritmo \`e chiamato a creare una "nuova conoscenza" (\textit{knowledge discovery}). A differenza del caso supervisionato, questo apprendimento non ha una classificazione o un risultato finale con il quale determinare se il risultato \`e attendibile, ma generalizza le caratteristiche dei dati e in base ad esse attribuisce ad un input un output: serve generalmente ad estrarre informazioni non ancora note, "creando" esso stesso delle classi in cui dividere i dati, dette \textit{cluster}, da cui prende il nome la tecnica di \textit{clustering}. Si definisce una misura di similarit\`{a} che se applicata ad un insieme di esempi, descritti da una serie di attributi, partiziona l'insieme in cluster, dove gli esempi appertenenti allo stesso cluster sono simili, mentre esempi appartenenti a cluster differenti sono dissimili. Il problema dela tecnica di clustering \`e trovare la caratteristica per cui si vuole raggruppare l'insieme e trovare una misura a lei adatta.\\
+Solitamente questa misura viene detta distanza e le distanze pi\`{u} utilizzate sono la distanza euclidea e la distanza di Hamming. Una volta definita questa distanza $ d:\mathbb{R} \times \mathbb{R} \rightarrow \mathbb{R} $, si definisce la distanza di similarit\`{a} che descrive la distanza, non tra due esempi ma, tra due classi ed esistono vari metodi per calcolarla. Se si indicano con:
+\begin{itemize}
+\item  $x,y,z,\ldots ,x_i,x_j, \ldots $ i punti;
+\item $d(x,y)$ la distanza tra due punti $x$ e $y$;
+\item $C_{xy}$ la classe ottenuta dal raggruppamento di $x$ e $y$.
+\end{itemize}
+si possono definire i seguenti metodi per il calcolo della distanza di\\ similarit\`{a} $D:C_i\times C_j \rightarrow \mathbb{R}$
+\begin{itemize}
+\item Metodo della distanza minima (\textit{single linkage}):\\
+calcola la distanza minima tra ogni punto di $C_i$ e ogni punto di $C_j$.$$D(C_i,C_j)=\min_{x\in C_i,y\in C_j}d(x,y)$$
+\item Metodo della distanza massima (\textit{complete linkage}):\\
+calcola la distanza massima tra ogni punto di $C_i$ e ogni punto di $C_j$.
+$$D(C_i,C_j)=\max_{x\in C_i,y\in C_j}d(x,y)$$
+\item Metodo della distanza media (\textit{average linkage}):
+calcola la media aritmetica delle distanze tra ogni punto di $C_i$ e ogni punto di $C_j$. $$D(C_i,C_j)=\frac{1}{|C_i||C_j|}\sum_{x\in C_i,y\in C_j}d(x,y)$$
+\item Metodo dei centroidi:
+calcola la distanza tra i rispettivi "centroidi" o baricentri di $C_i$ e $C_j$. $$D(C_i,C_j)=d(\hat{c_i},\hat{c_j})$$
+\end{itemize}
+Questi sono solo alcuni dei metodi che si possono utilizzare per calcolare la distanza: a volte la si misura solo all'interno della stessa classe. Questo dipende dal tipo di clustering che si sta utilizzando, senza andare troppo nello specifico, si presentano brevemente i metodi di Clustering principali:\cite{clustering}
+\begin{itemize}
+\item \textit{density-based}: il raggruppamento avviene analizzando l'intorno di ogni punto dello spazio. In particolare, viene considerata la densità di punti in un intorno di raggio fissato.
+\item gerarchici (\textit{hierarchical based}):  formano una struttura di tipo albero basata sulla gerarchia. I nuovi cluster si formano da quelli gi\`{a} precedentemente formati. Sono divisi in due categorie: agglomerativi e divisivi;
+\item partizionali (\textit{partitioning}): suddividono gli esempi dati in k cluster e ogni partizione dell'insieme rappresenta un claster. 
+\item \textit{grid-based}: lo spazio dati viene partizionato in un numero finito di celle che formano una struttura a griglia ed in ogni cella cerca i vari tipi di cluster. 
+\end{itemize}
+\textbf{Esempio: Algoritmo K-means}\\
+Un esempio di clustering partizionale \`e l'algoritmo \textit{K-means}.\\
+Dato un insieme di n esempi: $x_1,\ldots,x_n$, un numero k t.c.$n,k\in \mathbb{N}$, una misura di distanza e un criterio di stop, l'algoritmo seleziona k esempi tra gli n totali e li considera come centroidi iniziali: chiameremo $C_k$ l'insieme dei cluster formati da questi esempi. Ora fino a che non si verifica il criterio di arresto, l'algoritmo analizza gli esempi restanti dell'insieme e li assegna al cluster con centroide \`e pi\`{u} vicino :  $$x_i\in C_j \qquad se \quad  d(x_i,\hat{c}_j)=\min_{\hat{c}_k \in C_k} d(x_i,\hat{c}_{k}),\quad i=1,\ldots,n-k$$ Una volta che l'esempio $x_i$ viene aggiunto al cluster $C_j$, si calcola il valore medio di tutti i suoi elementi, ovvero ricalcola il centroide e aggiorna il nuovo valore. Iterando questa procedura per tutti gli elementi dell'insieme, l'algoritmo partiziona tutto l'insieme in k cluster.
 
 \section{Apprendimento per rinforzo}
 Gli algoritmi di apprendimento per rinforzo vengono utilizzati per risolvere problemi di regressione.
-Lo scopo di questo algoritmo \`e di realizzare un sistema in grado di apprendere ed adattarsi ai cambiamenti dell'ambiente in cui si trovano, attraverso la distribuzione di una "ricompensa" detta rinforzo, data dalla valutazione delle prestazioni. Questi algoritmi sono costruiti sull'idea che i risultati corretti dovrebbero essere ricordati, per mezzo di un segnale di rinforzo, in modo che diventino pi\'{u} probabili e quindi pi\'{u} facilmente riottenuti nelle volte future; viceversa se il rusultato \`e errato , il segnale sar\'{a} una penalit\'{a}, ovvero si avr\'{a} una probabilit\'{a} pi\'{u} bassa legata a quel determinato output.\cite{rinforzo}
+Lo scopo di questo algoritmo \`e di realizzare un sistema in grado di apprendere ed adattarsi ai cambiamenti dell'ambiente in cui si trovano, attraverso la distribuzione di una "ricompensa" detta rinforzo, data dalla valutazione delle prestazioni. Questi algoritmi sono costruiti sull'idea che i risultati corretti dovrebbero essere ricordati, per mezzo di un segnale di rinforzo, in modo che diventino pi\`{u} probabili e quindi pi\`{u} facilmente riottenuti nelle volte future; viceversa se il rusultato \`e errato , il segnale sar\`{a} una penalit\`{a}, ovvero si avr\`{a} una probabilit\`{a} pi\`{u} bassa legata a quel determinato output.\cite{rinforzo} Vediamo brevemente in che consiste un aprrendimento di questo tipo.\\
+Si consideri un Agente in un ambiente, con Agente si intende un programma progettato per attuare un sistema sensoriale S che, interagendo con l'ambiente, fornisce informazioni al sistema decisionale D. Questo sistema D, sulla base degli ingressi, decide come agire sull'ambiente. Infine un Agente \`e anche dotato di un sistema attuativo A che traduce le decisioni di D in azioni sull'ambiente. Nell'apprendimento per rinforzo si assume, di solito, che l'ambiente possa essere descritto da un Processo di Decisione Markoviano (\textit{Markov Decision Process} o MDP).
+\newpage
+\begin{defin}
+Un Processo di Decisione Markoviano \`e formalmente definito da:
+\begin{itemize}
+\item un insieme finito di stati S;
+\item un insieme finito di azioni A;
+\item una funzione di transizione $T:S\times A \rightarrow \Pi (S)$ che assegna ad ogni coppia stato-azione una distribuzione di probabilit\`{a} su S;
+\item una funzione di rinforzo $R:S\times A \times S \rightarrow \mathbb{R}$ che assegna un valore numerico ad ogni possibile transizione.
+\end{itemize}
+dove ad ogni istante discreto t l'agente percepisce l'ambiente come $s_t \in S$ e sceglie l'azione $a_t \in A$, in base alla quale riceve una ricompensa $r_t$ e il nuovo stato corrente diventa $s_{t+1}$, entrambi questi parametri dipendono solo dallo stato corrente e dall'azione intrapresa:
+$$s_{t+1}=\delta (s_t,a_t)\qquad \qquad e \qquad \qquad r_t=r(s_t,a_t)$$
+\end{defin}
+L'agente esegue le azioni nell'ambiente, e cerca di massimizzare la funzione di rinforzo atteso: $$\mathbb{E} [\sum_{i=0}^{\infty}\gamma^i r_{t+i}] \qquad con \quad 0 \leq \gamma <1$$ 
+dove $\gamma$ \`e il tasso di sconto per ricompense future.\\
+Massimizzando questa funzione si dice che l'agente apprende una politica (o strategia):
+$$\pi :S\times A \rightarrow \mathbb{R}$$
+ovvero: cerca di stimare la funzione che associa ogni coppia stato-azione $(s,a)$ con la probabilit\`{a} che l'azione a possa essere effettuata nello stato s. Con questo comportamento l'algoritmo individua le azioni da effettuare in dipendenza dallo stato corrente in cui si trova. Esistono varie strategie per ricercare la politica da attuare, ma non verranno approfondite.
+
+\chapter{Classificazione}\label{classificazione}
+La Classificazione viene usata quando \`e necessario decidere a quale categoria appartiene un determinato dato.Per esempio, data una foto capire a quale categoria appartiene, in questa tesi vogliamo classificare immagini, pi\'{u} precisamente: capire a quale tipo di monumento corrispone una determinata immagine.\\ 
+Questo tipo di algoritmo deve specificare a quale delle k categorie appartiene un input. Crea una funzione $f:\mathbb{R}^{n} \rightarrow \{ 1,\cdots,k\}$, quando $y=f(x)$, il modello assegna l'input descritto dal vettore $x$ ad una categoria identificata dal codice numerico $y$.\\
+Esistono altre varianti dell'attivit\'{a} di classificazione, ad esempio, dove $f$ genera una distribuzione di probabilit\'{a} su classi.\\
+Vediamo ora qualcuno degli algoritmi usati per classificare dati.
+\section{K-Nearest Neighbor}\label{knn}
+Questo \`e un algoritmo non parametrico, ovvero il numero di parametri cresce con la quantit\'{a} di dati di addestramento.
+Dato un set di dati di addestramento $(x_1,x_2,\cdots,x_n)$, corrispondenti ai risultati $(y_1,y_2,\cdots,y_n)$, questo metodo ,dato un nuovo punto $z$, cerca di prevedere la sua classe di appartenenza osservando, tra l'insieme di punti adiacenti, quelli a lui pi\`{u} vicini. Il numero di punti adiacenti da considerare dipende dal parametro $k$: si osservano le classi a cui appartengono i $k$ punti pi\'{u} vicini e la classe pi\'{u} ricorrente sar\`{a} assegnata al punto $z$.\\ 
+Si supponi di avere un set di dati che comprende $N_k$ punti appartenenti alla classe $C_k$ con $N$ punti in totale, ovvero: $\sum_{k}N_k = N$. Se si vuole classificare un nuovo punto $x$, si disegna una sfera centrata in $x$ contenente  K punti qualsiasi, indipendentemente da come siano classificati.\\
+Si vuole ora calcolare la funzione di probabilit\`{a} di $x$ che (essendo in un caso di classificazione i valori sono discreti) sar\`{a} la densit\`{a} discreta:
+\begin{equation}\label{dens}
+P=\int_R p(x) dx
+\end{equation}
+Si supponeni ora di aver raccolto un set di dati comprendente N osservazioni, ognuna con probabilit\'{a} uniforme $p(x)$ di essere all'interno della regione R, quindi la probabilt\'{a} di avere K punti all'interno di R sar\'{a} data dalla distribuzione binomiale:
+\begin{equation} \label{binomiale}
+P(X=K)=\frac{N!}{K!(N-K)!}P^K (1-P)^N-K,
+\end{equation} 
+dove il valore atteso e la varianza sono date da:
+\begin{equation}
+\mathbb{E}[K]=NP \qquad \qquad Var[K]=NP(1-P)
+\end{equation}
+Per N grandi, si applica il Teorema di De Moivre-Laplace alla eq.\ref{binomiale} e si nota che la distribuzione binomiale si comporta come una distribuzione normale, con stessa media e varianza della binomiale, perci\`{o} possiamo assumere:
+\begin{equation} \label{eqbin1}
+K\simeq NP
+\end{equation}
+Ora se la regione R \`{e} sufficientemente piccola e la densit\`{a} di probabilit\`{a} $p(x)$ \`{e} approssimativamente costante in R, dall'eq \ref{dens} si ottiene:
+\begin{equation} \label{eqbin2}
+P\simeq p(x)V
+\end{equation}
+dove V \`{e} il volume della sfera R.\\
+Combinando le eq. \ref{eqbin1} e \ref{eqbin2} otteniamo:
+\begin{equation}
+p(x)=\frac{K}{NV}
+\end{equation}
+che fornisce le seguenti stime:
+\begin{eqnarray}
+p(x|C_k)&=&\frac{K_k}{N_k V}\\
+p(x)&=&\frac{K}{NV}\\
+p(C_k)&=&\frac{N_k}{N}
+\end{eqnarray}
+quindi la formula del Teorema di Bayes diventa:
+\begin{equation}
+p(C_k|x)=\frac{p(x| C_k)p(C_k)}{p(x)}=\frac{K_k}{K}
+\end{equation} 
+Per minimizzare la probabilit\`{a} di errore di classificazione, bisogna assegnare al nuovo punto $x$ la classe con probabilit\`{a} pi\`{u} alta, ovvero quando il valore di $\frac{K_k}{K}$ \`{e} massimo.\\
+L'obiettivo del metodo \`{e} quindi chiaro: per classificare un nuovo punto, si identificano i K punti pi\`{u} vicini all'insieme di allenamento e si assegna al nuovo punto la classe che ha il maggior numero di rappresentanti tra i K punti considerati.\\
+Rimane solo la scelta della metrica da usare per calcolare la distanza tra i punti, solitamente viene usata la distanza Euclidea, ma questo dipende dal problema e dalla tipologia del dato da analizzare.\\
+Lo svantaggio di questo algortimo \`{e} chiaro: il numero di distanze da calcolare aumenta con l'aumentare dell'insieme di addestramento. Oltre a rallentare il tempo di calcolo, si usa anche una considerevole quantit\`{a} di memoria. Per ovviare a questo: si divide l'insieme di allenamento in sottoinsiemi di cardinalit\`{a} $n$, dove $n$ di solito \`{e} un divisore della cardinalit\`{a} dell'insieme totale e prende il nome di \textit{batch size}.\\ Diminuendo il numero di dati per l'addestramento, i calcoli e la memoria necessari diminuiscono notevolmente, in quanto i paragoni e i dati significativi da mantenere sono minori.
+
+
 
 \chapter{Reti neurali artificiali}
 Le reti neurali sono i modelli di deep learning per eccellenza. Sono un sistema di elaborazione di informazioni ispirato al funzionamento del sistema nervoso umano.\\
@@ -296,21 +393,22 @@ Generalmente le reti neurali sono utilizzate per implementare funzioni complesse
 \subsubsection{Sigmoid}
 La funzione Sigmoid viene usata sopratutto nei modelli in cui si deve prevedere la probabilit\`{a} come output, poich\'{e} il suo codominio \`e l'intervallo: $(0,1)$ ed \`e definita come:
 $$S:\mathbb{R}\longrightarrow(0,1)$$
-$$S(x)=\frac{1}{1+\exp^{-x}}$$
+$$S(x)=\frac{1}{1+e^{-x}}$$
 La Sigmoid \`e una funzione monotona e differenziabile, infatti la sua derivata:
-$$\frac{dS}{dx}=\frac{\exp^{-x}}{(1+\exp^{-x})^2}$$
+$$\frac{dS}{dx}=\frac{e^{-x}}{(1+e^{-x})^2}$$
 \`e continua, positiva e derivabile in  ogni punto del dominio.
 \newpage
 \subsubsection{tanh}
 La funzione tangente iperbolica \`e definita come: $$\tanh:\mathbb{R}\longrightarrow(-1,1)$$ 
-$$ \tanh(x)=\frac{2}{1+\exp^{-2x}} - 1$$ 
+$$ \tanh(x)=\frac{2}{1+e^{-2x}} - 1$$ 
 \`e simile alla Sigmoide, infatti sono legate dalla relazione:
 $$
 \tanh(x)=2 \cdot S(2x)-1
 $$
 ma ha un intervallo di output pi\`{u} ampio, che le consente di produrre anche output di segno negativo. Anche questa funzione \`e monotona e differenziabile.\\
-Purtroppo essendo funzioni limitate, per valori alti tendono ad un valore specifico: $$\lim_{x \to +\infty} \tanh(x)=1$$. Questo comportamento pu\`{o} portare ad una perdita di informazioni: se $x$ corrisoponde ad un valore elevato e subisce una grande variazione, per la funzione invece avr\'{a} subito una variazione minima.\\
-Lo stesso problema si presenta con le derivate, provocando la "scomparsa del gradiente"(\textit{vanishing gradient}), fondamentale per approssimare al meglio la funzione; ma questo argomento verr\'{a} affrontato in \ref{back-prop}.
+Purtroppo essendo funzioni limitate, per valori alti tendono ad un valore specifico: $$\lim_{x \to +\infty} \tanh(x)=1$$
+Questo comportamento pu\`{o} portare ad una perdita di informazioni: se $x$ corrisoponde ad un valore elevato e subisce una grande variazione, per la funzione invece avr\`{a} subito una variazione minima.\\
+Lo stesso problema si presenta con le derivate, provocando la "scomparsa del gradiente"(\textit{vanishing gradient}), fondamentale per approssimare al meglio la funzione; ma questo argomento verr\`{a} affrontato in \ref{back-prop}.
 \subsubsection{ReLu}
 La funzione ReLu (Rectified Linear Unit) \`e la funzione pi\'{u} utilizzata nel deep learning e, in particolare, nelle reti convoluzionali. \`{E} definita:
 $$Relu:\mathbb{R}\longrightarrow [0,\infty)$$
@@ -354,9 +452,10 @@ L'algoritmo appena descritto a parole prende il nome di \textit{back propagation
 Si consideri una rete neuronale composta da L strati, dove l'output \`e composto da un valore solamente.
 L'algoritmo di back propagation si divide in due fasi:
 \begin{itemize}
-\item propagazione in avanti
-\item propagazione all'indietro
+\item propagazione in avanti (\textit{forward propagation});
+\item propagazione all'indietro (\textit{backward propagation})
 \end{itemize}
+\textbf{Forward propagation}
 Durante la propagazione in avanti, si calcolano tutti i valori dei nodi presenti nella rete $a_{i}^k$:
 \begin{equation}\label{eqbp0}
 a_{i}^{k}=b_{i}^{k}+\sum_{j=1}^{r_{k-1}} w_{ji}^{k}\cdot o_{j}^{k-1}
@@ -368,7 +467,9 @@ dove:
 \item $o_{i}^{k}$ \`e l'output del nodo i nel k-esimo strato;
 \item $r_k$ \`e il numero di nodi presenti nel k-esimo strato.
 \end{itemize}
-Calcolato l'ultimo valore $a^{L}$, corrispondente all'output della rete, inizia la seconda fase. Per calcolare il gradiente della funzione di perdita $L[y,f(x,\theta)]$, si applica la regola della catena per il calcolo e poich\'{e} $\theta = (W^1,W^2,\cdots ,W^{L-1})$, abbiamo:
+Calcolato l'ultimo valore $a^{L}$, corrispondente all'output della rete, si esamina l'errore di allenamento tramite la funzione di perdita. Per minimizzare l'errore, basta minimizzare la funzione di perdita, questa operazione sancisce l'inizio della seconda fase: la backward propagation.\\
+\textbf{backward propagation}
+Per ottenere il minimo di una funzione bisogna vedere dove si annulla la sua derivata prima. Trattandosi di una funzione a più variabili, si dovr\`{a} calcolare il gradiente della funzione di perdita: $L[y,f(x,\theta)]$, per farlo  si applica la regola della catena per il calcolo e poich\'{e} $\theta = (W^1,W^2,\cdots ,W^{L-1})$, abbiamo:
 \begin{equation}\label{eqbp1}
 \frac{\partial L}{\partial w_{ij}^k}=\frac{\partial L}{\partial a_j^k}\frac{\partial a_j^k}{\partial w_{ij}^k}.
 \end{equation}
@@ -648,54 +749,7 @@ Alternando ripetutamente queste due tipologie di strati, si arriva ad una config
 
 
 
-\chapter{Classificazione}\label{classificazione}
-La Classificazione viene usata quando \`e necessario decidere a quale categoria appartiene un determinato dato.Per esempio, data una foto capire a quale categoria appartiene, in questa tesi vogliamo classificare immagini, pi\'{u} precisamente: capire a quale tipo di monumento corrispone una determinata immagine.\\ 
-Questo tipo di algoritmo deve specificare a quale delle k categorie appartiene un input. Crea una funzione $f:\mathbb{R}^{n} \rightarrow \{ 1,\cdots,k\}$, quando $y=f(x)$, il modello assegna l'input descritto dal vettore $x$ ad una categoria identificata dal codice numerico $y$.\\
-Esistono altre varianti dell'attivit\'{a} di classificazione, ad esempio, dove $f$ genera una distribuzione di probabilit\'{a} su classi.\\
-Vediamo ora qualcuno degli algoritmi usati per classificare dati.
-\section{K-Nearest Neighbor}\label{knn}
-Questo \`e un algoritmo non parametrico, ovvero il numero di parametri cresce con la quantit\'{a} di dati di addestramento.
-Dato un set di dati di addestramento $(x_1,x_2,\cdots,x_n)$, corrispondenti ai risultati $(y_1,y_2,\cdots,y_n)$, questo metodo ,dato un nuovo punto $z$, cerca di prevedere la sua classe di appartenenza osservando, tra l'insieme di punti adiacenti, quelli a lui pi\`{u} vicini. Il numero di punti adiacenti da considerare dipende dal parametro $k$: si osservano le classi a cui appartengono i $k$ punti pi\'{u} vicini e la classe pi\'{u} ricorrente sar\`{a} assegnata al punto $z$.\\ 
-Si supponi di avere un set di dati che comprende $N_k$ punti appartenenti alla classe $C_k$ con $N$ punti in totale, ovvero: $\sum_{k}N_k = N$. Se si vuole classificare un nuovo punto $x$, si disegna una sfera centrata in $x$ contenente  K punti qualsiasi, indipendentemente da come siano classificati.\\
-Si vuole ora calcolare la funzione di probabilit\`{a} di $x$ che (essendo in un caso di classificazione i valori sono discreti) sar\`{a} la densit\`{a} discreta:
-\begin{equation}\label{dens}
-P=\int_R p(x) dx
-\end{equation}
-Si supponeni ora di aver raccolto un set di dati comprendente N osservazioni, ognuna con probabilit\'{a} uniforme $p(x)$ di essere all'interno della regione R, quindi la probabilt\'{a} di avere K punti all'interno di R sar\'{a} data dalla distribuzione binomiale:
-\begin{equation} \label{binomiale}
-P(X=K)=\frac{N!}{K!(N-K)!}P^K (1-P)^N-K,
-\end{equation} 
-dove il valore atteso e la varianza sono date da:
-\begin{equation}
-\mathbb{E}[K]=NP \qquad \qquad Var[K]=NP(1-P)
-\end{equation}
-Per N grandi, si applica il Teorema di De Moivre-Laplace alla eq.\ref{binomiale} e si nota che la distribuzione binomiale si comporta come una distribuzione normale, con stessa media e varianza della binomiale, perci\`{o} possiamo assumere:
-\begin{equation} \label{eqbin1}
-K\simeq NP
-\end{equation}
-Ora se la regione R \`{e} sufficientemente piccola e la densit\`{a} di probabilit\`{a} $p(x)$ \`{e} approssimativamente costante in R, dall'eq \ref{dens} si ottiene:
-\begin{equation} \label{eqbin2}
-P\simeq p(x)V
-\end{equation}
-dove V \`{e} il volume della sfera R.\\
-Combinando le eq. \ref{eqbin1} e \ref{eqbin2} otteniamo:
-\begin{equation}
-p(x)=\frac{K}{NV}
-\end{equation}
-che fornisce le seguenti stime:
-\begin{eqnarray}
-p(x|C_k)&=&\frac{K_k}{N_k V}\\
-p(x)&=&\frac{K}{NV}\\
-p(C_k)&=&\frac{N_k}{N}
-\end{eqnarray}
-quindi la formula del Teorema di Bayes diventa:%segnarsi da qualche parte la dimostrazione
-\begin{equation}
-p(C_k|r x)=\frac{p(x| C_k)p(C_k)}{p(x)}=\frac{K_k}{K}
-\end{equation} 
-Per minimizzare la probabilit\`{a} di errore di classificazione, bisogna assegnare al nuovo punto $x$ la classe con probabilit\`{a} pi\`{u} alta, ovvero quando il valore di $\frac{K_k}{K}$ \`{e} massimo.\\
-L'obiettivo del metodo \`{e} quindi chiaro: per classificare un nuovo punto, si identificano i K punti pi\`{u} vicini all'insieme di allenamento e si assegna al nuovo punto la classe che ha il maggior numero di rappresentanti tra i K punti considerati.\\
-Rimane solo la scelta della metrica da usare per calcolare la distanza tra i punti, solitamente viene usata la distanza Euclidea, ma questo dipende dal problema e dalla tipologia del dato da analizzare.\\
-Lo svantaggio di questo algortimo \`{e} chiaro: il numero di distanze da calcolare aumenta con l'aumentare dell'insieme di addestramento. Oltre a rallentare il tempo di calcolo, si usa anche una considerevole quantit\`{a} di memoria. Per ovviare a questo: si divide l'insieme di allenamento in sottoinsiemi di cardinalit\`{a} $n$, dove $n$ di solito \`{e} un divisore della cardinalit\`{a} dell'insieme totale e prende il nome di \textit{batch size}.\\ Diminuendo il numero di dati per l'addestramento, i calcoli e la memoria necessari diminuiscono notevolmente, in quanto i paragoni e i dati significativi da mantenere sono minori.%inserire conlcusione vantaggi e svantaggi fatta bene e foto che chisrisce il metodo 
+
 
 
 \chapter{TensorFlow}
@@ -744,8 +798,12 @@ I principali tipi di tensori sono:
 \newpage
 \section*{Classificazione}
 Di seguito viene riportato un esempio di codice per la classificazione di numeri scritti a mano estratti dal dataset di MNIST. L'algoritmo utilizzato \`{e} dei K-nearest neighbour,in due versioni: la prima non utilizza il batch size mentre la seconda si.\\
+
+
+
+
 \textbf{Classificazione con k=5}
-\begin{lstlisting}[language={Python},tabsize=2]
+\begin{lstlisting}[language={Python},tabsize=2,basicstyle=\footnotesize]
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
@@ -793,7 +851,7 @@ print("Accuracy on test set:",accuracy)
 \end{lstlisting}
 Usando un insieme di addestramento di cardinalit\`{a} $2000$, e uno di test di cardinalit\`{a} $200$, si \`{e} ottenuta un'accuratezza dell'$89\%$ e il tempo impiegato di esecuzione \`{e} di $19.398$ secondi.\\
 \textbf{Versione con batch size=10}
-\begin{lstlisting}[language={Python},tabsize=2]
+\begin{lstlisting}[language={Python},tabsize=2,basicstyle=\footnotesize]
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
@@ -850,7 +908,38 @@ print("Accuracy on test set:",accuracy)
 \end{lstlisting}
 Utilizzando insiemi di addestramento e di test con le stesse cardinalit\`{a} dell'implementazione precedente, ma inserendo il parametro di batch size, si ottiene una velocit\`{a} di esecuzione maggiore: $15,535$ secondi ($\sim 4$s in meno). In accordo con la spiegazione dell'algoritmo in \ref{knn}, ci si aspettava un risultato di questo tipo. Purtroppo guadagnando velocit\`{a} di esecuzione si \`{e} perso qualcosa nell'accuratezza: da $89\%$ a $87\%$. Vale la pena sottolineare che, come detto pi\`{u} volte, non esiste un algoritmo migliore di un altro, ma il pi\`{u} adatto in base al problema da affrontare. Infatti se si aumenta il numero di esempi per l'insieme di addestramento e si inserisce il parametro di batch size, l'algoritmo sale di accuratezza pur mantenendo una velocit\`{a} di esecuzione bassa.  
 
-%inserire foto delle schermate dell'output a confronto
+\begin{figure}[t]
+\centering
+\includegraphics[scale=0.5]{schermata}
+\caption{Schermate catturate dovo aver fatto il test: a sinistra test dell'algoritmo KNN con batch size, a destra senza.}
+\end{figure}
+Prima di mostrare il codice utilizzato per creare il modello utilizzato per la classicficazione delle immagini del nostro dataset, si analizza l'architettura utilizzata.
+\section{MobileNet}
+MobileNet \`e un'architettura rilasciata da Google e resa disponibile open source, contenente una famiglia di modelli di computer vision per dispositivi mobili per TensorFlow. \`E stata progettata per massimizzare efficacemente l'accuratezza, tenendo presente le risorse limitate per un'applicazione integrata su dispositivo. Per questo motivo \`e stata scelta per adattarsi alla nostra esigenza di classificare immagini tramite un'applicazione installata su un dispositivo mobile. L'architettura di mobileNet
+
+
+
+
+
+Le MobileNet si basano su un'architettura semplificata che utilizza convoluzioni separabili in profondità per costruire reti neurali profonde leggere. Introduciamo due semplici hyperparameters globali che si scambiano efficacemente tra latenza e accuratezza. Questi parametri iper consentono al costruttore del modello di scegliere il modello di dimensioni giuste per la propria applicazione in base ai vincoli del problema.Questo documento propone una classe di architetture di rete che consente a uno sviluppatore di modelli di scegliere specificamente una piccola rete che soddisfa le restrizioni di risorse (latenza, dimensioni) per la loro applicazione. MobileNets si concentra principalmente sull'ottimizzazione della latenza, ma offre anche piccole reti. Le MobileNet sono costruite principalmente da convoluzioni separabili in profondità per ridurre il calcolo nei primi strati. Un approccio diverso per ottenere reti di piccole dimensioni è il restringimento, il factorizing o la compressione di reti preallenate. La compressione basata sulla quantizzazione del prodotto, l'hashing e la potatura, la quantizzazione vettoriale e la codifica di Huffman sono state proposte in letteratura. Inoltre sono state proposte varie fattorizzazioni per accelerare le reti pre-esistenti. Un altro metodo per la formazione di piccole reti è la distillazione che utilizza una rete più grande per insegnare una rete più piccola.
+
+Architettura MobileNet:
+Il modello di MobileNet si basa su convoluzioni separabili in profondità che è una forma di convoluzioni fattoriali che fanno scattare una convoluzione standard in una convoluzione in profondità e una convoluzione 1X1 chiamata convoluzione puntuale. Per MobileNets la convoluzione in profondità applica un singolo filtro a ciascun canale di ingresso. La convoluzione puntuale applica quindi una convoluzione 1X1 per combinare le uscite della convoluzione in profondità. Una convoluzione standard consente di filtrare e combinare gli input in un nuovo set di output in un unico passaggio. La convoluzione separabile in profondità la divide in due strati, uno strato separato per il filtraggio e uno strato separato per la combinazione. Questa fattorizzazione ha l'effetto di ridurre drasticamente il calcolo e la dimensione del modello. La Figura 2 mostra come una convoluzione standard 2 (a) è fattorizzata in una convoluzione in profondità 2 (b) e una 1X1 convoluzione in senso puntuale 2 (c).
+Uno strato convoluzionale standard prende come input una mappa di caratteristiche di DF X DF XM F e produce una mappa di caratteristiche di DF XDF XN G dove DF è la larghezza e l'altezza spaziale di una caratteristica di input quadrata map1, M è il numero di canali di input (profondità di input) , DG è la larghezza e l'altezza spaziale di una mappa caratteristica di uscita quadrata e N è il numero di output
+canale (profondità di uscita). Lo strato convoluzionale standard è parametrizzato da
+kernel di convoluzione K di dimensione DK X DK X M X N dove DK è la dimensione spaziale del kernel che si presume essere quadrata e M è il numero di canali di input e N è il numero di canali di uscita come definito in precedenza. La mappa delle caratteristiche di output per la convoluzione standard assumendo il passo uno e il padding viene calcolato come: (1)pag2
+Le convoluzioni standard hanno il costo computazionale di:
+DK x DK x M x N x DF x DF
+dove il costo computazionale dipende in modo moltiplicativo dal numero di canali di ingresso M, dal numero di canali di uscita N dalla dimensione del kernel Dk x Dk e dalla dimensione della mappa delle caratteristiche DF x DF. I modelli MobileNet riguardano ciascuno di questi termini e le loro interazioni. Innanzitutto utilizza convoluzioni separabili in profondità per interrompere l'interazione tra il numero di canali di uscita e la dimensione del kernel.
+L'operazione di convoluzione standard ha l'effetto di filtrare le caratteristiche in base ai kernel convoluzionali e combinare le caratteristiche per produrre una nuova rappresentazione. Le fasi di filtraggio e combinazione possono essere suddivise in due fasi mediante l'uso di convoluzioni fattoriali denominate convoluzioni separabili in profondità per una sostanziale riduzione dei costi computazionali.La convoluzione separabile in profondità è composta da due strati: convoluzioni in profondità e convoluzioni puntuali. Usiamo le convoluzioni in profondità per applicare un filtro singolo per ciascun canale di ingresso (profondità di input). La convoluzione puntuale, una semplice convoluzione 1 x 1, viene quindi utilizzata per creare una combinazione lineare dell'output dello strato in profondità. MobileNets utilizza nonlinearità sia batchnorm che ReLU per entrambi i livelli.
+La convoluzione in profondità con un filtro per canale di ingresso (profondità di input) può essere scritta come: (3) pag3, dove \hat{K} è il kernel della convoluzione i profondità di dimensione D_k\times D_k \times M, dove l'm-esimo filtro in \hat{K} è applicato al m-esimo canale in F per produrre m-esimo canale delle caratteristiche dell'output filtrato \hat{G}. La convoluzione in profondità ha un costo computazionale di: D_k\cdot D_k\cdot M\cdot D_F\cdot D_F.
+La convoluzione in profondità è estremamente efficiente rispetto alla convoluzione standard. Tuttavia, filtra solo i canali di input, non li combina per creare nuove funzionalità. Pertanto, per generare queste nuove caratteristiche è necessario un ulteriore strato che calcoli una combinazione lineare dell'uscita della convoluzione in profondità mediante la convoluzione 1 x 1. La combinazione di convoluzione in profondità e convoluzione 1 x 1 (puntuale) è chiamata convoluzione separabile in profondità, che haun costo di:
+ D_k\cdot D_k\cdot M\cdot D_F\cdot D_F + M\cdot N \cdot D_F \cdot D_F che è la somma delle due convoluzioni. Esprimendo la convoluzione come un processo in due fasi di filtraggio e combinazione otteniamo una riduzione nel calcolo di:
+\frac{D_k\cdot D_k\cdot M\cdot D_F\cdot D_F + M\cdot N \cdot D_F \cdot D_F}{D_k\cdot D_k\cdot M\cdot N \cdot D_F \cdot D_F}=\frac{1}{N}+\frac{1}{D_K^2}
+MobileNet utilizza 3 x 3 convoluzioni separabili in profondità che utilizzano da 8 a 9 volte meno calcoli rispetto alle convoluzioni standard con una piccola riduzione della precisione. La struttura MobileNet è costruita su convoluzioni separabili in profondità come menzionato nella sezione precedente, ad eccezione del primo strato che è a piena convoluzione. Definendo la rete in termini così semplici, siamo in grado di esplorare facilmente le topologie di rete per trovare una buona rete. L'architettura MobileNet è definita nella Tabella 1. Tutti gli strati sono seguiti da una non linearità di tipo batchnorm e ReLU con l'eccezione del livello finale completamente connesso che non ha non linearità e alimenta uno strato di softmax per la classificazione. La Figura 3 mette a confronto uno strato con convoluzioni regolari, non standard e ReLU non linearità allo strato fattorizzato con convoluzione in profondità, 1 x 1 convoluzione puntuale così come batchnorm e ReLU dopo ogni strato convoluzionale. Il campionamento verso il basso viene gestito con la continua convoluzione nelle convoluzioni in profondità e nel primo strato. Un pool medio finale riduce la risoluzione spaziale a 1 prima del livello completamente connesso. Conteggio delle convoluzioni in profondità e in senso orario come strati separati, MobileNet ha 28 strati.
+
+
+
 \clearpage
 \addcontentsline{toc}{chapter}{Bibliografia}
 \bibliographystyle{unsrt}
