@@ -17,11 +17,13 @@
 \contentsline {subsubsection}{ReLu}{23}{section*.7}
 \contentsline {section}{\numberline {3.2}Addestramento di una rete}{24}{section.3.2}
 \contentsline {subsubsection}{Algoritmo di back propagation}{25}{section*.8}
-\contentsline {section}{\numberline {3.3}Reti Deep Feed-forward}{32}{section.3.3}
-\contentsline {section}{\numberline {3.4}ImageNet}{33}{section.3.4}
-\contentsline {section}{\numberline {3.5}Reti Neurali Convoluzionali - CNNs}{34}{section.3.5}
-\contentsline {subsection}{\numberline {3.5.1}Struttura di una CNNs}{36}{subsection.3.5.1}
-\contentsline {subsubsection}{Strati convoluzionali}{38}{section*.10}
+\contentsline {section}{\numberline {3.3}Reti Deep Feed-forward}{31}{section.3.3}
+\contentsline {section}{\numberline {3.4}ImageNet}{32}{section.3.4}
+\contentsline {section}{\numberline {3.5}Reti Neurali Convoluzionali - CNNs}{33}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}Struttura di una CNNs}{35}{subsection.3.5.1}
+\contentsline {subsubsection}{Strati convoluzionali}{37}{section*.10}
 \contentsline {subsubsection}{Strati di pooling}{40}{section*.11}
-\contentsline {chapter}{\numberline {4}TensorFlow}{42}{chapter.4}
-\contentsline {chapter}{Bibliografia}{49}{figure.4.3}
+\contentsline {chapter}{\numberline {4}Shazarch}{42}{chapter.4}
+\contentsline {section}{\numberline {4.1}MobileNet}{44}{section.4.1}
+\contentsline {section}{\numberline {4.2}TensorFlow}{48}{section.4.2}
+\contentsline {chapter}{Bibliografia}{55}{figure.4.5}

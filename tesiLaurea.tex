@@ -353,7 +353,7 @@ Lo svantaggio di questo algortimo \`{e} chiaro: il numero di distanze da calcola
 
 
 
-\chapter{Reti neurali artificiali}
+\chapter{Reti neurali artificiali}\label{cap:reti}
 Le reti neurali sono i modelli di deep learning per eccellenza. Sono un sistema di elaborazione di informazioni ispirato al funzionamento del sistema nervoso umano.\\
 La rete \`e strutturata come un grafo orientato. I nodi sono raggruppati in strati (\textit{layers}): il primo strato contiene i nodi di input  $x_1,\cdots,x_n$, connessi con lo strato successivo, dove ad ogni arco \`e associato un peso $w_i$. L'ultimo strato contiene i nodi di output. Gli strati tra il primo e l'ultimo strato sono chiamati strati nasconti (\textit{hidden layers}). La lunghezza complessiva del percorso determina la profondit\'{a} del modello, da cui deriva il nome dell'apprendimento: "deep learning".\\
 In base all'architettura scelta, esistono vari modelli di  reti neurali;
@@ -372,12 +372,12 @@ I neuroni ricevono sia segnali eccitatori, ovvero che tendono ad aumentare la lo
 
 La figura \ref{neurone}, indipendentemente dal modello di rete utilizzato, mostra l'elaborazione eseguita da un neurone artificiale.\\
 Siano $x_1,\cdots,x_n$ i dati in input, rappresentati dagli $n$ nodi del primo strato, nel k-esimo neurone l'informazione viene elaborata come:
-$$y_k=f(b_k+\sum_{i=1}^n w_{ki}\cdot x_i)$$
+$$y_{(k)}=f(b_{(k)}+\sum_{i=1}^n w_{(k)i}\cdot x_{(k-1)i})$$
 dove:\\
 \begin{itemize}
-\item $y_k$ \`e l'output generato dal neurone k;
-\item $b_k$ \`e il valore soglia del neurone k;
-\item $w_{ki}$ \`e il peso associato all'arco che collega il nodo i-esimo al neurone $k$;
+\item $y_{(k)}$ \`e l'output generato dal neurone k;
+\item $b_{(k)}$ \`e il valore soglia del neurone k;
+\item $w_{(k)i}$ \`e il peso associato all'arco che collega il nodo i-esimo al neurone $k$;
 \item $f(\cdot)$ \`e la funzione di attivazione.
 \end{itemize}
 Il motivo principale per cui vengono scelte le reti neurali \`e la possibilit\'{a} di parallelizzare i calcoli.
@@ -533,8 +533,8 @@ dove $L_i$ e $L_j$ sono due epoche consecutive. Un'epoca corrisponde alle due fa
 \subsection*{Il problema del Vanish Gradient}
 Come accennato in precedenza, l'uso del metodo del gradiente va applicato con attenzione e parametri adatti, altrimenti si incorre nel fenomeno detto "sparizione del gradiente", ovvero del \textit{vanish gradient}.\\
 Si ipotizzi di avere una rete profonda semplice, ovvero con 3 livelli nascosti e con un solo neurone in ogni strato:
-\newpage
-\begin{figure}[!t]
+
+\begin{figure}[!h]
 \centering
 \includegraphics[scale=0.5]{vanish}
 \caption{Rete neurale semplice costituita da 3 strati con: $w_j$ pesi, $b_j$ i valori soglia e C funzione di costo.}
@@ -656,7 +656,8 @@ dove $z=t-\tau \Rightarrow \tau=t-z \Rightarrow d\tau=-dz$.
 \item \textbf{Cambiamenti di scala} $$se y=f*g\Rightarrow f(\lambda t)*g(\lambda t)=\frac{1}{|\lambda|}y((\lambda t)$$
 \item \textbf{Derivate} Se f  \`e regolare a tratti e continua, allora 
 $$ \frac{d}{dt}(f*g)(t)=\frac{d}{dt}f(t)*g(t)=f(t)*\frac{d}{dt}g(t)$$
-\item \textbf{Supporti} Se supp $f\subset [a,b]$ e supp $g\subset [c,d]\Rightarrow $supp $(f*g)\subset [a+c,b+d].$
+\item \textbf{Supporti} Se supp $f\subset [a,b]$ e supp $g\subset [c,d]\Rightarrow $\\
+$\Rightarrow$ supp $(f*g)\subset [a+c,b+d].$
 \item \textbf{Segnali causali} Se f,g sono causali $\Rightarrow f*g$ \`e causale.
 \end{enumerate}
 Tramite l'eq\ref{eqconvoluzione}, se si conosce la funzione di risposta g(t) e il segnale di entrata f(t), si pu\'{o} esprimere il segnale di uscita y(t), che nelle reti convoluzionali rappresenta il filtro di convoluzione (\textit{feature map}) e la funzione di risposta \`e detta \textit{"kernel"}.
@@ -750,11 +751,110 @@ Alternando ripetutamente queste due tipologie di strati, si arriva ad una config
 
 
 
+\chapter{Shazarch}
+L'obiettivo di questa tesi, come detto pi\`{u} volte, \`{e} di trovare l'architettura ottimale per un modello di Deep Learning capace di riconoscere, quindi classificare, immagini di resti e monumenti presenti nell'area archeologica del Foro Romano a Roma. Vista la difficolt\`{a}, anche per un occhio umano, di riconoscere alcuni reperti si \`e pensato di inserire anche le informazioni relative alla geolocalizzazione di questi ultimi.\\
+Questo modello \`e finalizzato per creare un'applicazione Android in grado di permettere al turista che visita il Foro Romano, di inquadrare l'oggetto di interesse e sapere cosa sta visualizzando in quel momento. Per fare questo si necessita di un modello di classificazione di deep learning, addestrato con un dataset di immagini provenienti dal sito archeologico e delle coordinate geografiche dei singoli monumenti. Si sta parlando di un algoritmo di apprendimento supervisionato, quindi il dataset che si utilizza deve contenere delle variabili rappresentanti le caratteristiche dell'oggetto da riconsocere, tra cui naturalmente anche un'etichetta. L'etichetta corrisponde alla classe di appartenenza dell'oggetto che, nel nostro caso, corrisponde ad un numero $n\in \{0,\cdots,29\}$, in quanto i reperti che la rete \`e in grado di riconoscere sono 30 ed in particolare sono:
+\begin{tabular}{lcr}
+Arco di Settimio Severo & Arco di Tito & Arco Partico\\
+Basilica Emilia & Basilica Julia & Basilica Ulpia\\
+Casa delle Vestali & Colonna di Foca & Colonna Traiana\\
+Curia Julia & Domus Augustana & Domus Flavia\\
+Domus Tiberiana & Foro di Cesare & Mercati di Traiano\\
+Portico degli Dei Consenti & Regia & Tabularium\\
+Tempio dei Castori & Tempio Del Divo Giulio & Tempio della Concordia\\
+Tempio di Antonino e Faustina & Tempio di Saturno & Tempio di Venere e Roma\\
+Tempio di Vespasiano e Tito & Tempio di Vesta & Tempio di Marte Ultore\\
+Umbilicus Urbis & Via Nova & Volcanal
+\end{tabular}
+
+Per quanto riguarda le altre variabili si sono considerati i valori dei pixel delle immagini in formato RGB e di dimensione $3024\times 4032$. Inizialmente si era pensato di inserire anche le coordinate geografiche all'interno delle informazioni dell'immagine, ma questo avrebbe portato ad un fenomeno di underfitting, se non fossero state inserite delle distanze di riferimento all'interno delle informazioni dell'immagine, in quanto la rete non sarebbe stata in grado di trovare una funzione che generalizzi queste distanze (intese come distanze euclidee); viceversa se queste informazioni fossero state inserire si sarebbe andati incontro ad un sovraddatamento della rete: inserendo nuove coordinate di riferimento, la rete non le avrebbe riconsociute "vicine" a quelle del datset. Si \`e deciso quindi di non inserirle direttamente tra le informazioni delle immagini. Successivamente verr\`e{a} spiegato come sono state introdtte, non prima di aver finito di descrivere come \`e stato creato il dataset.\\
+Il dataset di immagini deve essere abbastanza grande per far si che l'algoritmo abbia abbastanza immagini su cui addestrarsi e anche per verificare la sua accuratezza, si ricorda infatti che l'insieme di addestramento e di test(e/o di validazione) formano una partizione dell'insieme totale di partenza.\\
+Il dataset utilizzato \`e composto da circa 40000 immagini, di cui una piccola parte originali, ovvero scattate fisicamente sul posto, le restanti sono state generate artificialmente tramite la libreria Augmentor. Questa libreria \`e progettata per aiutare l'incremento e la generazione artificiale di dati di immagine per attivit\`{a} di machine learning, tramite rotazioni, zoom, distorsioni ecc... Si \`e partiti da una media di 6 foto per classe e per ognuna di queste Augmentor ha generato 180 foto. Successivamente l'insieme di dati \`e stato diviso in modo che l'$80\%$ andasse a costituire l'insieme di addestramento e il $20\%$ quello di validazione. Come architettura per il modello si \`e optato per l'architettura pre-esistente mobileNet, descritta nel dettaglio nella sezione \ref{sez:mobileNet}, addestrata tramite il meotodo di discesa del gradiente (SGD) settato con il parametro di learning rate=0.1, dove nella fase di back propagation (\ref{back-prop})  batch size=100 % aggiornare quando calcolo l'accuratezza
+ Una volta addestrata la rete, tensorflow salva il modello all'interno di un file, successivamente convertito con estensione ".lite". Questa conversione trasforma il modello in uno di tipo TensorFlow Lite, un formato che permette di 
+utilizzare Android Studio: un ambiente di sviluppo integrato (IDE) per lo sviluppo per la piattaforma Android. All'interno del codice Java, con cui si programma un'applicazione Android, sono state inserite le coordinate di geolocalizzazione.
 
 
-\chapter{TensorFlow}
+%discorso probabilità condizionata
+
+
+Sono state implementati due metodi per considerare le posizioni GPS del visitatore. Una ,chiamata "GPS", considera la distanza tra il dispositivo ed il monumento osservato. 
+
+%altro discorso probabilità distribuzione normale
+
+L'altra applicazione sviluppata con la geolocalizzazione tramite GPS,chiamata "GPS Alarm", invece considera una circonferenza di raggio 20metri
+  %aggiornare il raggio%
+centrata in un monumento che ne delimita la sua area "protetta". Se il visitatore non si trova all'interno di quest'area la probabilit\`{a} di osservare il monumento corrispondente ad essa \`e pari a zero, altrimenti è 1. Questo solo per poter conisderare solo i reperti che \`e ragionevole pensare un turista possa voler inquadrare. Naturalmente questo approccio non permette di classificare un monumento da una sistanza maggiore di quella considerata, anzi produrrà una classificazione errata, in quanto verranno considerate solo i monumenti in cui le coordinate del visitatore si trovano all'interno delle loro aree protette.\\
+Ora che sono note la struttura e la logica con cui \` stata progettata Shazarch, si possono approfondire alcuni aspetti accennati in questa fase. 
+
+\section{MobileNet}\label{sez:mobileNet}
+MobileNet \`e un'architettura rilasciata da Google e resa disponibile open source, contenente una famiglia di modelli di computer vision per dispositivi mobili per TensorFlow. \`E stata progettata per massimizzare efficacemente l'accuratezza, tenendo presente le risorse limitate per un'applicazione integrata su dispositivo. Per questo motivo \`e stata scelta per adattarsi alla nostra esigenza di classificare immagini tramite un'applicazione installata su un dispositivo mobile. La particolarit\`{a} di questa architettura \`e l'uso di convoluzioni separabili per costruire reti neurali profonde leggere. L'intuizione di questi sviluppatori \`e stata di introdurre due semplici iperparametri che riescono ad equilibrare efficacemente latenza e accuratezza, permettendo all'architettura di adattarsi a diverse applicazioni. La latenza ,in informatica, di un sistema \`e l'intervallo di tempo che intercorre fra il momento in cui arriva l'input e il momento in cui è disponibile il suo output. In altre parole: la latenza non \`e altro che una misura della velocità di risposta di un sistema.
+Ma che cosa si intende per convoluzioni separabili? Sono delle convoluzioni formate da due convoluzioni: una convoluzione in profondità e una convoluzione con un filtro di dimensione $1\times 1$ chiamata convoluzione puntuale.
+La convoluzione in profondità applica un singolo filtro a ciascun canale di ingresso e all'output generato viene applicato il filtro della convoluzione puntuale. Riassumendo: la convoluzione standard consente di filtrare e combinare gli input in un nuovo set di output in un unico passaggio, mentre la convoluzione separabile lo fa in due passaggi, ognuno svolto da uno strato di convoluzione diverso.
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.5]{fattorizzazione}
+\caption{Fattorizzazione di una convoluzione standard in una convoluzione in profondit \`{a} e una convoluzione puntale.}
+\end{figure}
+\newpage
+Questa fattorizzazione ha l'effetto di ridurre drasticamente il calcolo e la dimensione del modello. Infatti uno strato convoluzionale standard prende in input una feature map F di dimensioni: $D_F \times D_F \times M$ e produce in output la future map G di dimensioni: $D_G \times D_G \times N$, in seguito allll'applicazione di un filtro K di dimensioni: $D_K \times D_K \times M \times N$. Questo ha un costo computazionale pari a:
+$$D_K \cdot D_K \cdot M \cdot N \cdot D_F \cdot D_F$$
+Mentre nella convoluzione separabile si ha la convoluzione in profondit\`{a} che applica un filtro K' di dimensioni: $D_K\times D_K \times M$ ed ha un costo computazionale di:
+$$D_K \cdot D_K \cdot M \cdot D_F \cdot D_F$$
+Ora questi filtri devono essere combinati per creare nuove funzionalit\`{a}. Pertanto, per generare queste nuove caratteristiche è necessario lo strato con la convoluzione puntuale che calcoli una combinazione lineare dell'uscita della convoluzione in profondit\`{a}, mediante la convoluzione con filtro di dimensione $1 \times 1$ di profondit\`{a} M e applicato agli N canali di output.\\
+ Il suo costo \`e pari a:
+$$M\cdot N \cdot D_F \cdot D_F$$
+Quindi la convoluzione separabile ha un costo computazionale totale pari alla somma delle due convoluzioni:
+$$ D_K\cdot D_k\cdot M\cdot D_F\cdot D_F + M\cdot N \cdot D_F \cdot D_F$$
+Se si fa il rapporto dei costi computazionali dei due approcci, si ottiene una riduzione del calcolo di:
+\begin{equation}
+\frac{D_k\cdot D_k\cdot M\cdot D_F\cdot D_F + M\cdot N \cdot D_F \cdot D_F}{D_k\cdot D_k\cdot M\cdot N \cdot D_F \cdot D_F}=\frac{1}{N}+\frac{1}{D_K^2}
+\end{equation}
+L'architettura di MobileNet \`e quindi costituita da un primo strato con una convoluzione standard e da 12 convoluzioni separabili tutti implementati con una funzione di attivazione ReLu con batchnorm. Ovvero: abbiamo visto in precedenza (\ref{cap:reti}) l'importanza della funzione di attivazione all'interno dell'addestramento di una rete, quando si calcola l'output di un singolo neurone abbiamo che il k-esimo nodo in uno strato nascosto ha il valore:
+\begin{equation}
+y_k=f_k(W_k \, x_{k-1})
+\end{equation}
+in questo caso h=ReLu. Se poniamo $z_k=W_k \, x_{k-1}$ , la batchnorm normalizza $z^k$, lo moltiplica per un parametro $a$ e gli aggiunge un altro parametro $b$ nel seguente modo:
+$$\hat{z}_k=\frac{z_k-\mathbb{E}[z_k]}{\sqrt{V[z_k]}}\cdotp a +b$$
+I parametri $\alpha$ e $\beta$ saranno anche loro minimizzati durante la ricerca dei pesi ottimali con la discecsa del gradiente (o altri metodi di minimizzazione).
+Tornando all'architettura di mobileNet, dopo questi strati \`e presente un altro strato di convoluzione separabile, seguito da uno strato di Avg pooling (calcola la media dei suoi neuroni) che riduce la risoluzione spaziale ad 1 ed  infine lo strato di output fortemente connesso con funzione di attivazione Softmax per la classificazione.
+Ricapitolando, come mostra la figura \ref{fig:mobileNet}, l'architettura ha:
+\begin{itemize}
+\item primo strato con convoluzione standard;
+\item 26 strati nascosti con convoluzione separabile:
+\item ultimo strato di output forteente connesso.
+\end{itemize} 
+per un totale di 28 strati, in quanto ogni strato nascosto \`e composto da una convoluzione separabile, che corrisponde a due strati consecutivi (convoluzione di profondit\`{a} e convoluzione puntuale).
+\begin{figure}[t]
+\centering
+\includegraphics[scale=0.7]{mobileNet}
+\caption{Struttura dell'architettura mobileNet.}
+\label{fig:mobileNet}
+\end{figure}
+
+
+A partire da quaest'architettura si possono costruire modelli pi\`{u} piccoli e meno dispendiosi dal punto di vista computazionale, introducendo un "moltiplicatore di larghezza" $\alpha$ e un "moltiplicatore di risoluzione" $\rho$. 
+Il ruolo del moltiplicatore di larghezza \`e quello di assottigliare uniformemente una rete su ciascun livello. Per un dato livello e moltiplicatore di larghezza $\alpha$, il numero dei canali di ingresso M diventa $\alpha$ M e il numero dei canali di uscita N diventa $\alpha$ N. Quindi il costo computazionale di una convoluzione separabile di questo tipo \`e:
+\begin{equation}
+D_K\cdot D_K\cdot \alpha M\cdot D_F\cdot D_F + \alpha M\cdot \alpha N \cdot D_F \cdot D_F
+\end{equation}
+con $\alpha \in (0,1]$.\\
+Il moltiplicatore di larghezza ha l'effetto di ridurre il costo computazionale e il numero di parametri in modo quadratico di circa $\alpha^2$.\\
+Il Moltiplicatore di risoluzione $\rho$ serve a ridurre la dimensione dell'immagine. Viene infatti applicato all'immagine di input in modo che la rappresentazione interna di ogni livello viene successivamente ridotta dallo stesso moltiplicatore.\\
+Aggiungendo anche questo parametro il costo computazionale della rete con moltiplicatore di ampiezza $\alpha$ e moltiplicatore di risoluzione $\rho$ \`e:
+\begin{equation}
+D_K \cdot D_K  \cdot \alpha M\cdot \rho D_F\cdot \rho D_F + \alpha M\cdot \alpha N \cdot \rho D_F \cdot \rho D_F
+\end{equation}
+con $\rho \in (0,1]$ ed anche questo moltiplicatore ha l'effetto di ridurre il costo computazionale di $\rho^2$.\\
+Per creare Shazarch \`{e} stata utilizzata l'architettura "standard" di mobileNet, ovvero dove gli iperparametri $\alpha$ e $\rho$ sono uguali a 1.\\
+Inoltre si riocrda che la dimensione delle foto, con cui era stato costruito il dataset, era di $3024\times 4032$ pixels, mentre imageNet accetta solo immagini di dimensioni $224\times 224$, $192\times 192$, $160\times 160$ o $128\times 128$ pixels, quindi le immagini del dataset sono state ridimensionate in modo da soddisfare la dimensione richiesta. Questo ha comportato una perdita parziale di informazioni sulle immagini, ma era un prezzo da pagare per creare un'applicazione adattabile su un dispositivo mobile che non dispone di una memoria molto capiente.
+
+
+
+
+
+\section{TensorFlow}
 TensorFlow (TF) \`{e} una libreria software open source, sviluppata da Google, utilizzata per implementare l'apprendimento automatico e i sistemi di deep learning. Essa fornisce API native in linguaggio: Python, C/C++, Java, Go, e RUST.\\
-In questa tesi il linguaggio di programmazione usato \`{e} Python.\\
+Per questo lavoro \`{e} stato utilizzato il linguaggio di programmazione Python.\\
 In generale un algoritmo scritto in TF rispetta la seguente struttura:
 \begin{enumerate}
 \item Importare ed analizzare l'insieme di dati;
@@ -908,35 +1008,15 @@ print("Accuracy on test set:",accuracy)
 \end{lstlisting}
 Utilizzando insiemi di addestramento e di test con le stesse cardinalit\`{a} dell'implementazione precedente, ma inserendo il parametro di batch size, si ottiene una velocit\`{a} di esecuzione maggiore: $15,535$ secondi ($\sim 4$s in meno). In accordo con la spiegazione dell'algoritmo in \ref{knn}, ci si aspettava un risultato di questo tipo. Purtroppo guadagnando velocit\`{a} di esecuzione si \`{e} perso qualcosa nell'accuratezza: da $89\%$ a $87\%$. Vale la pena sottolineare che, come detto pi\`{u} volte, non esiste un algoritmo migliore di un altro, ma il pi\`{u} adatto in base al problema da affrontare. Infatti se si aumenta il numero di esempi per l'insieme di addestramento e si inserisce il parametro di batch size, l'algoritmo sale di accuratezza pur mantenendo una velocit\`{a} di esecuzione bassa.  
 
-\begin{figure}[t]
+\begin{figure}[h!]
 \centering
-\includegraphics[scale=0.5]{schermata}
+\includegraphics[scale=0.45]{schermata}
 \caption{Schermate catturate dovo aver fatto il test: a sinistra test dell'algoritmo KNN con batch size, a destra senza.}
 \end{figure}
+\newpage
 Prima di mostrare il codice utilizzato per creare il modello utilizzato per la classicficazione delle immagini del nostro dataset, si analizza l'architettura utilizzata.
-\section{MobileNet}
-MobileNet \`e un'architettura rilasciata da Google e resa disponibile open source, contenente una famiglia di modelli di computer vision per dispositivi mobili per TensorFlow. \`E stata progettata per massimizzare efficacemente l'accuratezza, tenendo presente le risorse limitate per un'applicazione integrata su dispositivo. Per questo motivo \`e stata scelta per adattarsi alla nostra esigenza di classificare immagini tramite un'applicazione installata su un dispositivo mobile. L'architettura di mobileNet
 
 
-
-
-
-Le MobileNet si basano su un'architettura semplificata che utilizza convoluzioni separabili in profondità per costruire reti neurali profonde leggere. Introduciamo due semplici hyperparameters globali che si scambiano efficacemente tra latenza e accuratezza. Questi parametri iper consentono al costruttore del modello di scegliere il modello di dimensioni giuste per la propria applicazione in base ai vincoli del problema.Questo documento propone una classe di architetture di rete che consente a uno sviluppatore di modelli di scegliere specificamente una piccola rete che soddisfa le restrizioni di risorse (latenza, dimensioni) per la loro applicazione. MobileNets si concentra principalmente sull'ottimizzazione della latenza, ma offre anche piccole reti. Le MobileNet sono costruite principalmente da convoluzioni separabili in profondità per ridurre il calcolo nei primi strati. Un approccio diverso per ottenere reti di piccole dimensioni è il restringimento, il factorizing o la compressione di reti preallenate. La compressione basata sulla quantizzazione del prodotto, l'hashing e la potatura, la quantizzazione vettoriale e la codifica di Huffman sono state proposte in letteratura. Inoltre sono state proposte varie fattorizzazioni per accelerare le reti pre-esistenti. Un altro metodo per la formazione di piccole reti è la distillazione che utilizza una rete più grande per insegnare una rete più piccola.
-
-Architettura MobileNet:
-Il modello di MobileNet si basa su convoluzioni separabili in profondità che è una forma di convoluzioni fattoriali che fanno scattare una convoluzione standard in una convoluzione in profondità e una convoluzione 1X1 chiamata convoluzione puntuale. Per MobileNets la convoluzione in profondità applica un singolo filtro a ciascun canale di ingresso. La convoluzione puntuale applica quindi una convoluzione 1X1 per combinare le uscite della convoluzione in profondità. Una convoluzione standard consente di filtrare e combinare gli input in un nuovo set di output in un unico passaggio. La convoluzione separabile in profondità la divide in due strati, uno strato separato per il filtraggio e uno strato separato per la combinazione. Questa fattorizzazione ha l'effetto di ridurre drasticamente il calcolo e la dimensione del modello. La Figura 2 mostra come una convoluzione standard 2 (a) è fattorizzata in una convoluzione in profondità 2 (b) e una 1X1 convoluzione in senso puntuale 2 (c).
-Uno strato convoluzionale standard prende come input una mappa di caratteristiche di DF X DF XM F e produce una mappa di caratteristiche di DF XDF XN G dove DF è la larghezza e l'altezza spaziale di una caratteristica di input quadrata map1, M è il numero di canali di input (profondità di input) , DG è la larghezza e l'altezza spaziale di una mappa caratteristica di uscita quadrata e N è il numero di output
-canale (profondità di uscita). Lo strato convoluzionale standard è parametrizzato da
-kernel di convoluzione K di dimensione DK X DK X M X N dove DK è la dimensione spaziale del kernel che si presume essere quadrata e M è il numero di canali di input e N è il numero di canali di uscita come definito in precedenza. La mappa delle caratteristiche di output per la convoluzione standard assumendo il passo uno e il padding viene calcolato come: (1)pag2
-Le convoluzioni standard hanno il costo computazionale di:
-DK x DK x M x N x DF x DF
-dove il costo computazionale dipende in modo moltiplicativo dal numero di canali di ingresso M, dal numero di canali di uscita N dalla dimensione del kernel Dk x Dk e dalla dimensione della mappa delle caratteristiche DF x DF. I modelli MobileNet riguardano ciascuno di questi termini e le loro interazioni. Innanzitutto utilizza convoluzioni separabili in profondità per interrompere l'interazione tra il numero di canali di uscita e la dimensione del kernel.
-L'operazione di convoluzione standard ha l'effetto di filtrare le caratteristiche in base ai kernel convoluzionali e combinare le caratteristiche per produrre una nuova rappresentazione. Le fasi di filtraggio e combinazione possono essere suddivise in due fasi mediante l'uso di convoluzioni fattoriali denominate convoluzioni separabili in profondità per una sostanziale riduzione dei costi computazionali.La convoluzione separabile in profondità è composta da due strati: convoluzioni in profondità e convoluzioni puntuali. Usiamo le convoluzioni in profondità per applicare un filtro singolo per ciascun canale di ingresso (profondità di input). La convoluzione puntuale, una semplice convoluzione 1 x 1, viene quindi utilizzata per creare una combinazione lineare dell'output dello strato in profondità. MobileNets utilizza nonlinearità sia batchnorm che ReLU per entrambi i livelli.
-La convoluzione in profondità con un filtro per canale di ingresso (profondità di input) può essere scritta come: (3) pag3, dove \hat{K} è il kernel della convoluzione i profondità di dimensione D_k\times D_k \times M, dove l'm-esimo filtro in \hat{K} è applicato al m-esimo canale in F per produrre m-esimo canale delle caratteristiche dell'output filtrato \hat{G}. La convoluzione in profondità ha un costo computazionale di: D_k\cdot D_k\cdot M\cdot D_F\cdot D_F.
-La convoluzione in profondità è estremamente efficiente rispetto alla convoluzione standard. Tuttavia, filtra solo i canali di input, non li combina per creare nuove funzionalità. Pertanto, per generare queste nuove caratteristiche è necessario un ulteriore strato che calcoli una combinazione lineare dell'uscita della convoluzione in profondità mediante la convoluzione 1 x 1. La combinazione di convoluzione in profondità e convoluzione 1 x 1 (puntuale) è chiamata convoluzione separabile in profondità, che haun costo di:
- D_k\cdot D_k\cdot M\cdot D_F\cdot D_F + M\cdot N \cdot D_F \cdot D_F che è la somma delle due convoluzioni. Esprimendo la convoluzione come un processo in due fasi di filtraggio e combinazione otteniamo una riduzione nel calcolo di:
-\frac{D_k\cdot D_k\cdot M\cdot D_F\cdot D_F + M\cdot N \cdot D_F \cdot D_F}{D_k\cdot D_k\cdot M\cdot N \cdot D_F \cdot D_F}=\frac{1}{N}+\frac{1}{D_K^2}
-MobileNet utilizza 3 x 3 convoluzioni separabili in profondità che utilizzano da 8 a 9 volte meno calcoli rispetto alle convoluzioni standard con una piccola riduzione della precisione. La struttura MobileNet è costruita su convoluzioni separabili in profondità come menzionato nella sezione precedente, ad eccezione del primo strato che è a piena convoluzione. Definendo la rete in termini così semplici, siamo in grado di esplorare facilmente le topologie di rete per trovare una buona rete. L'architettura MobileNet è definita nella Tabella 1. Tutti gli strati sono seguiti da una non linearità di tipo batchnorm e ReLU con l'eccezione del livello finale completamente connesso che non ha non linearità e alimenta uno strato di softmax per la classificazione. La Figura 3 mette a confronto uno strato con convoluzioni regolari, non standard e ReLU non linearità allo strato fattorizzato con convoluzione in profondità, 1 x 1 convoluzione puntuale così come batchnorm e ReLU dopo ogni strato convoluzionale. Il campionamento verso il basso viene gestito con la continua convoluzione nelle convoluzioni in profondità e nel primo strato. Un pool medio finale riduce la risoluzione spaziale a 1 prima del livello completamente connesso. Conteggio delle convoluzioni in profondità e in senso orario come strati separati, MobileNet ha 28 strati.
 
 
 
