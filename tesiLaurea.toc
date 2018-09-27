@@ -26,4 +26,6 @@
 \contentsline {chapter}{\numberline {4}Shazarch}{42}{chapter.4}
 \contentsline {section}{\numberline {4.1}MobileNet}{44}{section.4.1}
 \contentsline {section}{\numberline {4.2}TensorFlow}{48}{section.4.2}
-\contentsline {chapter}{Bibliografia}{55}{figure.4.5}
+\contentsline {subsection}{\numberline {4.2.1}Classificazione con KNN}{52}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}mobileNet}{55}{subsection.4.2.2}
+\contentsline {chapter}{Bibliografia}{56}{subsection.4.2.2}

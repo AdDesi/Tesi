@@ -771,19 +771,16 @@ Per quanto riguarda le altre variabili si sono considerati i valori dei pixel de
 Il dataset di immagini deve essere abbastanza grande per far si che l'algoritmo abbia abbastanza immagini su cui addestrarsi e anche per verificare la sua accuratezza, si ricorda infatti che l'insieme di addestramento e di test(e/o di validazione) formano una partizione dell'insieme totale di partenza.\\
 Il dataset utilizzato \`e composto da circa 40000 immagini, di cui una piccola parte originali, ovvero scattate fisicamente sul posto, le restanti sono state generate artificialmente tramite la libreria Augmentor. Questa libreria \`e progettata per aiutare l'incremento e la generazione artificiale di dati di immagine per attivit\`{a} di machine learning, tramite rotazioni, zoom, distorsioni ecc... Si \`e partiti da una media di 6 foto per classe e per ognuna di queste Augmentor ha generato 180 foto. Successivamente l'insieme di dati \`e stato diviso in modo che l'$80\%$ andasse a costituire l'insieme di addestramento e il $20\%$ quello di validazione. Come architettura per il modello si \`e optato per l'architettura pre-esistente mobileNet, descritta nel dettaglio nella sezione \ref{sez:mobileNet}, addestrata tramite il meotodo di discesa del gradiente (SGD) settato con il parametro di learning rate=0.1, dove nella fase di back propagation (\ref{back-prop})  batch size=100 % aggiornare quando calcolo l'accuratezza
  Una volta addestrata la rete, tensorflow salva il modello all'interno di un file, successivamente convertito con estensione ".lite". Questa conversione trasforma il modello in uno di tipo TensorFlow Lite, un formato che permette di 
-utilizzare Android Studio: un ambiente di sviluppo integrato (IDE) per lo sviluppo per la piattaforma Android. All'interno del codice Java, con cui si programma un'applicazione Android, sono state inserite le coordinate di geolocalizzazione.
-
-
-%discorso probabilità condizionata
-
-
-Sono state implementati due metodi per considerare le posizioni GPS del visitatore. Una ,chiamata "GPS", considera la distanza tra il dispositivo ed il monumento osservato. 
-
-%altro discorso probabilità distribuzione normale
-
-L'altra applicazione sviluppata con la geolocalizzazione tramite GPS,chiamata "GPS Alarm", invece considera una circonferenza di raggio 20metri
+utilizzare Android Studio: un ambiente di sviluppo integrato (IDE) per lo sviluppo per la piattaforma Android. All'interno del codice Java, linguaggio con cui si programma un'applicazione Android, sono state inserite le coordinate di geolocalizzazione.\\
+Innanzitutto per capire come correlare questa informazione con quella data dal modello, si sono studiati gli eventi da analizzare per capire se questi fossero indipendenti o meno. Dato lo spazio campionario \`e $\Omega ={C_1,\cdots,C_{30}}$, dove $C_i$ rappresentano le classi corripsondenti ai 30 monumenti, l'evento $E={C_{\hat{y}}=C_y}$ dove la classe predetta coincide con la classe effettiva e l'evento $F={monumento nelle vicinanze}$. Questi due eventi sono indipendenti, se così non fosse si avrebbe che: $P(E\cap F)=P(F|E)\ldotp P(E)$, ma l'evento per cui la predizione \`e giusta non da nessuna informazione sulla distanza tra lei e l'osservatore, allora: $P(F|E)=P(F)$  e $P(E\cap F)=P(F)\ldotp P(E)$, che avviene se i due eventi sono indipendenti.\\
+Sono stati implementati due metodi per considerare le posizioni GPS del visitatore. Una ,chiamata "GPS", considera la distanza tra il dispositivo ed il monumento osservato. Si \`e considerato che la probabilità di un evento F, si comporta come una variabile aleatoria uniforme sull'intervallo (0,r), oltre il quale \`e plausibile pensare che il visitatore non possa vedere. Quindi:
+\begin{equation}
+P(X=d_i)=\begin{cases} 1 & \mbox{se }d_i\leq r \\ 0 & \mbox{altrimenti}\end{cases}
+\end{equation}
+dove $d_i$ \`e la distanza tra le coordinate dell'osservatore e il monumento di classe $C_i$.\\
+L'altra applicazione sviluppata,chiamata "GPS Alarm", invece considera una circonferenza di raggio 20metri
   %aggiornare il raggio%
-centrata in un monumento che ne delimita la sua area "protetta". Se il visitatore non si trova all'interno di quest'area la probabilit\`{a} di osservare il monumento corrispondente ad essa \`e pari a zero, altrimenti è 1. Questo solo per poter conisderare solo i reperti che \`e ragionevole pensare un turista possa voler inquadrare. Naturalmente questo approccio non permette di classificare un monumento da una sistanza maggiore di quella considerata, anzi produrrà una classificazione errata, in quanto verranno considerate solo i monumenti in cui le coordinate del visitatore si trovano all'interno delle loro aree protette.\\
+centrata in un monumento che ne delimita la sua area "protetta". Se il visitatore non si trova all'interno di quest'area la probabilit\`{a} di osservare il monumento corrispondente ad essa \`e pari a zero, altrimenti è 1. Questo solo per poter conisderare solo i reperti che \`e ragionevole pensare un turista possa voler inquadrare. Naturalmente questi approcci non permettono di classificare un monumento da una sistanza maggiore di quella considerata, anzi produrrà una classificazione errata, in quanto verranno considerate solo i monumenti in cui le coordinate del visitatore si trovano all'interno delle loro aree protette.\\
 Ora che sono note la struttura e la logica con cui \` stata progettata Shazarch, si possono approfondire alcuni aspetti accennati in questa fase. 
 
 \section{MobileNet}\label{sez:mobileNet}
@@ -896,10 +893,10 @@ I principali tipi di tensori sono:
 \caption{Strutture di tensori n-dimensionali, per alcune n.}
 \end{figure}
 \newpage
-\section*{Classificazione}
+\subsection{Classificazione con KNN}
 Di seguito viene riportato un esempio di codice per la classificazione di numeri scritti a mano estratti dal dataset di MNIST. L'algoritmo utilizzato \`{e} dei K-nearest neighbour,in due versioni: la prima non utilizza il batch size mentre la seconda si.\\
 
-
+%inserire foto di mnist
 
 
 \textbf{Classificazione con k=5}
@@ -1014,7 +1011,11 @@ Utilizzando insiemi di addestramento e di test con le stesse cardinalit\`{a} del
 \caption{Schermate catturate dovo aver fatto il test: a sinistra test dell'algoritmo KNN con batch size, a destra senza.}
 \end{figure}
 \newpage
-Prima di mostrare il codice utilizzato per creare il modello utilizzato per la classicficazione delle immagini del nostro dataset, si analizza l'architettura utilizzata.
+
+\subsection{mobileNet}
+Di seguito si riporta il codice utilizzato per creare il modello per l'applicazione Shazarch, %spiegare i vari passaggi e poi riepilogare il tutto%
+
+%riportare accuratezza dei modelli provati con diversi batch size
 
 
 

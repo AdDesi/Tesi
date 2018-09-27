@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500) (preloaded format=pdflatex 2018.1.19)  26 SEP 2018 23:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500) (preloaded format=pdflatex 2018.1.19)  27 SEP 2018 23:37
 entering extended mode
-**./tesilaurea.tex
-(tesilaurea.tex
+**./tesiLaurea.tex
+(tesiLaurea.tex
 LaTeX2e <2017-04-15>
 Babel <3.15> and hyphenation patterns for 75 language(s) loaded.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\book.cls"
@@ -374,8 +374,8 @@ File: listings.cfg 2015/06/04 1.6 listings configuration
 ))
 Package: listings 2015/06/04 1.6 (Carsten Heinz)
 
-(tesilaurea.aux)
-\openout1 = `tesilaurea.aux'.
+(tesiLaurea.aux)
+\openout1 = `tesiLaurea.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
 LaTeX Font Info:    ... okay on input line 17.
@@ -416,9 +416,9 @@ LaTeX Info: Redefining \ref on input line 17.
 LaTeX Info: Redefining \pageref on input line 17.
 LaTeX Info: Redefining \nameref on input line 17.
 
-(tesilaurea.out) (tesilaurea.out)
+(tesiLaurea.out) (tesiLaurea.out)
 \@outlinefile=\write3
-\openout3 = `tesilaurea.out'.
+\openout3 = `tesiLaurea.out'.
 
 \c@lstlisting=\count134
 
@@ -438,10 +438,10 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 35.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{C:/Users/SARETTA/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] (tesilaur
+{C:/Users/SARETTA/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] (tesiLaur
 ea.toc)
 \tf@toc=\write4
-\openout4 = `tesilaurea.toc'.
+\openout4 = `tesiLaurea.toc'.
 
  [2
 
@@ -659,84 +659,74 @@ Overfull \hbox (106.07169pt too wide) in paragraph at lines 755--769
 
 [42
 
-]
-Overfull \hbox (21.38742pt too wide) in paragraph at lines 784--788
-[]\OT1/cmr/m/n/12 L'altra ap-pli-ca-zio-ne svi-lup-pa-ta con la geo-lo-ca-liz-z
-a-zio-ne tra-mi-te GPS,chiamata
- []
-
-[43]
+] [43]
 File: fattorizzazione.png Graphic file (type bmp)
 <fattorizzazione.png>
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[44] [45]
+ [44] [45] [46]
 File: mobileNet.png Graphic file (type bmp)
 <mobileNet.png>
- [46] [47] [48]
+ [47] [48] [49]
 File: flowgraph.eps Graphic file (type eps)
 <flowgraph.eps>
 File: tensori.eps Graphic file (type eps)
 <tensori.eps>
- [49
-Non-PDF special ignored!] [50
+ [50
+Non-PDF special ignored!] [51
 Non-PDF special ignored!]
-Underfull \hbox (badness 10000) in paragraph at lines 900--901
+Underfull \hbox (badness 10000) in paragraph at lines 897--898
 
  []
 
 
-Overfull \hbox (12.00409pt too wide) in paragraph at lines 934--935
+Overfull \hbox (12.00409pt too wide) in paragraph at lines 931--932
 [][][][][][][][][][][][][] 
  []
 
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 941.
-[51]
-Overfull \hbox (12.00409pt too wide) in paragraph at lines 982--983
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 938.
+[52]
+Overfull \hbox (12.00409pt too wide) in paragraph at lines 979--980
 [][][][][][][][][][][][][] 
  []
 
-[52]
+[53]
 File: schermata.eps Graphic file (type eps)
 <schermata.eps>
 
-Overfull \hbox (65.74959pt too wide) in paragraph at lines 1013--1014
+Overfull \hbox (65.74959pt too wide) in paragraph at lines 1010--1011
  [][] 
  []
 
-[53
-Non-PDF special ignored!] [54] (tesilaurea.bbl
+[54
+Non-PDF special ignored!] [55] (tesiLaurea.bbl
 Underfull \hbox (badness 2486) in paragraph at lines 10--14
 []\OT1/cmr/m/n/12 Shehzad Noor Taus Priyo.  []$\OT1/cmtt/m/n/12 https : / / tow
 ardsdatascience . com /
  []
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1028.
- [55
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1029.
+ [56
 
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1028.
- (tesilaurea.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1028.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1028.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1029.
+ (tesiLaurea.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1029.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1029.
 
-Package rerunfilecheck Info: File `tesilaurea.out' has not changed.
-(rerunfilecheck)             Checksum: 5DCB1A15A31B7DE184738546BABFB4EF;1292.
+Package rerunfilecheck Info: File `tesiLaurea.out' has not changed.
+(rerunfilecheck)             Checksum: 99B595AED161ED314090B89DF8E289CF;1440.
 
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 9652 strings out of 493312
- 137376 string characters out of 3138893
- 278722 words of memory out of 3000000
- 12741 multiletter control sequences out of 15000+200000
+ 9657 strings out of 493312
+ 137451 string characters out of 3138893
+ 278725 words of memory out of 3000000
+ 12743 multiletter control sequences out of 15000+200000
  15745 words of font info for 58 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  35i,12n,72p,1217b,2054s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -759,9 +749,9 @@ fonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
 cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.p
 fb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
 
-Output written on tesilaurea.pdf (55 pages, 437412 bytes).
+Output written on tesiLaurea.pdf (56 pages, 441249 bytes).
 PDF statistics:
- 752 PDF objects out of 1000 (max. 8388607)
- 300 named destinations out of 1000 (max. 500000)
- 161 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 767 PDF objects out of 1000 (max. 8388607)
+ 303 named destinations out of 1000 (max. 500000)
+ 177 words of extra memory for PDF output out of 10000 (max. 10000000)
 
