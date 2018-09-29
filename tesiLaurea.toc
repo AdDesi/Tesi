@@ -1,31 +1,34 @@
 \select@language {italian}
 \select@language {italian}
-\contentsline {section}{Introduzione}{3}{section*.2}
-\contentsline {chapter}{\numberline {1}Algoritmi di apprendimento}{5}{chapter.1}
-\contentsline {section}{\numberline {1.1}Costruzione di un algoritmo}{5}{section.1.1}
-\contentsline {section}{\numberline {1.2}Apprendimento supervisionato}{11}{section.1.2}
-\contentsline {subsection}{\numberline {1.2.1}Regressione}{11}{subsection.1.2.1}
-\contentsline {subsubsection}{Regressione lineare}{11}{section*.3}
-\contentsline {section}{\numberline {1.3}Apprendimento non supervisionato}{13}{section.1.3}
-\contentsline {section}{\numberline {1.4}Apprendimento per rinforzo}{15}{section.1.4}
-\contentsline {chapter}{\numberline {2}Classificazione}{17}{chapter.2}
-\contentsline {section}{\numberline {2.1}K-Nearest Neighbor}{17}{section.2.1}
-\contentsline {chapter}{\numberline {3}Reti neurali artificiali}{20}{chapter.3}
-\contentsline {section}{\numberline {3.1}Funzioni di attivazione}{22}{section.3.1}
-\contentsline {subsubsection}{Sigmoid}{22}{section*.5}
-\contentsline {subsubsection}{tanh}{23}{section*.6}
-\contentsline {subsubsection}{ReLu}{23}{section*.7}
-\contentsline {section}{\numberline {3.2}Addestramento di una rete}{24}{section.3.2}
-\contentsline {subsubsection}{Algoritmo di back propagation}{25}{section*.8}
-\contentsline {section}{\numberline {3.3}Reti Deep Feed-forward}{31}{section.3.3}
-\contentsline {section}{\numberline {3.4}ImageNet}{32}{section.3.4}
-\contentsline {section}{\numberline {3.5}Reti Neurali Convoluzionali - CNNs}{33}{section.3.5}
-\contentsline {subsection}{\numberline {3.5.1}Struttura di una CNNs}{35}{subsection.3.5.1}
-\contentsline {subsubsection}{Strati convoluzionali}{37}{section*.10}
-\contentsline {subsubsection}{Strati di pooling}{40}{section*.11}
-\contentsline {chapter}{\numberline {4}Shazarch}{42}{chapter.4}
-\contentsline {section}{\numberline {4.1}MobileNet}{44}{section.4.1}
-\contentsline {section}{\numberline {4.2}TensorFlow}{48}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Classificazione con KNN}{52}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}mobileNet}{55}{subsection.4.2.2}
-\contentsline {chapter}{Bibliografia}{56}{subsection.4.2.2}
+\contentsline {section}{Introduzione}{4}{section*.2}
+\contentsline {chapter}{\numberline {1}Algoritmi di apprendimento}{6}{chapter.1}
+\contentsline {section}{\numberline {1.1}Costruzione di un algoritmo}{6}{section.1.1}
+\contentsline {section}{\numberline {1.2}Apprendimento supervisionato}{13}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Regressione}{14}{subsection.1.2.1}
+\contentsline {subsubsection}{Regressione lineare}{14}{section*.3}
+\contentsline {subsection}{\numberline {1.2.2}Classificazione}{16}{subsection.1.2.2}
+\contentsline {subsubsection}{K-Nearest Neighbour}{16}{section*.5}
+\contentsline {section}{\numberline {1.3}Apprendimento non supervisionato}{19}{section.1.3}
+\contentsline {section}{\numberline {1.4}Apprendimento per rinforzo}{22}{section.1.4}
+\contentsline {chapter}{\numberline {2}Reti neurali artificiali}{25}{chapter.2}
+\contentsline {section}{\numberline {2.1}Funzioni di attivazione}{28}{section.2.1}
+\contentsline {subsubsection}{Sigmoid}{28}{section*.6}
+\contentsline {subsubsection}{tanh}{29}{section*.7}
+\contentsline {subsubsection}{ReLu}{29}{section*.8}
+\contentsline {section}{\numberline {2.2}Addestramento di una rete}{30}{section.2.2}
+\contentsline {subsubsection}{Algoritmo di back propagation}{32}{section*.9}
+\contentsline {section}{\numberline {2.3}Reti Deep Feed-forward}{40}{section.2.3}
+\contentsline {section}{\numberline {2.4}ImageNet}{41}{section.2.4}
+\contentsline {section}{\numberline {2.5}Reti Neurali Convoluzionali - CNNs}{43}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Struttura di una CNNs}{46}{subsection.2.5.1}
+\contentsline {subsubsection}{Strati convoluzionali}{48}{section*.11}
+\contentsline {subsubsection}{Strati di pooling}{52}{section*.12}
+\contentsline {chapter}{\numberline {3}Shazarch}{55}{chapter.3}
+\contentsline {section}{\numberline {3.1}MobileNet}{59}{section.3.1}
+\contentsline {section}{\numberline {3.2}TensorFlow}{64}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Classificazione con KNN}{68}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Shazarch}{73}{subsection.3.2.2}
+\contentsline {section}{\numberline {3.3}AndroidStudio}{80}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Shazarch}{82}{subsection.3.3.1}
+\contentsline {section}{\numberline {3.4}Conclusioni}{84}{section.3.4}
+\contentsline {chapter}{Bibliografia}{86}{section.3.4}

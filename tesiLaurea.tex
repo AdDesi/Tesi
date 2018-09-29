@@ -14,6 +14,7 @@
 \usepackage[dvipdfm]{graphicx}
 \usepackage{graphicx}
 \usepackage[formats]{listings}
+\linespread{1.5}
 \begin{document}
 \lstset{language=Python, showspaces=false, showstringspaces=false}
 \thispagestyle{empty}
@@ -27,21 +28,22 @@
 \textmd{\large Dipartimento di Matematica e Fisica}\\
 %\vspace{0.18cm}
 \large{ Corso di Laurea Magistrale in Scienze Computazionali}\\	
-\vspace{1.35cm}	
+%\vspace{1.35cm}	
 \textmd{\Large{Tesi di Laurea Magistrale}}\\
-\vspace{1.5cm}
+\vspace{1cm}
 \LARGE{\LARGE{\textbf{Ricerca della topologia ottimale di un sistema di deep learning per identificazioni di oggetti architettonici}}}\\
-\vspace{4.6cm}
+\vspace{3.5cm}
 \begin{tabular}{ccccccccccc}
 	\large{\textbf{Candidato}}& & & & & & & & & & \large{\textbf{Relatore}}\\
 	\large{D\'{e}sir\'{e}e Adiutori} & & & & & & & & & &\large{Prof. Luciano Teresi}\\
 	& & & & & & & & & & \large{\textbf{Correlatore}}\\
 	& & & & & & & & & & \large{Prof. Roberto D'Autilia}
 \end{tabular}\\
-\vspace{2.4cm}
+\vspace{1.4cm}
 \normalsize{Anno Accademico 2017/2018}
 \end{center}
 \newpage
+
 \tableofcontents
 
 \newpage
@@ -49,11 +51,11 @@
 \addcontentsline{toc}{section}{Introduzione}
 Dall'invenzione dei computer, l'uomo fa sempre pi\`{u} affidamento sulle macchine per risolvere problemi complessi di calcolo. Con l'aumentare delle prestazioni dei computer, man mano si sono sviluppati algoritmi di calcolo sempre pi\`{u} efficienti.
 Nel 1959 l'ingegnere del MIT, Arthur Samuel coni\`{o} il termine \textit{"machine learning"}, descrivendo l'apprendimento automatico come un "campo di studio che d\`{a} ai computer la possibilit\`{a} di apprendere senza essere programmati esplicitamente per farlo".\cite{Samuel} \\
-Definiamo l'apprendimento automatico come un insieme di metodi in grado di rilevare automaticamente i modelli tramite dei dati e quindi utilizzare i modelli scoperti per prevedere i dati futuri o per eseguire altri tipi di processi decisionali in condizioni di incertezza. L'insegnamento alla macchina \`e, pertanto, imprescindibile dai dati. Generalmente, pi\`{u} dati si passano alla macchina, pi\`{u} pu\`{o} imparare. Per questo motivo con l'avvento di Internet, dagli anni '90 ad oggi il tema del "machine learning" \`e diventato sempre pi\`{u} attuale, la mole di dati reperibile dal web \`e cospicuo e ha permesso che questo campo sia esponenzialmente progredito.\\
+Definiamo l'apprendimento automatico come un insieme di metodi in grado di rilevare automaticamente i modelli tramite dei dati e quindi utilizzare i modelli scoperti per prevedere i dati futuri o per eseguire altri tipi di processi decisionali in condizioni di incertezza. L'insegnamento alla macchina \`e, pertanto, imprescindibile dai dati. Generalmente, pi\`{u} dati si passano alla macchina, pi\`{u} pu\`{o} imparare. Per questo motivo, con l'avvento di Internet, dagli anni '90 ad oggi, il tema del "machine learning" \`e diventato sempre pi\`{u} attuale. La mole di dati reperibile dal web \`e cospicua ed ha permesso che questo campo sia esponenzialmente progredito.\\
 Il \textit{"deep learning"} \`e un tipo particolare di machine learning, che riguarda l'emulazione di come gli esseri umani apprendono. Esso affronta i problemi del machine learning, rappresentando il mondo come una gerarchia di concetti annidati: ogni concetto \`e definito in relazione a concetti pi\`{u} semplici e le rappresentazioni astratte vengono calcolate in termini di concetti meno astratti. Il Deep Learning implica l'utilizzo di reti neurali artificiali (\textit{deep artificial neural networks}) algoritmi e sistemi computazionali, ispirati al cervello umano, per affrontare i problemi del Machine Learning.\\
 L'analogia di Shehzad Noor Taus Priyo pu\`{o} aiutare a capire meglio cosa siano le reti neurali:\\
 "Immaginiamole come una serie di porte da passare, dove l'input \`e l'uomo che le deve oltrepassare e ogni volta che lo fa cambia qualcosa nel suo comportamento finch\'{e}, all'ultima porta oltrepassata, l'uomo \`e diventato una persona del tutto differente, rappresentando l'output di questo processo."\cite{analogia} \\
-Questa tesi si focalizza su un problema particolare di machine learning: la Classificazione (\textit{Classification}) in particolar modo della classificazione di immagini. L'obiettivo principale \`e trovare un'architettura ottimale per l'algoritmo che identifica le immagini di oggetti architettonici, inserendo tra i parametri anche le coordinate geofisiche dell'oggetto. Per fare questo bisogna trovare la giusta topologia, la giusta profondit\`{a} e la giusta larghezza di ogni livello della rete neurale, in due parole: l'architettura ottimale.\\
+Questa tesi si focalizza su un problema particolare di machine learning: la Classificazione (\textit{Classification}) in particolar modo di immagini. L'obiettivo principale \`e trovare un'architettura ottimale per l'algoritmo che identifica le immagini di oggetti architettonici, inserendo tra i parametri anche le coordinate geofisiche dell'oggetto. Per fare questo bisogna trovare la giusta topologia, la giusta profondit\`{a} e la giusta larghezza di ogni livello della rete neurale, in due parole: l'architettura ottimale.\\
 Nel primo capitolo si descrive cosa sono e come sono strutturati gli algoritmi di apprendimento. Nel secondo si introduce il concetto di rete neurale, ponendo particolare attenzione sulle reti neurali di tipo convoluzionale. Nel terzo capitolo si approfondiscono gli algoritmi di apprendimento dedicati alla Classificazione. Nel quarto si descrive il linguaggio di programmazione TensorFlow di Python, mostrando alcuni esempi concreti di programmazione per la classificazione di oggetti; in particolar modo viene mostrato il codice utilizzato per la classificazione di oggetti architettonici e quello per la realizzazione di un App, per dispositivo Android, che lo implementi (prevalentemente codice Java). Infine nell'ultima parte vengono mostrati i risultati ottenuti.
  
 \chapter{Algoritmi di apprendimento}
@@ -83,7 +85,7 @@ Di solito, un esempio viene rappresentato da un vettore $x\in \mathbb{R}^{n}$, d
 Ad esempio, se si considera un fiore: le caratteristiche che lo descrivono sono la lunghezza e la larghezza dei suoi petali e il colore. Quindi in questo caso la metrica usata \`e la distanza euclidea tra le due estremit\`{a} del petalo:\\
 se si considera $x=(x_1,x_2,x_3)$ il fiore con queste 3 caratteristiche, si ha che:
 $$x_{1}=d(h_{min},h_{max})\qquad x_{2}=d(b_{min},b_{max})\qquad x_{3}=stringa$$
-dove $h_{min}$ e $h_{max}$ rappresentano i due punti relativi alle estremit\`{a} del petalo e $d:\mathbb{R} \times \mathbb{R} \longrightarrow \mathbb{R}$ t.c $d(x,y)=\sqrt{(x-y)^{2}}=|x-y|$.\\
+dove $h_{min}$ e $h_{max}$ rappresentano i due punti relativi alle estremit\`{a} del petalo e $d:\mathbb{R} \times \mathbb{R} \longrightarrow \mathbb{R}$    t.c   $d(x,y)=\sqrt{(x-y)^{2}}=|x-y|$.\\
 Dato un processo si cerca di capire quale sia la caratteristica principale, sulla quale si deve misurare il suo rendimento.
 Infine, dobbiamo dare all'algoritmo un'esperienza sulla quale apprendere, che \`e quella che lo classificher\`{a} in uno dei tre tipi principali.
 Questa esperienza l'apprende dai \textit{dataset}: una collezione di esempi.\\
@@ -180,9 +182,7 @@ Si ottiene cos\'{\i} il compromesso distorsione-varianza (\textit{bias-variance 
 \mathbb{E} [L(y,\hat{y})_{test}]=\sigma^2+Bias(\hat{y}(x))^2 + Var(\hat{y}(x))
 \end{equation}
 Se la distorsione ha valori alti e la varianza bassi avremo un fenomeno di adattamento insufficiente, mentre se la distorsione ha valori bassi e la varianza alti avremo un adatteamento eccessivo.\cite{errval}\\
-Un modo per equilibrare questo compromesso \`e usare la convalida incrociata (\textit{Cross-Validation}), che consiste nel ripetere l'addestramento e il test dell'algoritmo ogni volta su sottoinsiemi scelti in maniera casuale.\\
-Alcune varianti di convalida incrociata verranno analizzate in seguito.
-\newpage
+Un modo per equilibrare questo compromesso \`e usare la convalida incrociata (\textit{Cross-Validation}), che consiste nel ripetere l'addestramento e il test dell'algoritmo ogni volta su sottoinsiemi scelti in maniera casuale.
 \section{Apprendimento supervisionato}
 Gli algoritmi di apprendimento supervisionato vengono utilizzati per risolvere problemi di classificazione e di regressione, che analizzeremo rispettivamente nel cap. \ref{classificazione} e nel paragrafo \ref{regressione}.\\
 Si parla di apprendimento supervisionato quando il dataset che si utilizza contiene delle variabili, una delle quali \`e un'etichetta.\\
@@ -248,74 +248,21 @@ sostituendole nell'eq \ref{eqbeta}, si ricava $\beta$, quindi i parametri che si
 \end{eqnarray}
 oppure $\beta=\frac{Cov(x,\hat{y})}{\sigma^2}$, dove $\sigma=\sqrt{Var(x)}$ \`e la deviazione standard.
 
-\section{Apprendimento non supervisionato}
-Gli algoritmi di apprendimento non supervisionato vengono utilizzati per risolvere problemi di raggruppamento.
-All'algoritmo viene passato solo l'input: $D={\{ x_{i}\}}^{N}_{i=1}$ e cerca una relazione tra i dati per capire se e come essi siano collegati tra di loro. Non contenendo alcuna informazione preimpostata, l'algoritmo \`e chiamato a creare una "nuova conoscenza" (\textit{knowledge discovery}). A differenza del caso supervisionato, questo apprendimento non ha una classificazione o un risultato finale con il quale determinare se il risultato \`e attendibile, ma generalizza le caratteristiche dei dati e in base ad esse attribuisce ad un input un output: serve generalmente ad estrarre informazioni non ancora note, "creando" esso stesso delle classi in cui dividere i dati, dette \textit{cluster}, da cui prende il nome la tecnica di \textit{clustering}. Si definisce una misura di similarit\`{a} che se applicata ad un insieme di esempi, descritti da una serie di attributi, partiziona l'insieme in cluster, dove gli esempi appertenenti allo stesso cluster sono simili, mentre esempi appartenenti a cluster differenti sono dissimili. Il problema dela tecnica di clustering \`e trovare la caratteristica per cui si vuole raggruppare l'insieme e trovare una misura a lei adatta.\\
-Solitamente questa misura viene detta distanza e le distanze pi\`{u} utilizzate sono la distanza euclidea e la distanza di Hamming. Una volta definita questa distanza $ d:\mathbb{R} \times \mathbb{R} \rightarrow \mathbb{R} $, si definisce la distanza di similarit\`{a} che descrive la distanza, non tra due esempi ma, tra due classi ed esistono vari metodi per calcolarla. Se si indicano con:
-\begin{itemize}
-\item  $x,y,z,\ldots ,x_i,x_j, \ldots $ i punti;
-\item $d(x,y)$ la distanza tra due punti $x$ e $y$;
-\item $C_{xy}$ la classe ottenuta dal raggruppamento di $x$ e $y$.
-\end{itemize}
-si possono definire i seguenti metodi per il calcolo della distanza di\\ similarit\`{a} $D:C_i\times C_j \rightarrow \mathbb{R}$
-\begin{itemize}
-\item Metodo della distanza minima (\textit{single linkage}):\\
-calcola la distanza minima tra ogni punto di $C_i$ e ogni punto di $C_j$.$$D(C_i,C_j)=\min_{x\in C_i,y\in C_j}d(x,y)$$
-\item Metodo della distanza massima (\textit{complete linkage}):\\
-calcola la distanza massima tra ogni punto di $C_i$ e ogni punto di $C_j$.
-$$D(C_i,C_j)=\max_{x\in C_i,y\in C_j}d(x,y)$$
-\item Metodo della distanza media (\textit{average linkage}):
-calcola la media aritmetica delle distanze tra ogni punto di $C_i$ e ogni punto di $C_j$. $$D(C_i,C_j)=\frac{1}{|C_i||C_j|}\sum_{x\in C_i,y\in C_j}d(x,y)$$
-\item Metodo dei centroidi:
-calcola la distanza tra i rispettivi "centroidi" o baricentri di $C_i$ e $C_j$. $$D(C_i,C_j)=d(\hat{c_i},\hat{c_j})$$
-\end{itemize}
-Questi sono solo alcuni dei metodi che si possono utilizzare per calcolare la distanza: a volte la si misura solo all'interno della stessa classe. Questo dipende dal tipo di clustering che si sta utilizzando, senza andare troppo nello specifico, si presentano brevemente i metodi di Clustering principali:\cite{clustering}
-\begin{itemize}
-\item \textit{density-based}: il raggruppamento avviene analizzando l'intorno di ogni punto dello spazio. In particolare, viene considerata la densità di punti in un intorno di raggio fissato.
-\item gerarchici (\textit{hierarchical based}):  formano una struttura di tipo albero basata sulla gerarchia. I nuovi cluster si formano da quelli gi\`{a} precedentemente formati. Sono divisi in due categorie: agglomerativi e divisivi;
-\item partizionali (\textit{partitioning}): suddividono gli esempi dati in k cluster e ogni partizione dell'insieme rappresenta un claster. 
-\item \textit{grid-based}: lo spazio dati viene partizionato in un numero finito di celle che formano una struttura a griglia ed in ogni cella cerca i vari tipi di cluster. 
-\end{itemize}
-\textbf{Esempio: Algoritmo K-means}\\
-Un esempio di clustering partizionale \`e l'algoritmo \textit{K-means}.\\
-Dato un insieme di n esempi: $x_1,\ldots,x_n$, un numero k t.c.$n,k\in \mathbb{N}$, una misura di distanza e un criterio di stop, l'algoritmo seleziona k esempi tra gli n totali e li considera come centroidi iniziali: chiameremo $C_k$ l'insieme dei cluster formati da questi esempi. Ora fino a che non si verifica il criterio di arresto, l'algoritmo analizza gli esempi restanti dell'insieme e li assegna al cluster con centroide \`e pi\`{u} vicino :  $$x_i\in C_j \qquad se \quad  d(x_i,\hat{c}_j)=\min_{\hat{c}_k \in C_k} d(x_i,\hat{c}_{k}),\quad i=1,\ldots,n-k$$ Una volta che l'esempio $x_i$ viene aggiunto al cluster $C_j$, si calcola il valore medio di tutti i suoi elementi, ovvero ricalcola il centroide e aggiorna il nuovo valore. Iterando questa procedura per tutti gli elementi dell'insieme, l'algoritmo partiziona tutto l'insieme in k cluster.
-
-\section{Apprendimento per rinforzo}
-Gli algoritmi di apprendimento per rinforzo vengono utilizzati per risolvere problemi di regressione.
-Lo scopo di questo algoritmo \`e di realizzare un sistema in grado di apprendere ed adattarsi ai cambiamenti dell'ambiente in cui si trovano, attraverso la distribuzione di una "ricompensa" detta rinforzo, data dalla valutazione delle prestazioni. Questi algoritmi sono costruiti sull'idea che i risultati corretti dovrebbero essere ricordati, per mezzo di un segnale di rinforzo, in modo che diventino pi\`{u} probabili e quindi pi\`{u} facilmente riottenuti nelle volte future; viceversa se il rusultato \`e errato , il segnale sar\`{a} una penalit\`{a}, ovvero si avr\`{a} una probabilit\`{a} pi\`{u} bassa legata a quel determinato output.\cite{rinforzo} Vediamo brevemente in che consiste un aprrendimento di questo tipo.\\
-Si consideri un Agente in un ambiente, con Agente si intende un programma progettato per attuare un sistema sensoriale S che, interagendo con l'ambiente, fornisce informazioni al sistema decisionale D. Questo sistema D, sulla base degli ingressi, decide come agire sull'ambiente. Infine un Agente \`e anche dotato di un sistema attuativo A che traduce le decisioni di D in azioni sull'ambiente. Nell'apprendimento per rinforzo si assume, di solito, che l'ambiente possa essere descritto da un Processo di Decisione Markoviano (\textit{Markov Decision Process} o MDP).
-\newpage
-\begin{defin}
-Un Processo di Decisione Markoviano \`e formalmente definito da:
-\begin{itemize}
-\item un insieme finito di stati S;
-\item un insieme finito di azioni A;
-\item una funzione di transizione $T:S\times A \rightarrow \Pi (S)$ che assegna ad ogni coppia stato-azione una distribuzione di probabilit\`{a} su S;
-\item una funzione di rinforzo $R:S\times A \times S \rightarrow \mathbb{R}$ che assegna un valore numerico ad ogni possibile transizione.
-\end{itemize}
-dove ad ogni istante discreto t l'agente percepisce l'ambiente come $s_t \in S$ e sceglie l'azione $a_t \in A$, in base alla quale riceve una ricompensa $r_t$ e il nuovo stato corrente diventa $s_{t+1}$, entrambi questi parametri dipendono solo dallo stato corrente e dall'azione intrapresa:
-$$s_{t+1}=\delta (s_t,a_t)\qquad \qquad e \qquad \qquad r_t=r(s_t,a_t)$$
-\end{defin}
-L'agente esegue le azioni nell'ambiente, e cerca di massimizzare la funzione di rinforzo atteso: $$\mathbb{E} [\sum_{i=0}^{\infty}\gamma^i r_{t+i}] \qquad con \quad 0 \leq \gamma <1$$ 
-dove $\gamma$ \`e il tasso di sconto per ricompense future.\\
-Massimizzando questa funzione si dice che l'agente apprende una politica (o strategia):
-$$\pi :S\times A \rightarrow \mathbb{R}$$
-ovvero: cerca di stimare la funzione che associa ogni coppia stato-azione $(s,a)$ con la probabilit\`{a} che l'azione a possa essere effettuata nello stato s. Con questo comportamento l'algoritmo individua le azioni da effettuare in dipendenza dallo stato corrente in cui si trova. Esistono varie strategie per ricercare la politica da attuare, ma non verranno approfondite.
-
-\chapter{Classificazione}\label{classificazione}
-La Classificazione viene usata quando \`e necessario decidere a quale categoria appartiene un determinato dato.Per esempio, data una foto capire a quale categoria appartiene, in questa tesi vogliamo classificare immagini, pi\'{u} precisamente: capire a quale tipo di monumento corrispone una determinata immagine.\\ 
-Questo tipo di algoritmo deve specificare a quale delle k categorie appartiene un input. Crea una funzione $f:\mathbb{R}^{n} \rightarrow \{ 1,\cdots,k\}$, quando $y=f(x)$, il modello assegna l'input descritto dal vettore $x$ ad una categoria identificata dal codice numerico $y$.\\
+\subsection{Classificazione}\label{classificazione}
+La Classificazione viene usata quando \`e necessario decidere a quale categoria appartiene un determinato dato. Per esempio, data una foto, capire a quale categoria appartiene. In questa tesi vogliamo classificare immagini, pi\'{u} precisamente: capire a quale tipo di monumento corrisponde una determinata immagine.\\ 
+Questo tipo di algoritmo deve specificare a quale delle k categorie appartiene un input. Viene creata una funzione $f:\mathbb{R}^{n} \rightarrow \{ 1,\cdots,k\}$ e quando $y=f(x)$, il modello assegna l'input descritto dal vettore $x$ ad una categoria identificata dal codice numerico $y$.\\
 Esistono altre varianti dell'attivit\'{a} di classificazione, ad esempio, dove $f$ genera una distribuzione di probabilit\'{a} su classi.\\
-Vediamo ora qualcuno degli algoritmi usati per classificare dati.
-\section{K-Nearest Neighbor}\label{knn}
+Di seguito si riporta un esempio di algoritmo di classificazione di dati.
+\subsubsection{K-Nearest Neighbour}\label{knn}
 Questo \`e un algoritmo non parametrico, ovvero il numero di parametri cresce con la quantit\'{a} di dati di addestramento.
-Dato un set di dati di addestramento $(x_1,x_2,\cdots,x_n)$, corrispondenti ai risultati $(y_1,y_2,\cdots,y_n)$, questo metodo ,dato un nuovo punto $z$, cerca di prevedere la sua classe di appartenenza osservando, tra l'insieme di punti adiacenti, quelli a lui pi\`{u} vicini. Il numero di punti adiacenti da considerare dipende dal parametro $k$: si osservano le classi a cui appartengono i $k$ punti pi\'{u} vicini e la classe pi\'{u} ricorrente sar\`{a} assegnata al punto $z$.\\ 
+Dato un set di dati di addestramento $(x_1,x_2,\cdots,x_n)$, corrispondenti ai risultati $(y_1,y_2,\cdots,y_n)$.\\
+Preso in input un nuovo punto $z$, cerca di prevedere la sua classe di appartenenza osservando, tra l'insieme di punti adiacenti, quelli a lui pi\`{u} vicini. Il numero di punti adiacenti da considerare dipende dal parametro $k$: si osservano le classi a cui appartengono i $k$ punti pi\'{u} vicini e la classe pi\'{u} ricorrente sar\`{a} assegnata al punto $z$.\\ 
 Si supponi di avere un set di dati che comprende $N_k$ punti appartenenti alla classe $C_k$ con $N$ punti in totale, ovvero: $\sum_{k}N_k = N$. Se si vuole classificare un nuovo punto $x$, si disegna una sfera centrata in $x$ contenente  K punti qualsiasi, indipendentemente da come siano classificati.\\
 Si vuole ora calcolare la funzione di probabilit\`{a} di $x$ che (essendo in un caso di classificazione i valori sono discreti) sar\`{a} la densit\`{a} discreta:
 \begin{equation}\label{dens}
 P=\int_R p(x) dx
 \end{equation}
-Si supponeni ora di aver raccolto un set di dati comprendente N osservazioni, ognuna con probabilit\'{a} uniforme $p(x)$ di essere all'interno della regione R, quindi la probabilt\'{a} di avere K punti all'interno di R sar\'{a} data dalla distribuzione binomiale:
+Si supponga ora di aver raccolto un set di dati comprendente N osservazioni, ognuna con probabilit\'{a} uniforme $p(x)$ di essere all'interno della regione R, quindi la probabilt\'{a} di avere K punti all'interno di R sar\'{a} data dalla distribuzione binomiale:
 \begin{equation} \label{binomiale}
 P(X=K)=\frac{N!}{K!(N-K)!}P^K (1-P)^N-K,
 \end{equation} 
@@ -353,23 +300,83 @@ Lo svantaggio di questo algortimo \`{e} chiaro: il numero di distanze da calcola
 
 
 
+
+\section{Apprendimento non supervisionato}
+Gli algoritmi di apprendimento non supervisionato vengono utilizzati per risolvere problemi di raggruppamento.
+All'algoritmo viene passato solo l'input: $D={\{ x_{i}\}}^{N}_{i=1}$ e cerca una relazione tra i dati per capire se e come essi siano collegati tra di loro. Non contenendo alcuna informazione preimpostata, l'algoritmo \`e chiamato a creare una "nuova conoscenza" (\textit{knowledge discovery}). A differenza del caso supervisionato, questo apprendimento non ha una classificazione o un risultato finale con il quale determinare se il risultato \`e attendibile, ma generalizza le caratteristiche dei dati e in base ad esse attribuisce ad un input un output: serve generalmente ad estrarre informazioni non ancora note, "creando" esso stesso delle classi in cui dividere i dati, dette \textit{cluster}, da cui prende il nome la tecnica di \textit{clustering}. Si definisce una misura di similarit\`{a} che se applicata ad un insieme di esempi, descritti da una serie di attributi, partiziona l'insieme in cluster, dove gli esempi appertenenti allo stesso cluster sono simili, mentre esempi appartenenti a cluster differenti sono dissimili. Il problema dela tecnica di clustering \`e trovare la caratteristica per cui si vuole raggruppare l'insieme e trovare una misura a lei adatta.\\
+Solitamente questa misura viene detta distanza e le distanze pi\`{u} utilizzate sono la distanza euclidea e la distanza di Hamming. Una volta definita questa distanza $ d:\mathbb{R} \times \mathbb{R} \rightarrow \mathbb{R} $, si definisce la distanza di similarit\`{a} che descrive la distanza, non tra due esempi ma, tra due classi ed esistono vari metodi per calcolarla. Se si indicano con:
+\begin{itemize}
+\item  $x,y,z,\ldots ,x_i,x_j, \ldots $ i punti;
+\item $d(x,y)$ la distanza tra due punti $x$ e $y$;
+\item $C_{xy}$ la classe ottenuta dal raggruppamento di $x$ e $y$.
+\end{itemize}
+si possono definire i seguenti metodi per il calcolo della distanza di\\ similarit\`{a} $D:C_i\times C_j \rightarrow \mathbb{R}$
+\begin{itemize}
+\item Metodo della distanza minima (\textit{single linkage}):\\
+calcola la distanza minima tra ogni punto di $C_i$ e ogni punto di $C_j$.$$D(C_i,C_j)=\min_{x\in C_i,y\in C_j}d(x,y)$$
+\item Metodo della distanza massima (\textit{complete linkage}):\\
+calcola la distanza massima tra ogni punto di $C_i$ e ogni punto di $C_j$.
+$$D(C_i,C_j)=\max_{x\in C_i,y\in C_j}d(x,y)$$
+\item Metodo della distanza media (\textit{average linkage}):
+calcola la media aritmetica delle distanze tra ogni punto di $C_i$ e ogni punto di $C_j$. $$D(C_i,C_j)=\frac{1}{|C_i||C_j|}\sum_{x\in C_i,y\in C_j}d(x,y)$$
+\item Metodo dei centroidi:
+calcola la distanza tra i rispettivi "centroidi" o baricentri di $C_i$ e $C_j$. $$D(C_i,C_j)=d(\hat{c_i},\hat{c_j})$$
+\end{itemize}
+Questi sono solo alcuni dei metodi che si possono utilizzare per calcolare la distanza: a volte la si misura solo all'interno della stessa classe. Questo dipende dal tipo di clustering che si sta utilizzando, senza andare troppo nello specifico, si presentano brevemente i metodi di Clustering principali:\cite{clustering}
+\begin{itemize}
+\item \textit{density-based}: il raggruppamento avviene analizzando l'intorno di ogni punto dello spazio. In particolare, viene considerata la densitï¿½ di punti in un intorno di raggio fissato.
+\item gerarchici (\textit{hierarchical based}):  formano una struttura di tipo albero basata sulla gerarchia. I nuovi cluster si formano da quelli gi\`{a} precedentemente formati. Sono divisi in due categorie: agglomerativi e divisivi;
+\item partizionali (\textit{partitioning}): suddividono gli esempi dati in k cluster e ogni partizione dell'insieme rappresenta un claster. 
+\item \textit{grid-based}: lo spazio dati viene partizionato in un numero finito di celle che formano una struttura a griglia ed in ogni cella cerca i vari tipi di cluster. 
+\end{itemize}
+\textbf{Esempio: Algoritmo K-means}\\
+Un esempio di clustering partizionale \`e l'algoritmo \textit{K-means}.\\
+Dato un insieme di n esempi: $x_1,\ldots,x_n$, un numero k t.c.$n,k\in \mathbb{N}$, una misura di distanza e un criterio di stop, l'algoritmo seleziona k esempi tra gli n totali e li considera come centroidi iniziali: chiameremo $C_k$ l'insieme dei cluster formati da questi esempi. Ora fino a che non si verifica il criterio di arresto, l'algoritmo analizza gli esempi restanti dell'insieme e li assegna al cluster con centroide \`e pi\`{u} vicino :  $$x_i\in C_j \qquad se \quad  d(x_i,\hat{c}_j)=\min_{\hat{c}_k \in C_k} d(x_i,\hat{c}_{k}),\quad i=1,\ldots,n-k$$ Una volta che l'esempio $x_i$ viene aggiunto al cluster $C_j$, si calcola il valore medio di tutti i suoi elementi, ovvero ricalcola il centroide e aggiorna il nuovo valore. Iterando questa procedura per tutti gli elementi dell'insieme, l'algoritmo partiziona tutto l'insieme in k cluster.
+
+\section{Apprendimento per rinforzo}
+Gli algoritmi di apprendimento per rinforzo vengono utilizzati per risolvere problemi di regressione.
+Lo scopo di questo algoritmo \`e di realizzare un sistema in grado di apprendere ed adattarsi ai cambiamenti dell'ambiente in cui si trovano, attraverso la distribuzione di una "ricompensa" detta rinforzo, data dalla valutazione delle prestazioni. Questi algoritmi sono costruiti sull'idea che i risultati corretti dovrebbero essere ricordati, per mezzo di un segnale di rinforzo, in modo che diventino pi\`{u} probabili e quindi pi\`{u} facilmente riottenuti nelle volte future; viceversa se il rusultato \`e errato , il segnale sar\`{a} una penalit\`{a}, ovvero si avr\`{a} una probabilit\`{a} pi\`{u} bassa legata a quel determinato output.\cite{rinforzo} \\
+Vediamo brevemente in che consiste un aprrendimento di questo tipo.\\
+Si consideri un Agente in un ambiente, con Agente si intende un programma progettato per attuare un sistema sensoriale S che, interagendo con l'ambiente, fornisce informazioni al sistema decisionale D. Questo sistema D, sulla base degli ingressi, decide come agire sull'ambiente. Infine un Agente \`e anche dotato di un sistema attuativo A che traduce le decisioni di D in azioni sull'ambiente. Nell'apprendimento per rinforzo si assume, di solito, che l'ambiente possa essere descritto da un Processo di Decisione Markoviano (\textit{Markov Decision Process} o MDP).
+\newpage
+\begin{defin}
+Un Processo di Decisione Markoviano \`e formalmente definito da:
+\begin{itemize}
+\item un insieme finito di stati S;
+\item un insieme finito di azioni A;
+\item una funzione di transizione $T:S\times A \rightarrow \Pi (S)$ che assegna ad ogni coppia stato-azione una distribuzione di probabilit\`{a} su S;
+\item una funzione di rinforzo $R:S\times A \times S \rightarrow \mathbb{R}$ che assegna un valore numerico ad ogni possibile transizione.
+\end{itemize}
+dove ad ogni istante discreto t l'agente percepisce l'ambiente come $s_t \in S$ e sceglie l'azione $a_t \in A$, in base alla quale riceve una ricompensa $r_t$ e il nuovo stato corrente diventa $s_{t+1}$, entrambi questi parametri dipendono solo dallo stato corrente e dall'azione intrapresa:
+$$s_{t+1}=\delta (s_t,a_t)\qquad \qquad e \qquad \qquad r_t=r(s_t,a_t)$$
+\end{defin}
+L'agente esegue le azioni nell'ambiente, e cerca di massimizzare la funzione di rinforzo atteso: $$\mathbb{E} \left[ \sum_{i=0}^{\infty}\gamma^i r_{t+i}\right] \qquad con \quad 0 \leq \gamma <1$$ 
+dove $\gamma$ \`e il tasso di sconto per ricompense future.\\
+Massimizzando questa funzione si dice che l'agente apprende una politica (o strategia):
+$$\pi :S\times A \rightarrow \mathbb{R}$$
+ovvero, cerca di stimare la funzione che associa ogni coppia stato-azione $(s,a)$ con la probabilit\`{a} che l'azione a possa essere effettuata nello stato s. Con questo comportamento l'algoritmo individua le azioni da effettuare in dipendenza dallo stato corrente in cui si trova. Esistono varie strategie per ricercare la politica da attuare, ma non verranno approfondite.
+
+
+
+
+
 \chapter{Reti neurali artificiali}\label{cap:reti}
 Le reti neurali sono i modelli di deep learning per eccellenza. Sono un sistema di elaborazione di informazioni ispirato al funzionamento del sistema nervoso umano.\\
 La rete \`e strutturata come un grafo orientato. I nodi sono raggruppati in strati (\textit{layers}): il primo strato contiene i nodi di input  $x_1,\cdots,x_n$, connessi con lo strato successivo, dove ad ogni arco \`e associato un peso $w_i$. L'ultimo strato contiene i nodi di output. Gli strati tra il primo e l'ultimo strato sono chiamati strati nasconti (\textit{hidden layers}). La lunghezza complessiva del percorso determina la profondit\'{a} del modello, da cui deriva il nome dell'apprendimento: "deep learning".\\
 In base all'architettura scelta, esistono vari modelli di  reti neurali;
 la scelta dell'architettura della rete \`e molto importante, poich\'{e} in base al numero di nodi usati per ogni strato ed alla profondit\'{a}, il costo computazionale cresce o diminuisce: per esempio la scelta di un'architettura poco profonda e con una elevata quantit\'{a} di nodi per strato, causa un costo computazionale elevato ed un massiccio utilizzo della memoria.\\
-Lo scopo di questa tesi \`e di trovare l'architettura ottimale per un algoritmo di classificazione di immagini considerando anche la geolocalizzazione dell'oggetto da riconoscere (e del suo visualizzatore). \\ %vedere se toglierlo 
+Lo scopo di questa tesi \`e di trovare l'architettura ottimale per un algoritmo di classificazione di immagini considerando anche la geolocalizzazione dell'oggetto da riconoscere e del suo visualizzatore. \\  
 Ritornando alle reti neurali, in generale, abbiamo detto che si ispirano al nostro sistema nervoso; vediamo brevemente in che modo.\\
 Ogni neurone, nel nostro cervello, riceve un'intera serie di segnali da altri neuroni, li somma all'interno del suo corpo cellulare e, sulla base della somma, aggiusta la frequenza delle scariche da inviare alla cellula successiva.\\
-I neuroni ricevono sia segnali eccitatori, ovvero che tendono ad aumentare la loro frequenza di scarica, che segnali inibitori, che tendono invece a diminuirla, ma nonostante ricevano due tipi di segnali, ne emettono poi di un solo tipo. Analogamente: ogni neurone aritificiale, rappresentato da un nodo, diventa attivo se la quantit\'{a} totale di segnale che riceve supera la soglia di attivazione, definita dalla cosiddetta funzione di attivazione. Se un nodo diventa attivo, emette un segnale che viene trasmesso lungo i canali di trasmissione fino all'altra unit\`{a} a cui \`e collegato.\\
+I neuroni ricevono sia segnali eccitatori, ovvero che tendono ad aumentare la loro frequenza di scarica, che segnali inibitori, che tendono invece a diminuirla, ma nonostante ricevano due tipi di segnali, ne emettono poi di un solo tipo. Analogamente: ogni neurone aritificiale, rappresentato da un nodo, diventa attivo se la quantit\`{a} totale di segnale che riceve supera la soglia di attivazione, definita dalla cosiddetta funzione di attivazione. Se un nodo diventa attivo, emette un segnale che viene trasmesso lungo i canali di trasmissione fino all'altra unit\`{a} a cui \`e collegato.
 
-\begin{figure}[!h]
+\begin{figure}[!hb]
 \centering
-\includegraphics[scale=1.8]{reteneurale.eps}
+\includegraphics[scale=0.8]{neurone.eps}
 \caption{Modello non lineare di un neurone artificiale.}
 \label{neurone}
 \end{figure}
-
+\newpage
 La figura \ref{neurone}, indipendentemente dal modello di rete utilizzato, mostra l'elaborazione eseguita da un neurone artificiale.\\
 Siano $x_1,\cdots,x_n$ i dati in input, rappresentati dagli $n$ nodi del primo strato, nel k-esimo neurone l'informazione viene elaborata come:
 $$y_{(k)}=f(b_{(k)}+\sum_{i=1}^n w_{(k)i}\cdot x_{(k-1)i})$$
@@ -397,7 +404,6 @@ $$S(x)=\frac{1}{1+e^{-x}}$$
 La Sigmoid \`e una funzione monotona e differenziabile, infatti la sua derivata:
 $$\frac{dS}{dx}=\frac{e^{-x}}{(1+e^{-x})^2}$$
 \`e continua, positiva e derivabile in  ogni punto del dominio.
-\newpage
 \subsubsection{tanh}
 La funzione tangente iperbolica \`e definita come: $$\tanh:\mathbb{R}\longrightarrow(-1,1)$$ 
 $$ \tanh(x)=\frac{2}{1+e^{-2x}} - 1$$ 
@@ -433,7 +439,7 @@ Relu^{\prime}(x)=
 $$
 e non rischia di incorrere nella sparizione del gradiente. Si potrebbero avere problemi nell'origine, per la presenza di un punto angoloso, poich\'{e} la derivata \`e indefinita ma, per convenzione, viene definita uguale a zero.\\
 Risulta immediato il motivo per cui sono molto utilizzate nelle reti formate da tanti strati: mappando i valori negativi in zero, permette di tenere solo i valori positivi, riducendo di molto il numero di neuroni attivati.
-\newpage
+
 \section{Addestramento di una rete}
 Come visto in \ref{Costruzione}, per addestrare un algoritmo si ha bisogno di una funzione di perdita e di un metodo per minimizzare l'errore di valutazione.\\
 L'addestramento di una rete neurale si basa sugli stessi principi:\\
@@ -469,7 +475,7 @@ dove:
 \end{itemize}
 Calcolato l'ultimo valore $a^{L}$, corrispondente all'output della rete, si esamina l'errore di allenamento tramite la funzione di perdita. Per minimizzare l'errore, basta minimizzare la funzione di perdita, questa operazione sancisce l'inizio della seconda fase: la backward propagation.\\
 \textbf{backward propagation}
-Per ottenere il minimo di una funzione bisogna vedere dove si annulla la sua derivata prima. Trattandosi di una funzione a più variabili, si dovr\`{a} calcolare il gradiente della funzione di perdita: $L[y,f(x,\theta)]$, per farlo  si applica la regola della catena per il calcolo e poich\'{e} $\theta = (W^1,W^2,\cdots ,W^{L-1})$, abbiamo:
+Per ottenere il minimo di una funzione bisogna vedere dove si annulla la sua derivata prima. Trattandosi di una funzione a pi\`{u} variabili, si dovr\`{a} calcolare il gradiente della funzione di perdita: $L[y,f(x,\theta)]$, per farlo  si applica la regola della catena per il calcolo e poich\'{e} $\theta = (W^1,W^2,\cdots ,W^{L-1})$, abbiamo:
 \begin{equation}\label{eqbp1}
 \frac{\partial L}{\partial w_{ij}^k}=\frac{\partial L}{\partial a_j^k}\frac{\partial a_j^k}{\partial w_{ij}^k}.
 \end{equation}
@@ -616,7 +622,7 @@ Questo tipo di reti sono di solito rappresentate dalla composizione di pi\`{u} f
 y=f(x,\theta)=g_o(\theta_{L-1}g_{L-1}(\cdots \theta_{2}g_{2}(\theta_{1}x)))
 \end{equation}
 Lo scopo della rete \`e sempre di approssimare $f(x)$ ad una funzione $f^*$ e questo \`e possibile grazie all'addestramento.
-\newpage
+
 \section{ImageNet}\label{ImageNet}
 In Internet oramai sono presenti milioni di milioni di immagini e di video, usati per i modelli e gli algoritmi pi\'{u} sofisticati e robusti, per aiutare gli utenti ad indicizzare, recuperare, organizzare e interagire con questi dati.
 Un esempio banale \`e la ricerca di immagini su Google.\\
@@ -648,8 +654,9 @@ Siano $f,g\in L^1(\mathbb{R})$, si definisce convoluzione tra f e g come:
 \end{defin}
 Questa operazione gode di alcune propriet\'{a}:
 \begin{enumerate}
-\item \textbf{propriet\'{a} commutativa}$$
-(f*g)(t):= \int_{-\infty}^{\infty} f(\tau)g(t-\tau)d\tau=-\int_{\infty}^{-\infty} f(t-z)g(z)dz=\int_{-\infty}^{\infty}g(z)f(t-z)dz=(g*f)$$
+\item \textbf{propriet\'{a} commutativa} \begin{eqnarray}
+(f*g)(t)& := & \int_{-\infty}^{\infty} f(\tau)g(t-\tau)d\tau=-\int_{\infty}^{-\infty} f(t-z)g(z)dz=\nonumber \\
+& = & \int_{-\infty}^{\infty}g(z)f(t-z)dz=(g*f)\end{eqnarray}
 dove $z=t-\tau \Rightarrow \tau=t-z \Rightarrow d\tau=-dz$.
 \item \textbf{Linearit\'{a}}$$ (f_1+f_2)*g=(f_1*g)+(f_2*g), \qquad (\lambda f)*g=\lambda(f*g).$$ 
 \item \textbf{Integrale} Se $f,g\in L^1(\mathbb{R})$ sono assolutamente integrabili allora $$\int_{\mathbb{R}}(f*g)(t)dt=\int_{\mathbb{R}}f(t)dt \cdotp \int_{\mathbb{R}}g(t)dt.$$
@@ -660,7 +667,7 @@ $$ \frac{d}{dt}(f*g)(t)=\frac{d}{dt}f(t)*g(t)=f(t)*\frac{d}{dt}g(t)$$
 $\Rightarrow$ supp $(f*g)\subset [a+c,b+d].$
 \item \textbf{Segnali causali} Se f,g sono causali $\Rightarrow f*g$ \`e causale.
 \end{enumerate}
-Tramite l'eq\ref{eqconvoluzione}, se si conosce la funzione di risposta g(t) e il segnale di entrata f(t), si pu\'{o} esprimere il segnale di uscita y(t), che nelle reti convoluzionali rappresenta il filtro di convoluzione (\textit{feature map}) e la funzione di risposta \`e detta \textit{"kernel"}.
+Tramite l'eq. \ref{eqconvoluzione}, se si conosce la funzione di risposta g(t) e il segnale di entrata f(t), si pu\`{o} esprimere il segnale di uscita y(t), che nelle reti convoluzionali rappresenta il filtro di convoluzione (\textit{feature map}) e la funzione di risposta \`e detta \textit{"kernel"}.
 Si ricorda che per \textit{segnale} si intende una grandezza fisica qualsiasi a cui \`e associata un'informazione.\\
 Nelle reti neurali i segnali non sono descritti da funzioni continue ma da funzioni discrete, in quanto l'input passato ad un neurone \`e un valore discreto ben preciso.\\
 Si necessita qundi delle seguenti definizioni:
@@ -688,7 +695,7 @@ L'altezza e la larghezza rappresentano i pixel, mentre la profondit\`{a} le cara
 \includegraphics{Immagine3D}
 \caption{Esempio di rappresentazione di un'immagine in formato RGB in una CNN.}
 \end{figure}
-
+\newpage
 \subsection{Struttura di una CNNs}
 Alla base di questa tipologia di reti neurali ci sono 3 concetti:
 \begin{enumerate}
@@ -772,21 +779,19 @@ Il dataset di immagini deve essere abbastanza grande per far si che l'algoritmo 
 Il dataset utilizzato \`e composto da circa 40000 immagini, di cui una piccola parte originali, ovvero scattate fisicamente sul posto, le restanti sono state generate artificialmente tramite la libreria Augmentor. Questa libreria \`e progettata per aiutare l'incremento e la generazione artificiale di dati di immagine per attivit\`{a} di machine learning, tramite rotazioni, zoom, distorsioni ecc... Si \`e partiti da una media di 6 foto per classe e per ognuna di queste Augmentor ha generato 180 foto. Successivamente l'insieme di dati \`e stato diviso in modo che l'$80\%$ andasse a costituire l'insieme di addestramento e il $20\%$ quello di validazione. Come architettura per il modello si \`e optato per l'architettura pre-esistente mobileNet, descritta nel dettaglio nella sezione \ref{sez:mobileNet}, addestrata tramite il meotodo di discesa del gradiente (SGD) settato con il parametro di learning rate=0.1, dove nella fase di back propagation (\ref{back-prop})  batch size=100 % aggiornare quando calcolo l'accuratezza
  Una volta addestrata la rete, tensorflow salva il modello all'interno di un file, successivamente convertito con estensione ".lite". Questa conversione trasforma il modello in uno di tipo TensorFlow Lite, un formato che permette di 
 utilizzare Android Studio: un ambiente di sviluppo integrato (IDE) per lo sviluppo per la piattaforma Android. All'interno del codice Java, linguaggio con cui si programma un'applicazione Android, sono state inserite le coordinate di geolocalizzazione.\\
-Innanzitutto per capire come correlare questa informazione con quella data dal modello, si sono studiati gli eventi da analizzare per capire se questi fossero indipendenti o meno. Dato lo spazio campionario \`e $\Omega ={C_1,\cdots,C_{30}}$, dove $C_i$ rappresentano le classi corripsondenti ai 30 monumenti, l'evento $E={C_{\hat{y}}=C_y}$ dove la classe predetta coincide con la classe effettiva e l'evento $F={monumento nelle vicinanze}$. Questi due eventi sono indipendenti, se così non fosse si avrebbe che: $P(E\cap F)=P(F|E)\ldotp P(E)$, ma l'evento per cui la predizione \`e giusta non da nessuna informazione sulla distanza tra lei e l'osservatore, allora: $P(F|E)=P(F)$  e $P(E\cap F)=P(F)\ldotp P(E)$, che avviene se i due eventi sono indipendenti.\\
-Sono stati implementati due metodi per considerare le posizioni GPS del visitatore. Una ,chiamata "GPS", considera la distanza tra il dispositivo ed il monumento osservato. Si \`e considerato che la probabilità di un evento F, si comporta come una variabile aleatoria uniforme sull'intervallo (0,r), oltre il quale \`e plausibile pensare che il visitatore non possa vedere. Quindi:
+Innanzitutto per capire come correlare questa informazione con quella data dal modello, si sono studiati gli eventi da analizzare per capire se questi fossero indipendenti o meno. Dato lo spazio campionario \`e $\Omega ={C_1,\cdots,C_{30}}$, dove $C_i$ rappresentano le classi corripsondenti ai 30 monumenti, l'evento $E={C_{\hat{y}}=C_y}$ dove la classe predetta coincide con la classe effettiva e l'evento $F={monumento nelle vicinanze}$. Questi due eventi sono indipendenti, se cosï¿½ non fosse si avrebbe che: $P(E\cap F)=P(F|E)\ldotp P(E)$, ma l'evento per cui la predizione \`e giusta non da nessuna informazione sulla distanza tra lei e l'osservatore, allora: $P(F|E)=P(F)$  e $P(E\cap F)=P(F)\ldotp P(E)$, che avviene se i due eventi sono indipendenti.\\
+Sono stati implementati due metodi per considerare le posizioni GPS del visitatore. Una ,chiamata "GPS", considera la distanza tra il dispositivo ed il monumento osservato. Si \`e considerato che la probabilitï¿½ di un evento F, si comporta come una variabile aleatoria uniforme sull'intervallo (0,r), oltre il quale \`e plausibile pensare che il visitatore non possa vedere. Quindi:
 \begin{equation}
 P(X=d_i)=\begin{cases} 1 & \mbox{se }d_i\leq r \\ 0 & \mbox{altrimenti}\end{cases}
 \end{equation}
 dove $d_i$ \`e la distanza tra le coordinate dell'osservatore e il monumento di classe $C_i$.\\
-L'altra applicazione sviluppata,chiamata "GPS Alarm", invece considera una circonferenza di raggio 20metri
-  %aggiornare il raggio%
-centrata in un monumento che ne delimita la sua area "protetta". Se il visitatore non si trova all'interno di quest'area la probabilit\`{a} di osservare il monumento corrispondente ad essa \`e pari a zero, altrimenti è 1. Questo solo per poter conisderare solo i reperti che \`e ragionevole pensare un turista possa voler inquadrare. Naturalmente questi approcci non permettono di classificare un monumento da una sistanza maggiore di quella considerata, anzi produrrà una classificazione errata, in quanto verranno considerate solo i monumenti in cui le coordinate del visitatore si trovano all'interno delle loro aree protette.\\
+L'altra applicazione sviluppata, chiamata "GPS Alarm", invece considera una circonferenza di raggio 20metri, centrata in un monumento che ne delimita la sua area "protetta". Se il visitatore non si trova all'interno di quest'area la probabilit\`{a} di osservare il monumento corrispondente ad essa \`e pari a zero, altrimenti ï¿½ 1. Questo solo per poter conisderare solo i reperti che \`e ragionevole pensare un turista possa voler inquadrare. Naturalmente questi approcci non permettono di classificare un monumento da una distanza maggiore di quella considerata, anzi produrrï¿½ una classificazione errata, in quanto verranno considerate solo i monumenti in cui le coordinate del visitatore si trovano all'interno delle loro aree protette.\\
 Ora che sono note la struttura e la logica con cui \` stata progettata Shazarch, si possono approfondire alcuni aspetti accennati in questa fase. 
 
 \section{MobileNet}\label{sez:mobileNet}
-MobileNet \`e un'architettura rilasciata da Google e resa disponibile open source, contenente una famiglia di modelli di computer vision per dispositivi mobili per TensorFlow. \`E stata progettata per massimizzare efficacemente l'accuratezza, tenendo presente le risorse limitate per un'applicazione integrata su dispositivo. Per questo motivo \`e stata scelta per adattarsi alla nostra esigenza di classificare immagini tramite un'applicazione installata su un dispositivo mobile. La particolarit\`{a} di questa architettura \`e l'uso di convoluzioni separabili per costruire reti neurali profonde leggere. L'intuizione di questi sviluppatori \`e stata di introdurre due semplici iperparametri che riescono ad equilibrare efficacemente latenza e accuratezza, permettendo all'architettura di adattarsi a diverse applicazioni. La latenza ,in informatica, di un sistema \`e l'intervallo di tempo che intercorre fra il momento in cui arriva l'input e il momento in cui è disponibile il suo output. In altre parole: la latenza non \`e altro che una misura della velocità di risposta di un sistema.
-Ma che cosa si intende per convoluzioni separabili? Sono delle convoluzioni formate da due convoluzioni: una convoluzione in profondità e una convoluzione con un filtro di dimensione $1\times 1$ chiamata convoluzione puntuale.
-La convoluzione in profondità applica un singolo filtro a ciascun canale di ingresso e all'output generato viene applicato il filtro della convoluzione puntuale. Riassumendo: la convoluzione standard consente di filtrare e combinare gli input in un nuovo set di output in un unico passaggio, mentre la convoluzione separabile lo fa in due passaggi, ognuno svolto da uno strato di convoluzione diverso.
+MobileNet \`e un'architettura rilasciata da Google e resa disponibile open source, contenente una famiglia di modelli di computer vision per dispositivi mobili per TensorFlow. \`E stata progettata per massimizzare efficacemente l'accuratezza, tenendo presente le risorse limitate per un'applicazione integrata su dispositivo. Per questo motivo \`e stata scelta per adattarsi alla nostra esigenza di classificare immagini tramite un'applicazione installata su un dispositivo mobile. La particolarit\`{a} di questa architettura \`e l'uso di convoluzioni separabili per costruire reti neurali profonde leggere. L'intuizione di questi sviluppatori \`e stata di introdurre due semplici iperparametri che riescono ad equilibrare efficacemente latenza e accuratezza, permettendo all'architettura di adattarsi a diverse applicazioni. La latenza ,in informatica, di un sistema \`e l'intervallo di tempo che intercorre fra il momento in cui arriva l'input e il momento in cui \`e disponibile il suo output. In altre parole: la latenza non \`e altro che una misura della velocitï¿½ di risposta di un sistema.
+Ma che cosa si intende per convoluzioni separabili? Sono delle convoluzioni formate da due convoluzioni: una convoluzione in profonditï¿½ e una convoluzione con un filtro di dimensione $1\times 1$ chiamata convoluzione puntuale.
+La convoluzione in profonditï¿½ applica un singolo filtro a ciascun canale di ingresso e all'output generato viene applicato il filtro della convoluzione puntuale. Riassumendo: la convoluzione standard consente di filtrare e combinare gli input in un nuovo set di output in un unico passaggio, mentre la convoluzione separabile lo fa in due passaggi, ognuno svolto da uno strato di convoluzione diverso.
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{fattorizzazione}
@@ -797,7 +802,7 @@ Questa fattorizzazione ha l'effetto di ridurre drasticamente il calcolo e la dim
 $$D_K \cdot D_K \cdot M \cdot N \cdot D_F \cdot D_F$$
 Mentre nella convoluzione separabile si ha la convoluzione in profondit\`{a} che applica un filtro K' di dimensioni: $D_K\times D_K \times M$ ed ha un costo computazionale di:
 $$D_K \cdot D_K \cdot M \cdot D_F \cdot D_F$$
-Ora questi filtri devono essere combinati per creare nuove funzionalit\`{a}. Pertanto, per generare queste nuove caratteristiche è necessario lo strato con la convoluzione puntuale che calcoli una combinazione lineare dell'uscita della convoluzione in profondit\`{a}, mediante la convoluzione con filtro di dimensione $1 \times 1$ di profondit\`{a} M e applicato agli N canali di output.\\
+Ora questi filtri devono essere combinati per creare nuove funzionalit\`{a}. Pertanto, per generare queste nuove caratteristiche ï¿½ necessario lo strato con la convoluzione puntuale che calcoli una combinazione lineare dell'uscita della convoluzione in profondit\`{a}, mediante la convoluzione con filtro di dimensione $1 \times 1$ di profondit\`{a} M e applicato agli N canali di output.\\
  Il suo costo \`e pari a:
 $$M\cdot N \cdot D_F \cdot D_F$$
 Quindi la convoluzione separabile ha un costo computazionale totale pari alla somma delle due convoluzioni:
@@ -841,10 +846,9 @@ Aggiungendo anche questo parametro il costo computazionale della rete con moltip
 \begin{equation}
 D_K \cdot D_K  \cdot \alpha M\cdot \rho D_F\cdot \rho D_F + \alpha M\cdot \alpha N \cdot \rho D_F \cdot \rho D_F
 \end{equation}
-con $\rho \in (0,1]$ ed anche questo moltiplicatore ha l'effetto di ridurre il costo computazionale di $\rho^2$.\\
+con $\rho \in (0,1]$ ed anche questo moltiplicatore ha l'effetto di ridurre il costo computazionale di $\rho^2$.\cite{mobileNet} \\
 Per creare Shazarch \`{e} stata utilizzata l'architettura "standard" di mobileNet, ovvero dove gli iperparametri $\alpha$ e $\rho$ sono uguali a 1.\\
 Inoltre si riocrda che la dimensione delle foto, con cui era stato costruito il dataset, era di $3024\times 4032$ pixels, mentre imageNet accetta solo immagini di dimensioni $224\times 224$, $192\times 192$, $160\times 160$ o $128\times 128$ pixels, quindi le immagini del dataset sono state ridimensionate in modo da soddisfare la dimensione richiesta. Questo ha comportato una perdita parziale di informazioni sulle immagini, ma era un prezzo da pagare per creare un'applicazione adattabile su un dispositivo mobile che non dispone di una memoria molto capiente.
-
 
 
 
@@ -895,8 +899,11 @@ I principali tipi di tensori sono:
 \newpage
 \subsection{Classificazione con KNN}
 Di seguito viene riportato un esempio di codice per la classificazione di numeri scritti a mano estratti dal dataset di MNIST. L'algoritmo utilizzato \`{e} dei K-nearest neighbour,in due versioni: la prima non utilizza il batch size mentre la seconda si.\\
-
-%inserire foto di mnist
+\begin{figure}[t]
+\centering
+\includegraphics{MnistExamples}
+\caption{Esempio di dati provenienti dal dataset Mnist}
+\end{figure}
 
 
 \textbf{Classificazione con k=5}
@@ -1012,13 +1019,275 @@ Utilizzando insiemi di addestramento e di test con le stesse cardinalit\`{a} del
 \end{figure}
 \newpage
 
-\subsection{mobileNet}
-Di seguito si riporta il codice utilizzato per creare il modello per l'applicazione Shazarch, %spiegare i vari passaggi e poi riepilogare il tutto%
+\subsection{Shazarch}
+Di seguito si riporta il codice utilizzato per creare il modello per l'applicazione Shazarch.\\
+Per prima cosa si \`e ampliato il dataset di partenza, tramite la generazione di foto artificiali con Augmentor con la seguente procedura generale \cite{Augmentor}:\\
+\begin{enumerate}
+\item Si istanzia un oggetto \textit{Pipeline};
+\item Si definisce un numero di operazioni da eseguire;
+\item Si eseguono le operazioni sull'oggetto Pipeline.
+\end{enumerate}
+\textbf{Passaggio 1- Creare un nuovo Pipeline:}\\
+Per iniziare qualsiasi attivit\`{a} di incremento, \`e necessario innanzitutto inizializzare un oggetto Pipeline, che punta a una cartella (\textit{directory})  in cui ï¿½ archiviato il set di dati dell'immagine originale:
+\begin{lstlisting}[language={Python},tabsize=2,basicstyle=\footnotesize]
+import Augmentor
+p=Augmentor.Pipeline("/percorso/dove/risiedono/le/immagini")
+\end{lstlisting}
+La variabile p ora contiene un oggetto di tipo Pipeline ed ï¿½ stata inizializzata con l'elenco di immagini trovate nella cartella di origine.\\
+\textbf{Passaggio 2- Aggiungere operazioni a Pipeline:}\\
+Una volta creato il Pipeline p, si possono aggiungere le operazioni da eseguire su di esso. Ad esempio, se si vuole creare un'immagine ruotata:
+\begin{lstlisting}[language={Python},tabsize=2,basicstyle=\footnotesize]
+p.rotate(probability=0.7, max_left_rotation=10, max_right_rotation=10)
+\end{lstlisting}
+In questo caso con una probabilit\`{a} del $70\%$, la foto sar\`{a} creata tramite una rotazione dell'originale verso sinistra o verso destra, entrambe di massimo $10\,°$, ovvero l'immagine verr\`{a} ruotata tra $-10$ e $10$ gradi.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=35mm]{originale.eps}
+\qquad\qquad
+\includegraphics[width=45mm]{ruotata.eps}
+\caption{Esempio di foto dell'Arco di Settimio Severo ruotata a destra.}
+\end{figure}
+
+Esistono molte altre operazioni che si possono applicare alle immagini, come ad esempio: zoom, conversione in bianco e nero, ritaglio, distorsione, riflessione ecc... Infine Augmentor permette di eseguire un controllo per in dividuare eventuali doppioni generati e li cancella.
+ 
+
+\textbf{Passaggio 2- Eseguire le operazioni:}\\
+Dopo aver aggiunto le operazioni necessarie, \`e possibile generare i nuovi dati modificati, utilizzando la funzione sample() e specificare il numero di immagini che si vuole ottenere, in questo caso $10.000$:
+\begin{lstlisting}[language={Python},tabsize=2,basicstyle=\footnotesize]
+p.sample(10000)
+\end{lstlisting}
+Dalla finestra del terminale apparir\`{a} una barra di avanzamento del processo durante la generazione dei campioni. Per impostazione predefinita, le immagini generate verranno salvate in una cartella denominata output, all'interno di quella contenente le immagini iniziali.\\
+Una volta creato il dataset, si crea l'elenco delle etichette, che in questo caso corrisppondevano al nome delle cartelle che contenevano le immagini:\\
+\begin{lstlisting}[language={Python},tabsize=2,basicstyle=\footnotesize]
+_files = glob.glob('/percosdo/della/cartella/dataset/*')
+labels = []
+for f in _files:
+    labels.append(f.split('/')[-1])
+print(labels)
+with open('/percordo/dove/salvare/file/label.txt',"a+") as f:
+    for each in labels:
+        f.write(each+'\n')
+    f.close() 
+\end{lstlisting}
+Si crea un dizionario che associa un numero ad una classe:
+\begin{lstlisting}[language={Python},tabsize=2,basicstyle=\footnotesize]
+class_to_ix = {}
+ix_to_class = {}
+classes = [l.strip() for l in labels]
+class_to_ix = dict(zip(classes,range(len(classes))))
+ix_to_class = dict(zip(range(len(classes)),classes))
+class_to_ix = {v:k for k,v in ix_to_class.items()}
+\end{lstlisting}
+Come detto in precedenza, poich\'e le immagini possedute avevano dimensioni maggiori da quelle compatibili con mobilNet, \`e stato necessario ridimensionarle:
+\begin{lstlisting}[language={Python},tabsize=2,basicstyle=\footnotesize]
+def load_images(path):
+    all_imgs = []
+    all_classes = []
+    for i, subdir in enumerate(listdir(path)):
+        imgs = listdir(join(path,subdir))
+        class_ix = class_to_ix[subdir]
+        print("{} - {} - {}".format(i,class_ix,subdir))
+        for img_name in imgs:
+            img_rr = mping.imread(join(path,subdir,img_name))
+            if img_rr.shape==(224,224,3):
+                all_imgs.append(img_rr)
+                all_classes.append(class_ix)
+            else:
+                print("ERROR")
+    print("All images : {}".format(len(all_imgs)))
+    return np.array(all_imgs),np.array(all_classes)
+\end{lstlisting}
+Si \`e creato il modello mobileNet:
+\begin{lstlisting}[language={Python},tabsize=2,basicstyle=\footnotesize]
+base_model=MobileNet(input_shape=(224,224,3),include_top=False,input_tensor=Input(shape=(224,224,3)),pooling=None)
+
+\end{lstlisting}
+dove:
+\begin{list}{-}{}
+\item input\_shape \`e il formato delle immagini passate in input alla rete;\\
+\item include\_top specifica se  includere lo strato completamente connesso nella parte iniziale della rete;
+\item input\_tensor \`e la dimensione dell'input dell'immagine del modello;
+\item pooling specifica se applicare il pooling finale, si pu\`{o} settare solo se include\_top=False.
+\end{list}
+Per questa configurazione sono stati settati il moltiplicatore di larghezza $\alpha ,\rho =1$, rispettivamente il moltiplicatore di larghezza e di risoluzione. Non compaiono tra gli argomenti perch\`e, se omessi, sono settati gi\`{a} ad 1 di default. Discorso analogo per il valore relativo al dropout, che  di default vale $0.001$.\\
+Si definscono le ultime operazioni da applicare all'output della rete, questo passaggio pu\`{o} essere inteso come un ultimo strato che, va a completare l'architettura .
+\begin{lstlisting}[language={Python},tabsize=2,basicstyle=\footnotesize]
+out = base_model.output
+out = GlobalAvgPool2D(name='avg_pools26')(out)#se c'ï¿½ pooling lo levo
+out = Dropout(0.4)(out)
+y_pred=Dense(n_classes,activation='softmax',kernel_initializer='random_uniform',kernel_regularizer=l2(.0005),name='last_layers26')(out)
+\end{lstlisting}
+Infine si crea il modello e lo si allena:
+\begin{lstlisting}[language={Python},tabsize=2,basicstyle=\footnotesize]
+model = Model(inputs=base_model.input,outputs=y_pred)
+optimizer = SGD(lr=.01,momentum=.9)
+model.compile(optimizer=optimizer,loss='categorical_crossentropy',metrics=['accuracy'])
+model.fit(X_train,Y_train_cat,batch_size=100,epochs=10000,verbose=2,callbacks=[lr_sheduler,csv_logger, checkpointer],validation_data=(X_val,Y_val_cat),shuffle=True)
+\end{lstlisting}
+Con il metodo fit si allena il modello, inserendo tra gli argomenti tutti i parametri necessari per settarlo, anche il metodo di minimizzazione da usare durante la fase di back-propagation, in questo caso SGD (discesa del gradiente).\\
+Ricapitolando, di seguito viene riportato l'intero codice:
+\begin{lstlisting}[language={Python},tabsize=2,basicstyle=\footnotesize]
+from __future__ import print_function
+import os
+import matplotlib.image as mping
+from os import listdir
+from os.path import join
+import numpy as np
+import glob
+import tensorflow as tf
+from keras.models import Model
+from keras.applications.mobilenet import preprocess_input, decode_predictions
+from keras.applications.mobilenet import MobileNet
+from keras.layers import Dense, GlobalAvgPool2D, Input, Dropout
+from keras.callbacks import ModelCheckpoint, CSVLogger, LearningRateScheduler, ReduceLROnPlateau
+from keras.optimizers import SGD
+from keras.regularizers import l2
+import keras.backend as K
+from keras.utils.np_utils import to_categorical
+
+
+_files = glob.glob('/percosdo/della/cartella/dataset/*')
+labels = []
+for f in _files:
+    labels.append(f.split('/')[-1])
+print(labels)
+with open('/percordo/dove/salvare/file/label.txt',"a+") as f:
+    for each in labels:
+        f.write(each+'\n')
+    f.close() 
+assert(len(labels)==30)
+
+train_path = '/percosdo/della/cartella/Train/'
+valid_path = '/percosdo/della/cartella/Validation/'
+
+class_to_ix = {}
+ix_to_class = {}
+classes = [l.strip() for l in labels]
+class_to_ix = dict(zip(classes,range(len(classes))))
+ix_to_class = dict(zip(range(len(classes)),classes))
+class_to_ix = {v:k for k,v in ix_to_class.items()}
+
+def load_images(path):
+    all_imgs = []
+    all_classes = []
+    for i, subdir in enumerate(listdir(path)):
+        imgs = listdir(join(path,subdir))
+        class_ix = class_to_ix[subdir]
+        print("{} - {} - {}".format(i,class_ix,subdir))
+        for img_name in imgs:
+            img_rr = mping.imread(join(path,subdir,img_name))
+            if img_rr.shape==(224,224,3):
+                all_imgs.append(img_rr)
+                all_classes.append(class_ix)
+            else:
+                print("ERROR")
+    print("All images : {}".format(len(all_imgs)))
+    return np.array(all_imgs),np.array(all_classes)
+    
+X_train, Y_train = load_images(train_path)
+X_val, Y_val = load_images(valid_path)
+
+n_classes = len(labels)
+n_classes
+Y_train_cat = to_categorical(Y_train, n_classes)
+Y_val_cat = to_categorical(Y_val, n_classes)
+
+session = tf.Session()
+K.set_session(session)
+base_model=MobileNet(input_shape=(224,224,3),include_top=False,input_tensor=Input(shape=(224,224,3)),pooling=None)
+out = base_model.output
+out = GlobalAvgPool2D(name='avg_pools26')(out)
+out = Dropout(0.4)(out)
+y_pred=Dense(n_classes,activation='softmax',kernel_initializer='random_uniform',kernel_regularizer=l2(.0005),name='last_layers26')(out)
+model = Model(inputs=base_model.input,outputs=y_pred)
+optimizer = SGD(lr=.01,momentum=.9)
+model.compile(optimizer=optimizer,loss='categorical_crossentropy',metrics=['accuracy'])
+checkpointer=ModelCheckpoint(filepath='/percosdo/dove/salvare/file/model.{epoch:02d}-{val_loss:.2f}.hdf5', verbose=1, save_best_only=True)
+csv_logger = CSVLogger('/percosdo/dove/salvare/file/model.log')
+def schedule(epoch):
+    if epoch < 15:
+        return .01
+    elif epoch < 28:
+        return .002
+    else:
+        return .0004
+    
+lr_sheduler = LearningRateScheduler(schedule)
+model.fit(X_train,Y_train_cat,batch_size=100,epochs=10000,verbose=2,callbacks=[lr_sheduler,csv_logger, checkpointer],validation_data=(X_val,Y_val_cat),shuffle=True)
+\end{lstlisting}
 
 %riportare accuratezza dei modelli provati con diversi batch size
 
 
+Il modello appena creato \`e di tipo tensorflow, ma per poterlo esportare, in modo che possa essere sfruttato, ha bisogno di essere convertito. In questo caso si necessita di un formato di tipo tensorflowLite, che \`e compatibile con AndroidStudio: l'ambiente di sviluppo scelto per creare l'applicazione. Nel prossimo paragrafo verr\`{a} illustrato l'utilizzo di AndroidStudio.
 
+\section{AndroidStudio}
+Android Studio \`e un ambiente di sviluppo integrato (IDE) per lo sviluppo per la piattaforma Android. Basato sul software IntelliJ IDEA, \`e stato progettato specificamente per lo sviluppo di applicazioni Android. \`{E} disponibile in download gratuito su Windows, Mac OS X e Linux, sostituisce gli Android Development Tools (ADT) di Eclipse, diventando l'IDE primario di Google per lo sviluppo nativo di applicazioni Android.\\
+Alla base di ogni applicazione Android ci sono quattro tipi di componenti: Activity, Service, Content Provider e BroadcastReceiver. \\
+Un'Activity \`e un'interfaccia utente. Ogni volta che si usa un'App, generalmente, si interagisce con una o pi\`{u} schermate, mediante le quali si consultano dati o si immettono input. Essa \`e il punto di partenza di ogni applicazione ed \`e la componente con cui l'utente ha il contatto pi\`{u} diretto.\\
+Un Service svolge un lavoro, generalemente lungo e continuato, che viene svolto interamente in \textit{background} senza bisogno di interazione diretta con l'utente. I Service hanno un'importanza basilare nella programmazione proprio perch\'{e}, spesso, preparano i dati che le activity devono mostrare all'utente, permettendo una reattivit\`{a} maggiore nel momento della visualizzazione.\\
+Un Content Provider nasce con lo scopo della condivisione di dati tra applicazioni, permettendo di condividere, nel sistema, contenuti custoditi in un database, su un file o reperibili mediante accessi in Rete.\\
+Un Broadcast Receiver \`e un componente che reagisce ad un invio di messaggi a livello di sistema, con cui Android notifica l'avvenimento di un determinato evento, ad esempio l'arrivo di un SMS o di una chiamata. Questi componenti sono utili per la gestione istantanea di determinate circostanze speciali.\\
+Un Intent \`e un oggetto che associa due componenti separate, come due attivit\`{a}, in seguito dell'invocazione di una per l'altra. Esso rappresenta infatti l'intento di fare qualcosa, senza che la componente chiamante cessi la sua esistenza.
+Un Fragment \`e strettamente legato alla propria activity, dalla quale riceve eventi in input, che possono essere elaborati mentre l'attivit\`{a} \`e in esecuzione. La particolarit\`{a} di questo componente risiede nel fatto che, un Fragment puï¿½ avere un'interfaccia utente totalmente sua, sempre per\`{o} all'interno di quella dell'activity. Si pu\`{o} pensare ad esso come un frammento dell'Activity, indipendente da essa, un esempio \`e dato da i menu a tendina al lato della schermata di un'applicazione.\\
+All'interno di AndroidStudio il linguaggio utilizzato \`e quello Java, per le parti delle componenti principali. Mentre le parti che descrivono l' "estetica" dell'applicazione, ovvero i \textit{layout}, sono scritti in .xml.\\
+Quando si inizia un progetto Android, la prima cosa da fare \`e istanziare l'activity principale, senza la quale non pu\`{o} essere costruita un'applicazione. La mainActivty, dal punto di vista del codice,  \`e una classe che estende la super classe Activity e dalla quale eredita dei metodi che verranno implementati tramite \textit{override}. In generale ci\`{o} che collegherï¿½ i layer con la classe sar\`{a} il documento, in formato .xml, chiamato: AndoridManifest. Esso raccoglie le informazioni necessarie al sistema per far girare qualsiasi porzione di codice all'interno dell'applicazione. Tra le altre cose il Manifest si occupa delle seguenti cose:
+\begin{itemize}
+\item Da un nome al package Java dell'applicazione, che \`e anche un identificatore univoco della stessa;
+\item Descrive le componenti dell'applicazione, nomina le classi e pubblica le loro "competenze";
+\item Determina quali sono i processi che ospiteranno i componenti dell'applicazione;
+\item Dichiara i permessi ai quali pu\`{o} accedere l'app, e i permessi necessari alle altre app per interagire con essa;
+\item Dichiara il livello minimo di API Android che l'app richiede;
+\item Elenca le librerie necessarie all'app per girare.
+\end{itemize}
+Per questi motivi, il Manifest pu\`{o} essere visto come il vero cuore di un'applicazione android.\\
+\subsection{Shazarch}
+L'applicazione creata si basa su 4 cartelle principali:
+\begin{enumerate}
+\item manifests;
+\item java;
+\item assets;
+\item res.
+\end{enumerate}
+Nella cartella manifests risiede l'AndoridManifest.xml citato poco fa.\\
+La cartella java racchiude tutte le classi e le interfacce utilizzate per creare le componenti. Nello specifico racchiude le classi:
+\begin{list}{-}{}
+\item AutoFitTextureView: ridimensiona la schermata alla dimensione del dispositivo ospitante;
+\item CFragment: crea l'interfaccia con cui l'utente interagisce;
+\item Classifier: importa il modello di classificazione tensorflowLite e ne rielabora l'output;
+\item GPS: riceve le informazioni sulla geolocalizzazione e opera su di esse;
+\item LogoView: fa visualizzare il risultato della classificazione;
+\item MainActivity: lancia e gestisce le classi CFragment e GPS;
+\item Splash: Crea la schermata di apertura dell'applicazione e lancia la MainActivity.
+\end{list} 
+Insieme alle classi risiedono anche le interfacce:
+\begin{list}{-}{}
+\item GPSActivity: necessaria per tutte quelle parti di codice che utilizzano un oggetto di tipo GPS;
+\item ParentView: necessaria per la classe LogoView.
+\end{list}
+Nella cartella assets, si inseriscono tutti i file che l'applicazione deve caricare. Qui va inserito, ad esempio, il modello addestrato.\\
+All'interno di res risiedono cartelle riguardanti l'impaginazione, lo stile ed il formato del testo, animazioni ecc...\\
+Per capire quale fosse l'architettura ottimale, sono state realizzate 3 applicazioni:
+\begin{itemize}
+\item Archlite: senza coordinate di geolocalizzazione;
+\item GPS: con coordinate di geolocalizzazione, considera la distanza tra monumento e osservatore; 
+\item Alarm: con coordinate di geolocalizzazione, considera la presenza del visitatore intorno al monumento.
+\end{itemize}
+Introdcendo l'acceso al dispositivo GPS, bisogna inserire nell'AndoridManifest la richiesta ai permessi:
+\begin{lstlisting}
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+<uses-feature android:name="android.hardware.location.gps"/>
+\end{lstlisting}
+altrimenti l'applicazione non potrebbe funzionare. La scelta della geolocalizzazione tramite dispositivo GPS  \`e dovuta dal fatto che entrambe le applicazioni devono funzionare senza una connessione dati attiva.
+
+
+\section{Conclusioni}
+Attraverso la piattorma NVIDIA DGX-1, fornita dal dipartimento di Roma3, \`e stato addestrato il modello di depp learning costruito. Le applicazioni Archlite e GPS sono state testate direttamente sul sito archeologico del Foro Romano. Durante il test sono state fatte all'incirca 400 rilevazioni per 13 siti su 30, una media di 30 foto a reperto, diversificate sia per angolatura che per distanza dal soggetto.\\
+I risultati ottenuti hanno mostrato un'architettura non ancora ottimale: entrambi i modelli hanno un' accuratezza del $52\%$  e una diversificazione tra le due applicazioni da migliorare. Evidentemente la probabilit\`{a}, calcolata basandosi sulla distanza tra il monumento ed il dispositivo, va aumentata di qualche ordine di grandezza. La GPS provata si basa sulla distribuzione uniforme su un intervallo (0,d), dove d  \`e la distanza, che  \`e lineare.\\ 
+In GPS, l'etichetta predetta ha una probabilit\`{a} maggiore di "match" con l'etichetta effettiva, in confronto ad Archlite, quando ci si trova in prossimit\`{a} del sito. Viceversa la probabilit\`{a} \`e pi\`{u} bassa quando la foto risulta "panoramica", ovvero quando il sito di interesse \`e lontano dall'obiettivo della fotocamera. Si \`e osservato che nei casi in cui si  \`e vicini al sito, se la predizione \`e corretta, la probabilit\`{a} registrata \`e sempre molto alta, mentre quando la previsione \`e errata, l'app GPS registra una probabilit\`{a} pi\`{u} bassa. Denotando un comportamento coerente con la "filosofia" con cui \`e stato costruito.\\
+Si \`e riscontrato un fenomeno di overfitting: l'etichetta corrispondente alla  "Domus Augustana" \`e spesso tra i risultati pi\`{u} probabili, se non il pi\`{u} probabile. Proprio a causa di questo comportamento, i risultati sono stati inficiati dalla predominanza di questa etichetta. Nei casi in cui il valore predetto non corrisponde a quello effettivo, la Domus Augustana compare come risultato pi\`{u} probabile nel $50\%$ dei casi.\\
+Quando il modello viene testato, tramite il suo insieme di validazione, su DGX l'accuratezza \`e molto elevata, misurando in alcuni casi anche il $100\%$ di accuratezza. Mentre durante il test ai Fori l'accuratezza \`e molto bassa: $53\%$ per entrambe le applicazioni ma, nell'analizzare i valori di probabilit\`{a} registrati, GPS sembra essere (seppur di poco) pi\`{u} attendibile, anche se lontana dall'essere ottimale, ma ci sono margini di miglioramento possibili.
 
 
 \clearpage
