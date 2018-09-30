@@ -24,6 +24,11 @@ Roberto Ferretti.
 Ryan Tibshirani.
 \newblock Error and validation.
 
+\bibitem{clustering}
+Wikipedia.
+\newblock Clustering.
+\newblock \url{https://it.wikipedia.org/wiki/Clustering}, 2018.
+
 \bibitem{rinforzo}
 Frank~L Lewis.
 \newblock {\em Reinforcement learning and approximate dynamic programming for
@@ -34,6 +39,15 @@ Frank~L Lewis.
 Sito~Ufficiale dell'Universit\'{a}~di Princetone.
 \newblock What is wordnet?
 \newblock \url{https://wordnet.princeton.edu/}.
+
+\bibitem{mobileNet}
+Andreetto Howard Menglong Chen Kalenichenko Wang~Weyand and Adam.
+\newblock {\em MobileNets: Efficient Convolutional Neural Networks for Mobile
+  Vision Applications}, 2017.
+
+\bibitem{Augmentor}
+Marcus D.Bloice.
+\newblock \url{https://augmentor.readthedocs.io/en/master/}, 2016.
 
 \bibitem{deep}
 Ian Goodfellow, Yoshua Bengio, and Aaron Courville.
@@ -49,5 +63,19 @@ K.P. Murphy.
 Kai~Li Jia Deng Wei Dong Richard~Socher, Li-Jia~Li and Li~Fei-Fei.
 \newblock Imagenet: A large-scale hierarchical image database.
 \newblock {\em Dept. of Computer Science, Princeton University, USA}, 2010.
+
+\bibitem{TensorFlow}
+TensorFlow.
+\newblock \url{https://www.tensorflow.org}.
+
+\bibitem{getting}
+Giancarlo Zaccone.
+\newblock {\em Getting Started with TensorFlow}.
+\newblock Packt Publishing Ltd, 2016.
+
+\bibitem{vision}
+Rajalingappaa Shanmugamani.
+\newblock {\em Deep learning for computer vision}.
+\newblock Packt Publishing Ltd, 2018.
 
 \end{thebibliography}

@@ -56,7 +56,7 @@ Il \textit{"deep learning"} \`e un tipo particolare di machine learning, che rig
 L'analogia di Shehzad Noor Taus Priyo pu\`{o} aiutare a capire meglio cosa siano le reti neurali:\\
 "Immaginiamole come una serie di porte da passare, dove l'input \`e l'uomo che le deve oltrepassare e ogni volta che lo fa cambia qualcosa nel suo comportamento finch\'{e}, all'ultima porta oltrepassata, l'uomo \`e diventato una persona del tutto differente, rappresentando l'output di questo processo."\cite{analogia} \\
 Questa tesi si focalizza su un problema particolare di machine learning: la Classificazione (\textit{Classification}) in particolar modo di immagini. L'obiettivo principale \`e trovare un'architettura ottimale per l'algoritmo che identifica le immagini di oggetti architettonici, inserendo tra i parametri anche le coordinate geofisiche dell'oggetto. Per fare questo bisogna trovare la giusta topologia, la giusta profondit\`{a} e la giusta larghezza di ogni livello della rete neurale, in due parole: l'architettura ottimale.\\
-Nel primo capitolo si descrive cosa sono e come sono strutturati gli algoritmi di apprendimento. Nel secondo si introduce il concetto di rete neurale, ponendo particolare attenzione sulle reti neurali di tipo convoluzionale. Nel terzo capitolo si approfondiscono gli algoritmi di apprendimento dedicati alla Classificazione. Nel quarto si descrive il linguaggio di programmazione TensorFlow di Python, mostrando alcuni esempi concreti di programmazione per la classificazione di oggetti; in particolar modo viene mostrato il codice utilizzato per la classificazione di oggetti architettonici e quello per la realizzazione di un App, per dispositivo Android, che lo implementi (prevalentemente codice Java). Infine nell'ultima parte vengono mostrati i risultati ottenuti.
+Nel primo capitolo si descrive cosa sono e come sono strutturati gli algoritmi di apprendimento. Nel secondo si introduce il concetto di rete neurale, ponendo particolare attenzione sulle reti neurali di tipo convoluzionale. Nel terzo si descrive il linguaggio di programmazione TensorFlow di Python, mostrando alcuni esempi concreti di programmazione per la classificazione di oggetti; in particolar modo viene mostrato il codice utilizzato per la classificazione di oggetti architettonici e quello per la realizzazione di un App, per dispositivo Android, che lo implementi (prevalentemente codice Java). Infine nell'ultima parte vengono mostrati i risultati ottenuti.
  
 \chapter{Algoritmi di apprendimento}
 Gli algoritmi di machine learning sono solitamente divisi in tre tipi principali:
@@ -322,9 +322,9 @@ calcola la media aritmetica delle distanze tra ogni punto di $C_i$ e ogni punto 
 \item Metodo dei centroidi:
 calcola la distanza tra i rispettivi "centroidi" o baricentri di $C_i$ e $C_j$. $$D(C_i,C_j)=d(\hat{c_i},\hat{c_j})$$
 \end{itemize}
-Questi sono solo alcuni dei metodi che si possono utilizzare per calcolare la distanza: a volte la si misura solo all'interno della stessa classe. Questo dipende dal tipo di clustering che si sta utilizzando, senza andare troppo nello specifico, si presentano brevemente i metodi di Clustering principali:\cite{clustering}
+Questi sono solo alcuni dei metodi che si possono utilizzare per calcolare la distanza: a volte la si misura solo all'interno della stessa classe. Questo dipende dal tipo di clustering che si sta utilizzando, senza andare troppo nello specifico, si presentano brevemente i metodi di Clustering principali: \cite{clustering}
 \begin{itemize}
-\item \textit{density-based}: il raggruppamento avviene analizzando l'intorno di ogni punto dello spazio. In particolare, viene considerata la densitï¿½ di punti in un intorno di raggio fissato.
+\item \textit{density-based}: il raggruppamento avviene analizzando l'intorno di ogni punto dello spazio. In particolare, viene considerata la densit\`{a} di punti in un intorno di raggio fissato.
 \item gerarchici (\textit{hierarchical based}):  formano una struttura di tipo albero basata sulla gerarchia. I nuovi cluster si formano da quelli gi\`{a} precedentemente formati. Sono divisi in due categorie: agglomerativi e divisivi;
 \item partizionali (\textit{partitioning}): suddividono gli esempi dati in k cluster e ogni partizione dell'insieme rappresenta un claster. 
 \item \textit{grid-based}: lo spazio dati viene partizionato in un numero finito di celle che formano una struttura a griglia ed in ogni cella cerca i vari tipi di cluster. 
@@ -711,7 +711,7 @@ Attraverso la \textbf{condivisione dei parametri} si utilizza lo stesso parametr
 \includegraphics{CNN}
 \caption{Ciascuno dei 4 neuroni a destra \`{e} connesso solo a 3 neuroni del livello precedente. I pesi sono condivisi (stesso colore stesso peso).}
 \end{figure}
-\\Nella figura precedente si pu\'{o} notare che sono presenti in totale 12 connessioni (3$\times$ 4) e 3 pesi, mentre in una normale rete neurale equivalente avremmo avuto 24 connessioni (6 $\times$ 4) e 24 pesi. In un solo livello sono state utilizzate la met\'{a} delle connessioni e $\frac{1}{8}$ dei pesi.
+\\Nella figura precedente si pu\`{o} notare che sono presenti in totale 12 connessioni (3$\times$ 4) e 3 pesi, mentre in una normale rete neurale equivalente avremmo avuto 24 connessioni (6 $\times$ 4) e 24 pesi. In un solo livello sono state utilizzate la met\`{a} delle connessioni e $\frac{1}{8}$ dei pesi.
 \newpage
 L'architettura di una rete convoluzionale \`e formata, tipicamente, da tre tipi di strati:
 \begin{enumerate}
@@ -721,14 +721,15 @@ L'architettura di una rete convoluzionale \`e formata, tipicamente, da tre tipi 
 \end{enumerate}
 Uno strato tipico di una rete convoluzionale consiste di tre fasi .Nella prima fase lo strato esegue diverse convoluzioni in parallelo per produrre un set di attivazioni lineari. Nella seconda fase, ogni attivazione lineare viene eseguita attraverso una funzione di attivazione non lineare. Nella terza fase, si esegue  una funzione di  pooling per modificare ulteriormente l'output dello strato.
 \subsubsection{Strati convoluzionali}
-Lo scopo dello strato convoluzionale (\textit{convolutional layer}) \`e quello di rilevare delle particolari caratteristiche all'interno di un oggetto, grazie ad un'analisi locale. Questo compito \`e affidato al kernel della convoluzione, detto anche filtro, che si comporta come una finestra bidimensionale composta da pesi che scorre su tutto l'input. Di ogni porzione di input viene calcolata la sua convoluzione con il kernel, producendo cos\'{\i} un output di dimensioni ridotte rispetto all'input. Questo output viene chiamato \textit{feature map} e racchiude le caratteristiche che il filtro cercava ed \`e qui che i pesi sono condivisi: i neuroni di una stessa feature map processano porzioni diverse dell' input nello stesso modo.\\
-Il kernel ha due iperparametri, chiamati passo(\textit{stride}) e dimensione(\textit{size}). La size  pu\'{o} essere qualsiasi dimensione di un rettangolo, mentre lo stride \`e il numero di pixel che si fanno scorrere tra due computazioni della finestra di kernel. Se lo stride ha lunghezza 1, il filtro si sposta di un pixel alla volta, se ha lunghezza 2, i filtri saltano 2 pixel alla volta durante lo scorrimento, producendo un'immagine con dimensione dimezzata.
-\newpage
-\begin{figure}[!ht]
+Lo scopo dello strato convoluzionale (\textit{convolutional layer}) \`e quello di rilevare delle particolari caratteristiche all'interno di un oggetto, grazie ad un'analisi locale. Questo compito \`e affidato al kernel della convoluzione, detto anche filtro, che si comporta come una finestra bidimensionale composta da pesi che scorre su tutto l'input. Di ogni porzione di input viene calcolata la sua convoluzione con il kernel, producendo cos\`{\i} un output di dimensioni ridotte rispetto all'input. Questo output viene chiamato \textit{feature map} e racchiude le caratteristiche che il filtro cercava ed \`e qui che i pesi sono condivisi: i neuroni di una stessa feature map processano porzioni diverse dell' input nello stesso modo.\\
+Il kernel ha due iperparametri, chiamati passo(\textit{stride}) e dimensione(\textit{size}). La size  pu\`{o} essere qualsiasi dimensione di un rettangolo, mentre lo stride \`e il numero di pixel che si fanno scorrere tra due computazioni della finestra di kernel. Se lo stride ha lunghezza 1, il filtro si sposta di un pixel alla volta, se ha lunghezza 2, i filtri saltano 2 pixel alla volta durante lo scorrimento, producendo un'immagine con dimensione dimezzata.
+
+\begin{figure}[!hb]
 \centering
 \includegraphics[scale=0.5]{finestra}
 \caption{Ogni future map ha il suo kernel che scorre per tutta la dimensione dell'input.}
 \end{figure}
+\newpage
 Un altro modo per regolare la dimensione delle feature map \`e tramite l'aggiunta di un bordo al volume di input, inserendo tutti valori nulli in proosimita del bordo. Con il parametro \textit{Padding} si denota lo spessore in pixel del bordo. L'uso di questo parametro ha il vantaggio di mantenere le dimensioni spaziali costanti dopo lo strato convoluzionale, migliorando le prestazioni. Questo perch\'{e} se gli strati non azzerassero gli input e realizzassero solo convoluzioni valide, allora la dimensione dei volumi si ridurrebbe di una piccola quantit\`{a} ad ogni convoluzione, in questo modo le informazioni ai bordi si perderebbero troppo rapidamente.\\
 Sia $W_{out}$ la dimensione orizzontale (verticale) delle feature map di output e $W_{in}$ la corrispondente dimensione nell'input. Sia inoltre F la dimensione (orizzontale) del filtro e K il numero di filtri da utilizzare.\\
 Vale la seguente relazione:
@@ -736,9 +737,9 @@ Vale la seguente relazione:
 W_{out}=\frac{W_{in} -F+2\cdot Padding}{Stride}+1
 \end{equation}
 e la profondit\`{a} dell'output sar\`{a} pari a K.
-\newpage
+
 \subsubsection{Strati di pooling}
-Lo scopo degli strati di pooling \`e quello di unire caratteristiche simili (in quanto vicine) in una sola, per ridurre progressivamente la dimensione spaziale della rappresentazione. Di conseguenza si riduce anche la quantit\'{a} di parametri, che potebbero comportare un sovradattamento della rete.\\
+Lo scopo degli strati di pooling \`e quello di unire caratteristiche simili (in quanto vicine) in una sola, per ridurre progressivamente la dimensione spaziale della rappresentazione. Di conseguenza si riduce anche la quantit\`{a} di parametri, che potebbero comportare un sovradattamento della rete.\\
 Ogni strato appartenente alla profondit\`{a} dell'input viene suddiviso in piccoli quadrati, chiamati \textit{subsambling}, di dimensione  $r \times r$, con $r\in \mathbb{N}$ e  per ogni quadrato viene calcolato indipendentemente o il valore massimo (Max) o  la media (Avg) dei suoi neuroni.\\
 Max e Avg sono gli operatori di aggregazione maggiormente utilizzati e sono invarianti per piccole tralslazioni. Riassumendo: una funzione di raggruppamento sostituisce l'output della rete in una determinata posizione con una statistica riassuntiva delle uscite vicine.\\
 L'invarianza per traslazione \`e molto utile in quanto se una caratteristica \`e interessante in una parte dell'immagine, presumibilmnete lo sar\`{a} anche se \`e posizionata in un altro spazio.\\
@@ -760,41 +761,50 @@ Alternando ripetutamente queste due tipologie di strati, si arriva ad una config
 
 \chapter{Shazarch}
 L'obiettivo di questa tesi, come detto pi\`{u} volte, \`{e} di trovare l'architettura ottimale per un modello di Deep Learning capace di riconoscere, quindi classificare, immagini di resti e monumenti presenti nell'area archeologica del Foro Romano a Roma. Vista la difficolt\`{a}, anche per un occhio umano, di riconoscere alcuni reperti si \`e pensato di inserire anche le informazioni relative alla geolocalizzazione di questi ultimi.\\
-Questo modello \`e finalizzato per creare un'applicazione Android in grado di permettere al turista che visita il Foro Romano, di inquadrare l'oggetto di interesse e sapere cosa sta visualizzando in quel momento. Per fare questo si necessita di un modello di classificazione di deep learning, addestrato con un dataset di immagini provenienti dal sito archeologico e delle coordinate geografiche dei singoli monumenti. Si sta parlando di un algoritmo di apprendimento supervisionato, quindi il dataset che si utilizza deve contenere delle variabili rappresentanti le caratteristiche dell'oggetto da riconsocere, tra cui naturalmente anche un'etichetta. L'etichetta corrisponde alla classe di appartenenza dell'oggetto che, nel nostro caso, corrisponde ad un numero $n\in \{0,\cdots,29\}$, in quanto i reperti che la rete \`e in grado di riconoscere sono 30 ed in particolare sono:
-\begin{tabular}{lcr}
-Arco di Settimio Severo & Arco di Tito & Arco Partico\\
-Basilica Emilia & Basilica Julia & Basilica Ulpia\\
-Casa delle Vestali & Colonna di Foca & Colonna Traiana\\
-Curia Julia & Domus Augustana & Domus Flavia\\
-Domus Tiberiana & Foro di Cesare & Mercati di Traiano\\
-Portico degli Dei Consenti & Regia & Tabularium\\
-Tempio dei Castori & Tempio Del Divo Giulio & Tempio della Concordia\\
-Tempio di Antonino e Faustina & Tempio di Saturno & Tempio di Venere e Roma\\
-Tempio di Vespasiano e Tito & Tempio di Vesta & Tempio di Marte Ultore\\
-Umbilicus Urbis & Via Nova & Volcanal
+Questo modello \`e finalizzato per creare un'applicazione Android, chimata Shazarch, in grado di permettere al turista in visita al Foro Romano, di inquadrare l'oggetto di interesse e sapere cosa sta visualizzando in quel momento. Per fare questo si necessita di un modello di classificazione di deep learning, addestrato con un dataset di immagini provenienti dal sito archeologico e delle coordinate geografiche dei singoli monumenti. Si sta parlando di un algoritmo di apprendimento supervisionato, quindi il dataset che si utilizza deve contenere delle variabili rappresentanti le caratteristiche dell'oggetto da riconsocere, tra cui naturalmente anche un'etichetta. L'etichetta corrisponde alla classe di appartenenza dell'oggetto che, nel nostro caso, corrisponde ad un numero $n\in \{0,\cdots,29\}$, in quanto i reperti che la rete \`e in grado di riconoscere sono 30 ed in particolare sono:
+\vspace{1cm}
+\begin{center}
+\begin{tabular}{lcl}
+Arco di Settimio Severo & & Arco di Tito\\
+Arco Partico & & Basilica Emilia \\
+Basilica Julia & & Basilica Ulpia\\
+Casa delle Vestali & & Colonna di Foca\\
+Colonna Traiana & & Curia Julia \\
+Domus Augustana & & Domus Flavia\\
+Domus Tiberiana & & Foro di Cesare\\
+Mercati di Traiano & & Portico degli Dei Consenti\\
+Regia & & Tabularium\\
+Tempio dei Castori & & Tempio Del Divo Giulio\\
+Tempio della Concordia & & Tempio di Antonino e Faustina\\
+Tempio di Saturno & & Tempio di Venere e Roma\\
+Tempio di Vespasiano e Tito & & Tempio di Vesta\\
+Tempio di Marte Ultore & & Umbilicus Urbis\\
+Via Nova & & Volcanal
 \end{tabular}
-
+\end{center}
+\vspace{1.5cm}
 Per quanto riguarda le altre variabili si sono considerati i valori dei pixel delle immagini in formato RGB e di dimensione $3024\times 4032$. Inizialmente si era pensato di inserire anche le coordinate geografiche all'interno delle informazioni dell'immagine, ma questo avrebbe portato ad un fenomeno di underfitting, se non fossero state inserite delle distanze di riferimento all'interno delle informazioni dell'immagine, in quanto la rete non sarebbe stata in grado di trovare una funzione che generalizzi queste distanze (intese come distanze euclidee); viceversa se queste informazioni fossero state inserire si sarebbe andati incontro ad un sovraddatamento della rete: inserendo nuove coordinate di riferimento, la rete non le avrebbe riconsociute "vicine" a quelle del datset. Si \`e deciso quindi di non inserirle direttamente tra le informazioni delle immagini. Successivamente verr\`e{a} spiegato come sono state introdtte, non prima di aver finito di descrivere come \`e stato creato il dataset.\\
 Il dataset di immagini deve essere abbastanza grande per far si che l'algoritmo abbia abbastanza immagini su cui addestrarsi e anche per verificare la sua accuratezza, si ricorda infatti che l'insieme di addestramento e di test(e/o di validazione) formano una partizione dell'insieme totale di partenza.\\
-Il dataset utilizzato \`e composto da circa 40000 immagini, di cui una piccola parte originali, ovvero scattate fisicamente sul posto, le restanti sono state generate artificialmente tramite la libreria Augmentor. Questa libreria \`e progettata per aiutare l'incremento e la generazione artificiale di dati di immagine per attivit\`{a} di machine learning, tramite rotazioni, zoom, distorsioni ecc... Si \`e partiti da una media di 6 foto per classe e per ognuna di queste Augmentor ha generato 180 foto. Successivamente l'insieme di dati \`e stato diviso in modo che l'$80\%$ andasse a costituire l'insieme di addestramento e il $20\%$ quello di validazione. Come architettura per il modello si \`e optato per l'architettura pre-esistente mobileNet, descritta nel dettaglio nella sezione \ref{sez:mobileNet}, addestrata tramite il meotodo di discesa del gradiente (SGD) settato con il parametro di learning rate=0.1, dove nella fase di back propagation (\ref{back-prop})  batch size=100 % aggiornare quando calcolo l'accuratezza
- Una volta addestrata la rete, tensorflow salva il modello all'interno di un file, successivamente convertito con estensione ".lite". Questa conversione trasforma il modello in uno di tipo TensorFlow Lite, un formato che permette di 
+Il dataset utilizzato \`e composto da circa 40000 immagini, di cui una piccola parte originali, ovvero scattate fisicamente sul posto, le restanti sono state generate artificialmente tramite la libreria Augmentor. Questa libreria \`e progettata per aiutare l'incremento e la generazione artificiale di dati di immagine per attivit\`{a} di machine learning, tramite rotazioni, zoom, distorsioni ecc... Si \`e partiti da una media di 6 foto per classe e per ognuna di queste Augmentor ha generato 180 foto. Successivamente l'insieme di dati \`e stato diviso in modo che l'$80\%$ andasse a costituire l'insieme di addestramento e il $20\%$ quello di validazione. Come architettura per il modello si \`e optato per l'architettura pre-esistente mobileNet, descritta nel dettaglio nella sezione \ref{sez:mobileNet}, addestrata tramite il meotodo di discesa del gradiente (SGD) settato con il parametro di learning rate=0.1, dove nella fase di back propagation (\ref{back-prop})  batch size=100.
+Una volta addestrata la rete, tensorflow salva il modello all'interno di un file, successivamente convertito con estensione ".lite". Questa conversione trasforma il modello in uno di tipo TensorFlow Lite, un formato che permette di 
 utilizzare Android Studio: un ambiente di sviluppo integrato (IDE) per lo sviluppo per la piattaforma Android. All'interno del codice Java, linguaggio con cui si programma un'applicazione Android, sono state inserite le coordinate di geolocalizzazione.\\
-Innanzitutto per capire come correlare questa informazione con quella data dal modello, si sono studiati gli eventi da analizzare per capire se questi fossero indipendenti o meno. Dato lo spazio campionario \`e $\Omega ={C_1,\cdots,C_{30}}$, dove $C_i$ rappresentano le classi corripsondenti ai 30 monumenti, l'evento $E={C_{\hat{y}}=C_y}$ dove la classe predetta coincide con la classe effettiva e l'evento $F={monumento nelle vicinanze}$. Questi due eventi sono indipendenti, se cosï¿½ non fosse si avrebbe che: $P(E\cap F)=P(F|E)\ldotp P(E)$, ma l'evento per cui la predizione \`e giusta non da nessuna informazione sulla distanza tra lei e l'osservatore, allora: $P(F|E)=P(F)$  e $P(E\cap F)=P(F)\ldotp P(E)$, che avviene se i due eventi sono indipendenti.\\
-Sono stati implementati due metodi per considerare le posizioni GPS del visitatore. Una ,chiamata "GPS", considera la distanza tra il dispositivo ed il monumento osservato. Si \`e considerato che la probabilitï¿½ di un evento F, si comporta come una variabile aleatoria uniforme sull'intervallo (0,r), oltre il quale \`e plausibile pensare che il visitatore non possa vedere. Quindi:
+Innanzitutto per capire come correlare questa informazione con quella data dal modello, si sono studiati gli eventi da analizzare per capire se questi fossero indipendenti o meno. Dato lo spazio campionario $\Omega ={C_1,\cdots,C_{30}}$, dove $C_i$ rappresentano le classi corripsondenti ai 30 monumenti, l'evento $E={C_{\hat{y}}=C_y}$ dove la classe predetta coincide con la classe effettiva e l'evento $F={monumento nelle vicinanze}$. Questi due eventi sono indipendenti, se cos\`{\i} non fosse si avrebbe che: $P(E\cap F)=P(F|E)\ldotp P(E)$, ma l'evento per cui la predizione \`e giusta non da nessuna informazione sulla distanza tra lei e l'osservatore, allora: $P(F|E)=P(F)$  e $P(E\cap F)=P(F)\ldotp P(E)$, che avviene se i due eventi sono indipendenti.\\
+Sono stati implementati due metodi per considerare le posizioni GPS del visitatore. Una ,chiamata "GPS", considera la distanza tra il dispositivo ed il monumento osservato. Si \`e considerato che la probabilit\`{a} di un evento F, si comporta come una variabile aleatoria uniforme sull'intervallo (0,r), oltre il quale \`e plausibile pensare che il visitatore non possa vedere. Quindi:
 \begin{equation}
 P(X=d_i)=\begin{cases} 1 & \mbox{se }d_i\leq r \\ 0 & \mbox{altrimenti}\end{cases}
 \end{equation}
 dove $d_i$ \`e la distanza tra le coordinate dell'osservatore e il monumento di classe $C_i$.\\
-L'altra applicazione sviluppata, chiamata "GPS Alarm", invece considera una circonferenza di raggio 20metri, centrata in un monumento che ne delimita la sua area "protetta". Se il visitatore non si trova all'interno di quest'area la probabilit\`{a} di osservare il monumento corrispondente ad essa \`e pari a zero, altrimenti ï¿½ 1. Questo solo per poter conisderare solo i reperti che \`e ragionevole pensare un turista possa voler inquadrare. Naturalmente questi approcci non permettono di classificare un monumento da una distanza maggiore di quella considerata, anzi produrrï¿½ una classificazione errata, in quanto verranno considerate solo i monumenti in cui le coordinate del visitatore si trovano all'interno delle loro aree protette.\\
+L'altra applicazione sviluppata, chiamata "GPS Alarm", invece considera una circonferenza di raggio 20metri, centrata in un monumento che ne delimita la sua area "protetta". Se il visitatore non si trova all'interno di quest'area la probabilit\`{a} di osservare il monumento corrispondente ad essa \`e pari a zero, altrimenti \`e 1. Questo solo per poter conisderare solo i reperti che \`e ragionevole pensare un turista possa voler inquadrare. Naturalmente questi approcci non permettono di classificare un monumento da una distanza maggiore di quella considerata, anzi produrr\`{a} una classificazione errata, in quanto verranno considerate solo i monumenti in cui le coordinate del visitatore si trovano all'interno delle loro aree protette.\\
 Ora che sono note la struttura e la logica con cui \` stata progettata Shazarch, si possono approfondire alcuni aspetti accennati in questa fase. 
 
 \section{MobileNet}\label{sez:mobileNet}
-MobileNet \`e un'architettura rilasciata da Google e resa disponibile open source, contenente una famiglia di modelli di computer vision per dispositivi mobili per TensorFlow. \`E stata progettata per massimizzare efficacemente l'accuratezza, tenendo presente le risorse limitate per un'applicazione integrata su dispositivo. Per questo motivo \`e stata scelta per adattarsi alla nostra esigenza di classificare immagini tramite un'applicazione installata su un dispositivo mobile. La particolarit\`{a} di questa architettura \`e l'uso di convoluzioni separabili per costruire reti neurali profonde leggere. L'intuizione di questi sviluppatori \`e stata di introdurre due semplici iperparametri che riescono ad equilibrare efficacemente latenza e accuratezza, permettendo all'architettura di adattarsi a diverse applicazioni. La latenza ,in informatica, di un sistema \`e l'intervallo di tempo che intercorre fra il momento in cui arriva l'input e il momento in cui \`e disponibile il suo output. In altre parole: la latenza non \`e altro che una misura della velocitï¿½ di risposta di un sistema.
-Ma che cosa si intende per convoluzioni separabili? Sono delle convoluzioni formate da due convoluzioni: una convoluzione in profonditï¿½ e una convoluzione con un filtro di dimensione $1\times 1$ chiamata convoluzione puntuale.
-La convoluzione in profonditï¿½ applica un singolo filtro a ciascun canale di ingresso e all'output generato viene applicato il filtro della convoluzione puntuale. Riassumendo: la convoluzione standard consente di filtrare e combinare gli input in un nuovo set di output in un unico passaggio, mentre la convoluzione separabile lo fa in due passaggi, ognuno svolto da uno strato di convoluzione diverso.
+MobileNet \`e un'architettura rilasciata da Google e resa disponibile open source, contenente una famiglia di modelli di computer vision per dispositivi mobili per TensorFlow. \`E stata progettata per massimizzare efficacemente l'accuratezza, tenendo presente le risorse limitate per un'applicazione integrata su dispositivo. Per questo motivo \`e stata scelta per adattarsi alla nostra esigenza di classificare immagini tramite un'applicazione installata su un dispositivo mobile. La particolarit\`{a} di questa architettura \`e l'uso di convoluzioni separabili per costruire reti neurali profonde leggere. L'intuizione di questi sviluppatori \`e stata di introdurre due semplici iperparametri che riescono ad equilibrare efficacemente latenza e accuratezza, permettendo all'architettura di adattarsi a diverse applicazioni. La latenza ,in informatica, di un sistema \`e l'intervallo di tempo che intercorre fra il momento in cui arriva l'input e il momento in cui \`e disponibile il suo output.\\
+In altre parole: la latenza non \`e altro che una misura della velocit\`{a} di risposta di un sistema.\\
+Ma che cosa si intende per convoluzioni separabili? Sono delle convoluzioni formate da due convoluzioni: una convoluzione in profondit\`{a} \`e una convoluzione con un filtro di dimensione $1\times 1$ chiamata convoluzione puntuale.
+La convoluzione in profondit\`{a} applica un singolo filtro a ciascun canale di ingresso e all'output generato viene applicato il filtro della convoluzione puntuale. Riassumendo: la convoluzione standard consente di filtrare e combinare gli input in un nuovo set di output in un unico passaggio, mentre la convoluzione separabile lo fa in due passaggi, ognuno svolto da uno strato di convoluzione diverso.
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.5]{fattorizzazione}
+\includegraphics[scale=0.8]{fattorizzazione}
 \caption{Fattorizzazione di una convoluzione standard in una convoluzione in profondit \`{a} e una convoluzione puntale.}
 \end{figure}
 \newpage
@@ -802,7 +812,7 @@ Questa fattorizzazione ha l'effetto di ridurre drasticamente il calcolo e la dim
 $$D_K \cdot D_K \cdot M \cdot N \cdot D_F \cdot D_F$$
 Mentre nella convoluzione separabile si ha la convoluzione in profondit\`{a} che applica un filtro K' di dimensioni: $D_K\times D_K \times M$ ed ha un costo computazionale di:
 $$D_K \cdot D_K \cdot M \cdot D_F \cdot D_F$$
-Ora questi filtri devono essere combinati per creare nuove funzionalit\`{a}. Pertanto, per generare queste nuove caratteristiche ï¿½ necessario lo strato con la convoluzione puntuale che calcoli una combinazione lineare dell'uscita della convoluzione in profondit\`{a}, mediante la convoluzione con filtro di dimensione $1 \times 1$ di profondit\`{a} M e applicato agli N canali di output.\\
+Ora questi filtri devono essere combinati per creare nuove funzionalit\`{a}. Pertanto, per generare queste nuove caratteristiche, \`e necessario che lo strato con la convoluzione puntuale, faccia una combinazione lineare dell'uscita della convoluzione in profondit\`{a}, mediante la convoluzione con filtro di dimensione $1 \times 1$, di profondit\`{a} M e applicato agli N canali di output.\\
  Il suo costo \`e pari a:
 $$M\cdot N \cdot D_F \cdot D_F$$
 Quindi la convoluzione separabile ha un costo computazionale totale pari alla somma delle due convoluzioni:
@@ -811,7 +821,8 @@ Se si fa il rapporto dei costi computazionali dei due approcci, si ottiene una r
 \begin{equation}
 \frac{D_k\cdot D_k\cdot M\cdot D_F\cdot D_F + M\cdot N \cdot D_F \cdot D_F}{D_k\cdot D_k\cdot M\cdot N \cdot D_F \cdot D_F}=\frac{1}{N}+\frac{1}{D_K^2}
 \end{equation}
-L'architettura di MobileNet \`e quindi costituita da un primo strato con una convoluzione standard e da 12 convoluzioni separabili tutti implementati con una funzione di attivazione ReLu con batchnorm. Ovvero: abbiamo visto in precedenza (\ref{cap:reti}) l'importanza della funzione di attivazione all'interno dell'addestramento di una rete, quando si calcola l'output di un singolo neurone abbiamo che il k-esimo nodo in uno strato nascosto ha il valore:
+L'architettura di MobileNet \`e quindi costituita da un primo strato con una convoluzione standard e da 12 convoluzioni separabili tutti implementati con una funzione di attivazione ReLu con batchnorm.\\
+Abbiamo visto in precedenza (Cap. \ref{cap:reti}) l'importanza della funzione di attivazione all'interno dell'addestramento di una rete. Quando si calcola l'output di un singolo neurone si ha che il k-esimo nodo, in uno strato nascosto, ha il valore:
 \begin{equation}
 y_k=f_k(W_k \, x_{k-1})
 \end{equation}
@@ -826,30 +837,29 @@ Ricapitolando, come mostra la figura \ref{fig:mobileNet}, l'architettura ha:
 \item ultimo strato di output forteente connesso.
 \end{itemize} 
 per un totale di 28 strati, in quanto ogni strato nascosto \`e composto da una convoluzione separabile, che corrisponde a due strati consecutivi (convoluzione di profondit\`{a} e convoluzione puntuale).
-\begin{figure}[t]
+\begin{figure}[!ht]
 \centering
-\includegraphics[scale=0.7]{mobileNet}
+\includegraphics[scale=0.8]{mobileNet}
 \caption{Struttura dell'architettura mobileNet.}
 \label{fig:mobileNet}
 \end{figure}
 
 
 A partire da quaest'architettura si possono costruire modelli pi\`{u} piccoli e meno dispendiosi dal punto di vista computazionale, introducendo un "moltiplicatore di larghezza" $\alpha$ e un "moltiplicatore di risoluzione" $\rho$. 
-Il ruolo del moltiplicatore di larghezza \`e quello di assottigliare uniformemente una rete su ciascun livello. Per un dato livello e moltiplicatore di larghezza $\alpha$, il numero dei canali di ingresso M diventa $\alpha$ M e il numero dei canali di uscita N diventa $\alpha$ N. Quindi il costo computazionale di una convoluzione separabile di questo tipo \`e:
+Il ruolo del moltiplicatore di larghezza \`e quello di assottigliare uniformemente una rete su ciascun livello. Per un dato livello e moltiplicatore di larghezza $\alpha$, il numero dei canali di ingresso M diventa $\alpha \cdot M$ e il numero dei canali di uscita N diventa $\alpha \cdot N$. Quindi il costo computazionale di una convoluzione separabile di questo tipo \`e:
 \begin{equation}
 D_K\cdot D_K\cdot \alpha M\cdot D_F\cdot D_F + \alpha M\cdot \alpha N \cdot D_F \cdot D_F
 \end{equation}
 con $\alpha \in (0,1]$.\\
 Il moltiplicatore di larghezza ha l'effetto di ridurre il costo computazionale e il numero di parametri in modo quadratico di circa $\alpha^2$.\\
-Il Moltiplicatore di risoluzione $\rho$ serve a ridurre la dimensione dell'immagine. Viene infatti applicato all'immagine di input in modo che la rappresentazione interna di ogni livello viene successivamente ridotta dallo stesso moltiplicatore.\\
-Aggiungendo anche questo parametro il costo computazionale della rete con moltiplicatore di ampiezza $\alpha$ e moltiplicatore di risoluzione $\rho$ \`e:
+Il Moltiplicatore di risoluzione $\rho$ serve a ridurre la dimensione dell'immagine. Viene infatti applicato all'immagine di input in modo che la rappresentazione interna di ogni livello viene successivamente ridotta dallo stesso moltiplicatore. Aggiungendo anche questo parametro il costo computazionale della rete con moltiplicatore di ampiezza $\alpha$ e moltiplicatore di risoluzione $\rho$ \`e:
 \begin{equation}
 D_K \cdot D_K  \cdot \alpha M\cdot \rho D_F\cdot \rho D_F + \alpha M\cdot \alpha N \cdot \rho D_F \cdot \rho D_F
 \end{equation}
-con $\rho \in (0,1]$ ed anche questo moltiplicatore ha l'effetto di ridurre il costo computazionale di $\rho^2$.\cite{mobileNet} \\
+con $\rho \in (0,1]$ ed anche questo moltiplicatore ha l'effetto di ridurre il costo computazionale di $\rho^2$. \cite{mobileNet} \\
 Per creare Shazarch \`{e} stata utilizzata l'architettura "standard" di mobileNet, ovvero dove gli iperparametri $\alpha$ e $\rho$ sono uguali a 1.\\
 Inoltre si riocrda che la dimensione delle foto, con cui era stato costruito il dataset, era di $3024\times 4032$ pixels, mentre imageNet accetta solo immagini di dimensioni $224\times 224$, $192\times 192$, $160\times 160$ o $128\times 128$ pixels, quindi le immagini del dataset sono state ridimensionate in modo da soddisfare la dimensione richiesta. Questo ha comportato una perdita parziale di informazioni sulle immagini, ma era un prezzo da pagare per creare un'applicazione adattabile su un dispositivo mobile che non dispone di una memoria molto capiente.
-
+\newpage
 
 
 
@@ -893,15 +903,15 @@ I principali tipi di tensori sono:
 \end{itemize}
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.7]{tensori}
+\includegraphics[scale=0.8]{tensori}
 \caption{Strutture di tensori n-dimensionali, per alcune n.}
 \end{figure}
 \newpage
 \subsection{Classificazione con KNN}
-Di seguito viene riportato un esempio di codice per la classificazione di numeri scritti a mano estratti dal dataset di MNIST. L'algoritmo utilizzato \`{e} dei K-nearest neighbour,in due versioni: la prima non utilizza il batch size mentre la seconda si.\\
-\begin{figure}[t]
+Di seguito viene riportato un esempio di codice per la classificazione di numeri scritti a mano estratti dal dataset di MNIST. L'algoritmo utilizzato \`{e} dei K-nearest neighbour,in due versioni: la prima non utilizza il batch size mentre la seconda si.
+\begin{figure}[!h]
 \centering
-\includegraphics{MnistExamples}
+\includegraphics[scale=0.7]{MnistExamples}
 \caption{Esempio di dati provenienti dal dataset Mnist}
 \end{figure}
 
@@ -1021,35 +1031,35 @@ Utilizzando insiemi di addestramento e di test con le stesse cardinalit\`{a} del
 
 \subsection{Shazarch}
 Di seguito si riporta il codice utilizzato per creare il modello per l'applicazione Shazarch.\\
-Per prima cosa si \`e ampliato il dataset di partenza, tramite la generazione di foto artificiali con Augmentor con la seguente procedura generale \cite{Augmentor}:\\
+Per prima cosa si \`e ampliato il dataset di partenza, tramite la generazione di foto artificiali con Augmentor con la seguente procedura generale: \cite{Augmentor}
 \begin{enumerate}
 \item Si istanzia un oggetto \textit{Pipeline};
 \item Si definisce un numero di operazioni da eseguire;
 \item Si eseguono le operazioni sull'oggetto Pipeline.
 \end{enumerate}
 \textbf{Passaggio 1- Creare un nuovo Pipeline:}\\
-Per iniziare qualsiasi attivit\`{a} di incremento, \`e necessario innanzitutto inizializzare un oggetto Pipeline, che punta a una cartella (\textit{directory})  in cui ï¿½ archiviato il set di dati dell'immagine originale:
+Per iniziare qualsiasi attivit\`{a} di incremento, \`e necessario innanzitutto inizializzare un oggetto Pipeline, che punta a una cartella (\textit{directory})  in cui \`e archiviato il set di dati dell'immagine originale:
 \begin{lstlisting}[language={Python},tabsize=2,basicstyle=\footnotesize]
 import Augmentor
 p=Augmentor.Pipeline("/percorso/dove/risiedono/le/immagini")
 \end{lstlisting}
-La variabile p ora contiene un oggetto di tipo Pipeline ed ï¿½ stata inizializzata con l'elenco di immagini trovate nella cartella di origine.\\
+La variabile p ora contiene un oggetto di tipo Pipeline ed \`e stata inizializzata con l'elenco di immagini trovate nella cartella di origine.\\
 \textbf{Passaggio 2- Aggiungere operazioni a Pipeline:}\\
 Una volta creato il Pipeline p, si possono aggiungere le operazioni da eseguire su di esso. Ad esempio, se si vuole creare un'immagine ruotata:
 \begin{lstlisting}[language={Python},tabsize=2,basicstyle=\footnotesize]
 p.rotate(probability=0.7, max_left_rotation=10, max_right_rotation=10)
 \end{lstlisting}
 In questo caso con una probabilit\`{a} del $70\%$, la foto sar\`{a} creata tramite una rotazione dell'originale verso sinistra o verso destra, entrambe di massimo $10\,°$, ovvero l'immagine verr\`{a} ruotata tra $-10$ e $10$ gradi.
-
-\begin{figure}[htbp]
+\newpage
+\begin{figure}[ht]
 \centering
-\includegraphics[width=35mm]{originale.eps}
+\includegraphics[width=55mm]{originale.eps}
 \qquad\qquad
-\includegraphics[width=45mm]{ruotata.eps}
+\includegraphics[width=55mm]{ruotata.eps}
 \caption{Esempio di foto dell'Arco di Settimio Severo ruotata a destra.}
 \end{figure}
 
-Esistono molte altre operazioni che si possono applicare alle immagini, come ad esempio: zoom, conversione in bianco e nero, ritaglio, distorsione, riflessione ecc... Infine Augmentor permette di eseguire un controllo per in dividuare eventuali doppioni generati e li cancella.
+Esistono molte altre operazioni che si possono applicare alle immagini, come ad esempio: zoom, conversione in bianco e nero, ritaglio, distorsione, riflessione ecc... 
  
 
 \textbf{Passaggio 2- Eseguire le operazioni:}\\
@@ -1058,6 +1068,7 @@ Dopo aver aggiunto le operazioni necessarie, \`e possibile generare i nuovi dati
 p.sample(10000)
 \end{lstlisting}
 Dalla finestra del terminale apparir\`{a} una barra di avanzamento del processo durante la generazione dei campioni. Per impostazione predefinita, le immagini generate verranno salvate in una cartella denominata output, all'interno di quella contenente le immagini iniziali.\\
+Infine Augmentor permette di eseguire un controllo per in dividuare eventuali doppioni generati e li cancella.\\
 Una volta creato il dataset, si crea l'elenco delle etichette, che in questo caso corrisppondevano al nome delle cartelle che contenevano le immagini:\\
 \begin{lstlisting}[language={Python},tabsize=2,basicstyle=\footnotesize]
 _files = glob.glob('/percosdo/della/cartella/dataset/*')
@@ -1100,32 +1111,39 @@ def load_images(path):
 \end{lstlisting}
 Si \`e creato il modello mobileNet:
 \begin{lstlisting}[language={Python},tabsize=2,basicstyle=\footnotesize]
-base_model=MobileNet(input_shape=(224,224,3),include_top=False,input_tensor=Input(shape=(224,224,3)),pooling=None)
+base_model=MobileNet(input_shape=(224,224,3),include_top=False,
+			input_tensor=Input(shape=(224,224,3)),pooling=None)
 
 \end{lstlisting}
 dove:
 \begin{list}{-}{}
-\item input\_shape \`e il formato delle immagini passate in input alla rete;\\
+\item input\_shape \`e il formato delle immagini passate in input alla rete;
 \item include\_top specifica se  includere lo strato completamente connesso nella parte iniziale della rete;
 \item input\_tensor \`e la dimensione dell'input dell'immagine del modello;
 \item pooling specifica se applicare il pooling finale, si pu\`{o} settare solo se include\_top=False.
 \end{list}
-Per questa configurazione sono stati settati il moltiplicatore di larghezza $\alpha ,\rho =1$, rispettivamente il moltiplicatore di larghezza e di risoluzione. Non compaiono tra gli argomenti perch\`e, se omessi, sono settati gi\`{a} ad 1 di default. Discorso analogo per il valore relativo al dropout, che  di default vale $0.001$.\\
+Per questa configurazione sono stati settati $\alpha ,\rho =1$, che rappresentano rispettivamente il moltiplicatore di larghezza e di risoluzione. Non compaiono tra gli argomenti perch\`e, se omessi, sono settati gi\`{a} ad 1 di default. Discorso analogo per il valore relativo al dropout, che  di default vale $0.001$.\\
 Si definscono le ultime operazioni da applicare all'output della rete, questo passaggio pu\`{o} essere inteso come un ultimo strato che, va a completare l'architettura .
 \begin{lstlisting}[language={Python},tabsize=2,basicstyle=\footnotesize]
 out = base_model.output
-out = GlobalAvgPool2D(name='avg_pools26')(out)#se c'ï¿½ pooling lo levo
+out = GlobalAvgPool2D(name='avg_pools26')(out)
 out = Dropout(0.4)(out)
-y_pred=Dense(n_classes,activation='softmax',kernel_initializer='random_uniform',kernel_regularizer=l2(.0005),name='last_layers26')(out)
+y_pred=Dense(n_classes,activation='softmax',kernel_initializer='random_uniform',
+				kernel_regularizer=l2(.0005),name='last_layers26')(out)
 \end{lstlisting}
+\vspace{1cm}
 Infine si crea il modello e lo si allena:
 \begin{lstlisting}[language={Python},tabsize=2,basicstyle=\footnotesize]
 model = Model(inputs=base_model.input,outputs=y_pred)
 optimizer = SGD(lr=.01,momentum=.9)
-model.compile(optimizer=optimizer,loss='categorical_crossentropy',metrics=['accuracy'])
-model.fit(X_train,Y_train_cat,batch_size=100,epochs=10000,verbose=2,callbacks=[lr_sheduler,csv_logger, checkpointer],validation_data=(X_val,Y_val_cat),shuffle=True)
+model.compile(optimizer=optimizer,loss='categorical_crossentropy',
+			metrics=['accuracy'])
+model.fit(X_train,Y_train_cat,batch_size=100,epochs=10000,verbose=2,
+			callbacks=[lr_sheduler,csv_logger,checkpointer],
+					validation_data=(X_val,Y_val_cat),shuffle=True)
 \end{lstlisting}
-Con il metodo fit si allena il modello, inserendo tra gli argomenti tutti i parametri necessari per settarlo, anche il metodo di minimizzazione da usare durante la fase di back-propagation, in questo caso SGD (discesa del gradiente).\\
+\vspace{1cm}
+Con il metodo fit() si allena il modello, inserendo tra gli argomenti tutti i parametri necessari per settarlo, anche il metodo di minimizzazione da usare durante la fase di back-propagation, in questo caso SGD.\\
 Ricapitolando, di seguito viene riportato l'intero codice:
 \begin{lstlisting}[language={Python},tabsize=2,basicstyle=\footnotesize]
 from __future__ import print_function
@@ -1137,15 +1155,15 @@ import numpy as np
 import glob
 import tensorflow as tf
 from keras.models import Model
-from keras.applications.mobilenet import preprocess_input, decode_predictions
+from keras.applications.mobilenet import preprocess_input,decode_predictions
 from keras.applications.mobilenet import MobileNet
 from keras.layers import Dense, GlobalAvgPool2D, Input, Dropout
-from keras.callbacks import ModelCheckpoint, CSVLogger, LearningRateScheduler, ReduceLROnPlateau
+from keras.callbacks import ModelCheckpoint, CSVLogger
+from keras.callbacks import ReduceLROnPlateau, LearningRateScheduler
 from keras.optimizers import SGD
 from keras.regularizers import l2
 import keras.backend as K
 from keras.utils.np_utils import to_categorical
-
 
 _files = glob.glob('/percosdo/della/cartella/dataset/*')
 labels = []
@@ -1195,15 +1213,19 @@ Y_val_cat = to_categorical(Y_val, n_classes)
 
 session = tf.Session()
 K.set_session(session)
-base_model=MobileNet(input_shape=(224,224,3),include_top=False,input_tensor=Input(shape=(224,224,3)),pooling=None)
+base_model=MobileNet(input_shape=(224,224,3),include_top=False,
+				input_tensor=Input(shape=(224,224,3)),pooling=None)
 out = base_model.output
 out = GlobalAvgPool2D(name='avg_pools26')(out)
 out = Dropout(0.4)(out)
-y_pred=Dense(n_classes,activation='softmax',kernel_initializer='random_uniform',kernel_regularizer=l2(.0005),name='last_layers26')(out)
+y_pred=Dense(n_classes,activation='softmax',kernel_initializer='random_uniform',
+				kernel_regularizer=l2(.0005),name='last_layers26')(out)
 model = Model(inputs=base_model.input,outputs=y_pred)
 optimizer = SGD(lr=.01,momentum=.9)
-model.compile(optimizer=optimizer,loss='categorical_crossentropy',metrics=['accuracy'])
-checkpointer=ModelCheckpoint(filepath='/percosdo/dove/salvare/file/model.{epoch:02d}-{val_loss:.2f}.hdf5', verbose=1, save_best_only=True)
+model.compile(optimizer=optimizer,loss='categorical_crossentropy',
+			metrics=['accuracy'])
+checkpointer=ModelCheckpoint(filepath='/percosdo/dove/salvare/file/model.
+			{epoch:02d}-{val_loss:.2f}.hdf5', verbose=1, save_best_only=True)
 csv_logger = CSVLogger('/percosdo/dove/salvare/file/model.log')
 def schedule(epoch):
     if epoch < 15:
@@ -1214,25 +1236,24 @@ def schedule(epoch):
         return .0004
     
 lr_sheduler = LearningRateScheduler(schedule)
-model.fit(X_train,Y_train_cat,batch_size=100,epochs=10000,verbose=2,callbacks=[lr_sheduler,csv_logger, checkpointer],validation_data=(X_val,Y_val_cat),shuffle=True)
+model.fit(X_train,Y_train_cat,batch_size=100,epochs=10000,verbose=2,
+			callbacks=[lr_sheduler,csv_logger,checkpointer],
+			validation_data=(X_val,Y_val_cat),shuffle=True)
 \end{lstlisting}
-
-%riportare accuratezza dei modelli provati con diversi batch size
-
-
 Il modello appena creato \`e di tipo tensorflow, ma per poterlo esportare, in modo che possa essere sfruttato, ha bisogno di essere convertito. In questo caso si necessita di un formato di tipo tensorflowLite, che \`e compatibile con AndroidStudio: l'ambiente di sviluppo scelto per creare l'applicazione. Nel prossimo paragrafo verr\`{a} illustrato l'utilizzo di AndroidStudio.
-
+\newpage
 \section{AndroidStudio}
 Android Studio \`e un ambiente di sviluppo integrato (IDE) per lo sviluppo per la piattaforma Android. Basato sul software IntelliJ IDEA, \`e stato progettato specificamente per lo sviluppo di applicazioni Android. \`{E} disponibile in download gratuito su Windows, Mac OS X e Linux, sostituisce gli Android Development Tools (ADT) di Eclipse, diventando l'IDE primario di Google per lo sviluppo nativo di applicazioni Android.\\
 Alla base di ogni applicazione Android ci sono quattro tipi di componenti: Activity, Service, Content Provider e BroadcastReceiver. \\
-Un'Activity \`e un'interfaccia utente. Ogni volta che si usa un'App, generalmente, si interagisce con una o pi\`{u} schermate, mediante le quali si consultano dati o si immettono input. Essa \`e il punto di partenza di ogni applicazione ed \`e la componente con cui l'utente ha il contatto pi\`{u} diretto.\\
-Un Service svolge un lavoro, generalemente lungo e continuato, che viene svolto interamente in \textit{background} senza bisogno di interazione diretta con l'utente. I Service hanno un'importanza basilare nella programmazione proprio perch\'{e}, spesso, preparano i dati che le activity devono mostrare all'utente, permettendo una reattivit\`{a} maggiore nel momento della visualizzazione.\\
-Un Content Provider nasce con lo scopo della condivisione di dati tra applicazioni, permettendo di condividere, nel sistema, contenuti custoditi in un database, su un file o reperibili mediante accessi in Rete.\\
-Un Broadcast Receiver \`e un componente che reagisce ad un invio di messaggi a livello di sistema, con cui Android notifica l'avvenimento di un determinato evento, ad esempio l'arrivo di un SMS o di una chiamata. Questi componenti sono utili per la gestione istantanea di determinate circostanze speciali.\\
-Un Intent \`e un oggetto che associa due componenti separate, come due attivit\`{a}, in seguito dell'invocazione di una per l'altra. Esso rappresenta infatti l'intento di fare qualcosa, senza che la componente chiamante cessi la sua esistenza.
-Un Fragment \`e strettamente legato alla propria activity, dalla quale riceve eventi in input, che possono essere elaborati mentre l'attivit\`{a} \`e in esecuzione. La particolarit\`{a} di questo componente risiede nel fatto che, un Fragment puï¿½ avere un'interfaccia utente totalmente sua, sempre per\`{o} all'interno di quella dell'activity. Si pu\`{o} pensare ad esso come un frammento dell'Activity, indipendente da essa, un esempio \`e dato da i menu a tendina al lato della schermata di un'applicazione.\\
+Un'\textbf{Activity} \`e un'interfaccia utente. Ogni volta che si usa un'App, generalmente, si interagisce con una o pi\`{u} schermate, mediante le quali si consultano dati o si immettono input. Essa \`e il punto di partenza di ogni applicazione ed \`e la componente con cui l'utente ha il contatto pi\`{u} diretto.\\
+Un \textbf{Service} svolge un lavoro, generalemente lungo e continuato, che viene svolto interamente in \textit{background} senza bisogno di interazione diretta con l'utente. I Service hanno un'importanza basilare nella programmazione proprio perch\'{e}, spesso, preparano i dati che le activity devono mostrare all'utente, permettendo una reattivit\`{a} maggiore nel momento della visualizzazione.\\
+Un \textbf{Content Provider} nasce con lo scopo della condivisione di dati tra applicazioni, permettendo di condividere, nel sistema, contenuti custoditi in un database, su un file o reperibili mediante accessi in Rete.\\
+Un \textbf{Broadcast Receiver} \`e un componente che reagisce ad un invio di messaggi a livello di sistema, con cui Android notifica l'avvenimento di un determinato evento, ad esempio l'arrivo di un SMS o di una chiamata. Questi componenti sono utili per la gestione istantanea di determinate circostanze speciali.\\
+Un \textbf{Intent} \`e un oggetto che associa due componenti separate, come due attivit\`{a}, in seguito dell'invocazione di una per l'altra. Esso rappresenta infatti l'intento di fare qualcosa, senza che la componente chiamante cessi la sua esistenza.
+Un \textbf{Fragment} \`e strettamente legato alla propria activity, dalla quale riceve eventi in input, che possono essere elaborati mentre l'attivit\`{a} \`e in esecuzione. La particolarit\`{a} di questo componente risiede nel fatto che, un Fragment pu\`{o} avere un'interfaccia utente totalmente sua, sempre per\`{o} all'interno di quella dell'activity. Si pu\`{o} pensare ad esso come un frammento dell'Activity, indipendente da essa, un esempio \`e dato da i menu a tendina al lato della schermata di un'applicazione.\\
 All'interno di AndroidStudio il linguaggio utilizzato \`e quello Java, per le parti delle componenti principali. Mentre le parti che descrivono l' "estetica" dell'applicazione, ovvero i \textit{layout}, sono scritti in .xml.\\
-Quando si inizia un progetto Android, la prima cosa da fare \`e istanziare l'activity principale, senza la quale non pu\`{o} essere costruita un'applicazione. La mainActivty, dal punto di vista del codice,  \`e una classe che estende la super classe Activity e dalla quale eredita dei metodi che verranno implementati tramite \textit{override}. In generale ci\`{o} che collegherï¿½ i layer con la classe sar\`{a} il documento, in formato .xml, chiamato: AndoridManifest. Esso raccoglie le informazioni necessarie al sistema per far girare qualsiasi porzione di codice all'interno dell'applicazione. Tra le altre cose il Manifest si occupa delle seguenti cose:
+Quando si inizia un progetto Android, la prima cosa da fare \`e istanziare l'activity principale, senza la quale non pu\`{o} essere costruita un'applicazione.\\
+La mainActivty, dal punto di vista del codice,  \`e una classe che estende la super classe Activity e dalla quale eredita dei metodi che verranno implementati tramite \textit{override}. In generale ci\`{o} che collegher\`{a} i layer con la classe sar\`{a} il documento, in formato .xml, chiamato: AndoridManifest. Esso raccoglie le informazioni necessarie al sistema per far girare qualsiasi porzione di codice all'interno dell'applicazione. Tra le altre cose il Manifest si occupa delle seguenti cose:
 \begin{itemize}
 \item Da un nome al package Java dell'applicazione, che \`e anche un identificatore univoco della stessa;
 \item Descrive le componenti dell'applicazione, nomina le classi e pubblica le loro "competenze";
@@ -1276,7 +1297,8 @@ Per capire quale fosse l'architettura ottimale, sono state realizzate 3 applicaz
 \end{itemize}
 Introdcendo l'acceso al dispositivo GPS, bisogna inserire nell'AndoridManifest la richiesta ai permessi:
 \begin{lstlisting}
-<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+<uses-permission android:name="android.permission.
+			ACCESS_FINE_LOCATION"/>
 <uses-feature android:name="android.hardware.location.gps"/>
 \end{lstlisting}
 altrimenti l'applicazione non potrebbe funzionare. La scelta della geolocalizzazione tramite dispositivo GPS  \`e dovuta dal fatto che entrambe le applicazioni devono funzionare senza una connessione dati attiva.
@@ -1285,14 +1307,37 @@ altrimenti l'applicazione non potrebbe funzionare. La scelta della geolocalizzaz
 \section{Conclusioni}
 Attraverso la piattorma NVIDIA DGX-1, fornita dal dipartimento di Roma3, \`e stato addestrato il modello di depp learning costruito. Le applicazioni Archlite e GPS sono state testate direttamente sul sito archeologico del Foro Romano. Durante il test sono state fatte all'incirca 400 rilevazioni per 13 siti su 30, una media di 30 foto a reperto, diversificate sia per angolatura che per distanza dal soggetto.\\
 I risultati ottenuti hanno mostrato un'architettura non ancora ottimale: entrambi i modelli hanno un' accuratezza del $52\%$  e una diversificazione tra le due applicazioni da migliorare. Evidentemente la probabilit\`{a}, calcolata basandosi sulla distanza tra il monumento ed il dispositivo, va aumentata di qualche ordine di grandezza. La GPS provata si basa sulla distribuzione uniforme su un intervallo (0,d), dove d  \`e la distanza, che  \`e lineare.\\ 
-In GPS, l'etichetta predetta ha una probabilit\`{a} maggiore di "match" con l'etichetta effettiva, in confronto ad Archlite, quando ci si trova in prossimit\`{a} del sito. Viceversa la probabilit\`{a} \`e pi\`{u} bassa quando la foto risulta "panoramica", ovvero quando il sito di interesse \`e lontano dall'obiettivo della fotocamera. Si \`e osservato che nei casi in cui si  \`e vicini al sito, se la predizione \`e corretta, la probabilit\`{a} registrata \`e sempre molto alta, mentre quando la previsione \`e errata, l'app GPS registra una probabilit\`{a} pi\`{u} bassa. Denotando un comportamento coerente con la "filosofia" con cui \`e stato costruito.\\
-Si \`e riscontrato un fenomeno di overfitting: l'etichetta corrispondente alla  "Domus Augustana" \`e spesso tra i risultati pi\`{u} probabili, se non il pi\`{u} probabile. Proprio a causa di questo comportamento, i risultati sono stati inficiati dalla predominanza di questa etichetta. Nei casi in cui il valore predetto non corrisponde a quello effettivo, la Domus Augustana compare come risultato pi\`{u} probabile nel $50\%$ dei casi.\\
+In GPS, l'etichetta predetta ha una probabilit\`{a} maggiore di "match" con l'etichetta effettiva, in confronto ad Archlite, quando ci si trova in prossimit\`{a} del sito, come mostrato nella figura: \ref{fig:vicina}.
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=55mm]{archLite2}
+\qquad\qquad
+\includegraphics[width=55mm]{GPS2}
+\caption{Schermata catturata ai piedi del Tempio di Saturno, a sinistra: il risultato dell'app ArchLite, a destra: il risultato dell'app GPS}
+\label{fig:vicina}
+\end{figure}
+
+Viceversa la probabilit\`{a} \`e pi\`{u} bassa quando la foto risulta "panoramica", ovvero quando il sito di interesse \`e lontano dall'obiettivo della fotocamera. Si \`e osservato che nei casi in cui si  \`e vicini al sito, se la predizione \`e corretta, la probabilit\`{a} registrata \`e sempre molto alta, mentre quando la previsione \`e errata, l'app GPS registra una probabilit\`{a} pi\`{u} bassa, si veda la figura \ref{fig:panoramica}. Denotando un comportamento coerente con la "filosofia" con cui \`e stato costruito.
+
+\newpage
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=55mm]{archLite}
+\qquad\qquad
+\includegraphics[width=55mm]{GPS}
+\caption{Schermata catturata della Basilica Emilia, erroneamente classificata. A sinistra la predizione dell'app ArchLite, a destra l'app GPS.}
+\label{fig:panoramica}
+\end{figure}
+
+
+Si \`e riscontrato un fenomeno di overfitting: l'etichetta corrispondente alla  "Domus Augustana" \`e spesso tra i risultati pi\`{u} probabili, se non il pi\`{u} probabile. Il fenomeno si \`e verificato in quanto, l'area della Domus Augustana \`molto vasta, perci\`{o} il numero di foto necessarie al riconoscimento sono pi\`{u} numerose. La rete quindi \`e stata allenata troppo con queste immagini e tende a riconoscere sopratutto loro. Proprio a causa di questo comportamento, i risultati sono stati inficiati dalla predominanza di questa etichetta. Nei casi in cui il valore predetto non corrisponde a quello effettivo, la Domus Augustana compare come risultato pi\`{u} probabile nel $50\%$ dei casi. Come nella figura (\ref{fig:panoramica}) dove, invece di classificare l'immagine come la Basilica Emilia, l'errore di predizione \`e ricaduto sulla Domus Augustana.\\
 Quando il modello viene testato, tramite il suo insieme di validazione, su DGX l'accuratezza \`e molto elevata, misurando in alcuni casi anche il $100\%$ di accuratezza. Mentre durante il test ai Fori l'accuratezza \`e molto bassa: $53\%$ per entrambe le applicazioni ma, nell'analizzare i valori di probabilit\`{a} registrati, GPS sembra essere (seppur di poco) pi\`{u} attendibile, anche se lontana dall'essere ottimale, ma ci sono margini di miglioramento possibili.
 
 
 \clearpage
 \addcontentsline{toc}{chapter}{Bibliografia}
+\nocite{*}
 \bibliographystyle{unsrt}
 \bibliography{bibliografia}
-\nocite{deep,machine,imagenet}
+
 \end{document}
