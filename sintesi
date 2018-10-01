@@ -1,0 +1,709 @@
+
+ \documentclass[a4paper,12pt,oneside]{book}
+ %\documentclass[a4paper,12pt]{report}
+\usepackage[italian]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\DeclareMathOperator*{\argmin}{argmin}
+\usepackage{empheq}
+\usepackage{bmpsize}
+\usepackage{hyperref}
+\usepackage{breakurl}
+\setcounter{tocdepth}{2}
+\usepackage[dvipdfm]{graphicx}
+\usepackage{graphicx}
+\usepackage[formats]{listings}
+
+\begin{document}
+\lstset{language=Python, showspaces=false, showstringspaces=false}
+\thispagestyle{empty}
+\begin{figure}
+\centering
+\includegraphics[scale=0.30]{Logo}
+\end{figure}
+\begin{center}
+\textbf{UNIVERSIT\`{A} DEGLI STUDI \lq \lq ROMA TRE\rq \rq}\\
+%\vspace{0.18cm}
+\textmd{\large Dipartimento di Matematica e Fisica}\\
+%\vspace{0.18cm}
+\large{ Corso di Laurea Magistrale in Scienze Computazionali}\\	
+%\vspace{1.35cm}	
+\textmd{\Large{Tesi di Laurea Magistrale}}\\
+\vspace{1cm}
+\LARGE{\LARGE{\textbf{Ricerca della topologia ottimale di un sistema di deep learning per identificazioni di oggetti architettonici}}}\\
+\vspace{3.5cm}
+\begin{tabular}{ccccccccccc}
+	\large{\textbf{Candidato}}& & & & & & & & & & \large{\textbf{Relatore}}\\
+	\large{D\'{e}sir\'{e}e Adiutori} & & & & & & & & & &\large{Prof. Luciano Teresi}\\
+	& & & & & & & & & & \large{\textbf{Correlatore}}\\
+	& & & & & & & & & & \large{Prof. Roberto D'Autilia}
+\end{tabular}\\
+\vspace{1.4cm}
+\normalsize{Anno Accademico 2017/2018}
+\end{center}
+\newpage
+
+\tableofcontents
+
+\newpage
+\section*{Introduzione}
+\addcontentsline{toc}{section}{Introduzione}
+Dall'invenzione dei computer, l'uomo fa sempre pi\`{u} affidamento sulle macchine per risolvere problemi complessi di calcolo. Con l'aumentare delle prestazioni dei computer, man mano si sono sviluppati algoritmi di calcolo sempre pi\`{u} efficienti.
+Nel 1959 l'ingegnere del MIT, Arthur Samuel coni\`{o} il termine \textit{\lq \lq machine learning"}, descrivendo l'apprendimento automatico come un \lq \lq campo di studio che d\`{a} ai computer la possibilit\`{a} di apprendere senza essere programmati esplicitamente per farlo" \cite{Samuel}. \\
+Definiamo l'apprendimento automatico come un insieme di metodi in grado di rilevare automaticamente i parametri dei modelli tramite dei dati e quindi utilizzare i modelli identificati per prevedere i dati futuri o per eseguire altri tipi di processi decisionali in condizioni di incertezza.\\
+Il \textit{\lq \lq deep learning"} \`e un tipo particolare di machine learning, che riguarda l'emulazione di come gli esseri umani apprendono. Esso affronta i problemi del machine learning, rappresentando il mondo come una gerarchia di concetti annidati: ogni concetto \`e definito in relazione a concetti pi\`{u} semplici e le rappresentazioni astratte vengono calcolate in termini di concetti meno astratti. Il Deep Learning implica l'utilizzo di reti neurali artificiali (\textit{deep artificial neural networks}) algoritmi e sistemi computazionali, ispirati al cervello umano, per affrontare i problemi del Machine Learning.\\
+Questa tesi si focalizza su un problema particolare di machine learning: la Classificazione (\textit{Classification}) in particolar modo di immagini. L'obiettivo principale \`e trovare un'architettura ottimale per l'algoritmo che identifica le immagini di oggetti architettonici, inserendo tra i parametri anche le coordinate geofisiche dell'oggetto.\\
+Nel primo capitolo si descrive cosa sono e come sono strutturati gli algoritmi di apprendimento. Nel secondo si introduce il concetto di rete neurale, ponendo particolare attenzione sulle reti neurali di tipo convoluzionale. Nel terzo si descrive il linguaggio di programmazione TensorFlow di Python; in particolar modo viene mostrato il codice utilizzato per la classificazione di oggetti architettonici e quello per la realizzazione di un App, per dispositivo Android, che lo implementi (prevalentemente codice Java). Infine nell'ultima parte vengono mostrati i risultati ottenuti.
+ 
+\chapter{Algoritmi di apprendimento}
+Gli algoritmi di machine learning sono solitamente divisi in tre tipi principali:
+\begin{itemize}
+\item Supervised learning (apprendimento supervisionato)
+\item Unsupervised learning (apprendimento non supervisionato)
+\item Reinforcement learning (apprendimento per rinforzo)
+\end{itemize}
+La scelta dell'algoritmo da utilizzare dipende dal tipo di dati di cui si dispone. Ma la scelta finale va fatta solo esclusivamente dopo aver testato l'algoritmo, e si sceglie in base a quello pi\`{u} performante: un insieme di ipotesi che funziona bene in un dominio, potrebbe funzionare male in un altro.\\
+\textbf{Teorema del No Free Lunch \cite[Wolper,1996]{NFL}}\\
+\textit{Non esiste una definizione universale di algoritmo \lq \lq migliore".}
+\section{Costruzione di un algoritmo}\label{Costruzione}
+Per costruire un algoritmo di apprendimento bisogna avere:
+\begin{itemize}
+\item processi(\textit{task}): compiti che l'algoritmo deve eseguire;
+\item misuratori di rendiment: rilevatori delle caratteristiche dei processi;
+\item esperienze: quantit\`{a} di dati dal quale imparare.
+\end{itemize}
+I processi di apprendimento automatico descrivono come il sistema dovrebbe elaborare un esempio.
+\newtheorem{defin}{Definizione}
+\begin{defin}
+Un \textbf{esempio} \`e una raccolta di caratteristiche che sono state misurate quantitativamente da alcuni oggetti o eventi elaborati. 
+\end{defin}
+Di solito, un esempio viene rappresentato da un vettore $x\in \mathbb{R}^{n}$, dove ogni elemento $x_{i}$ rappresenta una caratteristica.\\
+Ad esempio, se si considera un fiore: le caratteristiche che lo descrivono sono la lunghezza e la larghezza dei suoi petali e il colore. Quindi in questo caso la metrica usata \`e la distanza euclidea tra le due estremit\`{a} del petalo:\\
+se si considera $x=(x_1,x_2,x_3)$ il fiore con queste 3 caratteristiche, si ha che:
+$$x_{1}=d(h_{min},h_{max})\qquad x_{2}=d(b_{min},b_{max})\qquad x_{3}=stringa$$
+dove $h_{min}$ e $h_{max}$ rappresentano i due punti relativi alle estremit\`{a} del petalo e $d:\mathbb{R} \times \mathbb{R} \longrightarrow \mathbb{R}$    t.c   $d(x,y)=\sqrt{(x-y)^{2}}=|x-y|$.\\
+Dato un processo si cerca di capire quale sia la caratteristica principale, sulla quale si deve misurare il suo rendimento.
+Infine, dobbiamo dare all'algoritmo un'esperienza sulla quale apprendere, che \`e quella che lo classificher\`{a} in uno dei tre tipi principali.
+Questa esperienza l'apprende dai \textit{dataset}: una collezione di esempi.\\
+I dataset possono essere di vari tipi:
+\begin{itemize}
+\item di addestramento (\textit{training set})
+\item di prova (\textit{test set})
+\item di validazione (\textit{validation set})
+\end{itemize}
+L' \textbf{insieme di addestramento} \`e una parte dell'insieme di dati che vengono utilizzati per addestrare un sistema di apprendimento supervisionato.\\
+Da questo insieme, l'algoritmo deve costruire una funzione che capisca, dai parametri, quali caratteristiche descrivono le varie categorie.\\
+L' \textbf{insieme di prova} \`e un insieme di dati che, con l'insieme di addestramento, forma una partizione del dataset di partenza. Questi nuovi dati vengono utilizzati per valutare l'apprendimento dell'algoritmo \lq \lq addestrato".\\
+L' \textbf{insieme di validazione} \`e usato in maniera analoga all'insieme di prova, ma dei dati inseriti per testare l'algoritmo gi\`{a} si conosce la risposta (una parte di essi pu\`{o} far parte dell'insieme di addestramento) e da questa si valuta se l'output ottenuto \`e ottimale o meno.\\
+Questi tre insiemi possono coesistere e la scelta delle loro cardinalit\`{a} non \`e universale: dipende dal tipo di problema che viene affrontato.\\
+Vediamo ora come valutare l'efficienza di un algoritmo:
+\begin{defin}
+L'\textbf{errore di allenamento} (\textit{training error}) \`e una misura di errore che si pu\`{o} calcolare sul set di allenamento. Indica quanto l'algortimo sta apprendendo.
+\end{defin}
+\begin{defin}
+La \textbf{generalizzazione} \`e la capacit\`{a} di un algoritmo di essere ottimale in seguito ad un input proveniente dall' insieme di prova.
+\end{defin}
+\begin{defin}
+L'\textbf{errore di generalizzazione} (\textit{generalization error}) \`e una misura di errore che si pu\`{o} calcolare sull'insieme di prova. Verifica se l'algoritmo ha imparato o solo memorizzato.
+Esso viene detto anche errore di test (\textit{test error}).
+\end{defin}
+Si ipotizza che tutti gli esempi siano eventi indipendenti e che tuti gli insiemi, in cui si partiziona l'insieme di dati, hanno la stessa distribuzione di probabilit\`{a} uniforme.
+\begin{defin}
+Una \textbf{funzione di perdita} (\textit{loss function}) $$L(y,\hat{y}):\mathbb{R}^{n} \times \mathbb{R}^{n} \rightarrow \mathbb{R}$$ \`e una funzione che misura la distanza (o l'errore) tra i valori di output previsto $\hat{y}$ e i valori effettivi ${y}$.
+\end{defin}
+Si possono usare varie misure, ad esempio l'errore quadratico medio(MSE):
+\begin{equation}\label{train-error}
+L(y,\hat{y})_{train}=\frac{1}{n}\sum_{i=1}^{n}(\hat{y}_{(train)}-y_{(train)})_{i}^2
+\end{equation}
+La funzione di predizione dipender\`{a} da dei parametri, rappresentati da un vettore $w$, lo scopo \`e di minimizzare l'errore di allenamento variando $w$.
+In base al tipo di apprendimento e al problema da affrontare, verranno usati vari algoritmi per risolvere problemi di minimizzazione libera. Gli algoritmi che risolverono il problema:
+\begin{equation}\label{minimi}
+f(x^{*})=\min_{x\in \mathbb{R}^{n}}f(x),\qquad \qquad f\in C^{2}(\mathbb{R}^{n},\mathbb{R})
+\end{equation}
+Per risolvere problemi di questo tipo, spesso viene utilizzato il metodo di discesa del gradiente \cite{an}. \\
+Minimizzare l'errore di allenamento non necessariamente comporta l'ottimizzazione di apprendimento dell'algoritmo, potrebbe verificarsi il fenomeno di adattamento insufficiente (\textit{underfitting}) ovvero non si hanno abbastanza dati per creare un modello di predizione accurato. Bisogna quindi valutare anche altri fattori: analizzare l'insieme di prova.\\
+Ricordandoci dell'eq.\ref{train-error} calcoliamo l'errore di prova:
+\begin{equation}\label{test-error}
+L(y,\hat{y})_{test}=\frac{1}{n}\sum_{i=1}^{n}(\hat{y}_{(test)}-y_{(test)})_{i}^2
+\end{equation}
+Vorremmo che, con i parametri trovati per minimizzare l'errore di allenamento, anche questo errore sia minimo (l'ottimalit\`{a} \`e 0). Ma come detto in precedenza non sempre questo accade, vorremmo quindi che il divario tra i due errori sia minimo. In caso contrario si verifica il fenomeno di adattamento eccessivo (\textit{overfitting}) del modello all'insieme di dati che descrive, tramite un eccessivo numero di parametri. Il modello quindi non sar\`{a} generalizzabile ad un nuovo insieme di dati.\\
+Consideriamo il valore atteso dell'errore di prova, calcolato prendendo una coppia di punti $(X,Y)$ dall'insieme di prova:
+\begin{equation}\label{test}
+\mathbb{E} [L(y,\hat{y})_{test}]=\mathbb{E} [(Y-\hat{y}(X))^{2}]
+\end{equation}
+e definiamo la funzione dell'output effettivo come:
+$$y(X)=\mathbb{E}(Y|X)$$
+la quale avr\`{a} sicuramente un errore, dovuto a qualche interferenza,\\
+che chiameremo: distorsione stimata (\textit{estimation bias}).\\
+Ma con diversi insiemi di allenamento, possiamo costruire diverse funzioni $\hat{y}$, e anche questo \`e un'altra fonte di errore: la varianza stimata (\textit{estimation variance}). Possiamo quindi scrivere l'output come:
+$$Y=y(X)+\epsilon$$ con $\epsilon$ variabile aleatoria indipendente da $X$ , con $X$ distibuzione normale tale che: $\mathbb{E}[X]=0$ e $Var(X)=\sigma^{2}$.\\
+Possiamo quindi riscrivere l'equazione \ref{test} come:
+\begin{eqnarray}
+\mathbb{E} [L(y,\hat{y})_{test}] &=&\mathbb{E} [(Y-\hat{y}(X))^{2}|X=x]\nonumber\\
+&=&\mathbb{E}[(Y-y(x))^2 |X=x]+\mathbb{E}[(y(x)-\hat{y}(x))^{2}|X=x]\nonumber\\
+&=&\sigma^{2}+\mathbb{E}[(y(x)-\hat{y}(x))^{2}]
+\end{eqnarray}
+dove $\sigma^{2}$ \`e chiamato errore Bayes e
+\begin{eqnarray}
+\mathbb{E}[(y(x)-\hat{y}(x))^{2}]&=&(\mathbb{E}[\hat{y}(x)]-y(x))^{2}+\mathbb{E}[(\hat{y}(x)-\mathbb{E}[\hat{y}(x)])^{2}]\nonumber\\
+&=&Bias(\hat{y}(x))^{2}+Var(\hat{y}(x))
+\end{eqnarray}
+Si ottiene cos\'{\i} il compromesso distorsione-varianza (\textit{bias-variance tradeoff}):
+\begin{equation}
+\mathbb{E} [L(y,\hat{y})_{test}]=\sigma^2+Bias(\hat{y}(x))^2 + Var(\hat{y}(x))
+\end{equation}
+Se la distorsione ha valori alti e la varianza bassi avremo un fenomeno di adattamento insufficiente, mentre se la distorsione ha valori bassi e la varianza alti avremo un adatteamento eccessivo.\cite{errval}\\
+Un modo per equilibrare questo compromesso \`e usare la convalida incrociata (\textit{Cross-Validation}), che consiste nel ripetere l'addestramento e il test dell'algoritmo ogni volta su sottoinsiemi scelti in maniera casuale.
+\section{Apprendimento supervisionato}
+Gli algoritmi di apprendimento supervisionato vengono utilizzati per risolvere problemi di classificazione e di regressione.\\
+Si parla di apprendimento supervisionato quando il dataset che si utilizza contiene delle variabili, una delle quali \`e un'etichetta.\\
+Dato un vettore di input $x=(x_{1},\cdots,x_{n})$ ogni $x_{i}$ \`e un vettore d-dimensionale di numeri rappresentanti una caratteristica, da questi dati si costruisce l'insieme di addestramento di cardinalit\`{a} N: $D={\{ (x_{i},y_{i})\}}^{N}_{i=1}$, dove $y=(y_{1},\cdots,y_{m})$ \`e l'output dei risultati desiderati e $y_{i}$ \`e l'etichetta.
+Lo scopo \`e di apprendere una regola generale che colleghi i dati in ingresso con quelli in uscita, in modo che l'algoritmo apprenda a classificare un esempio completamente nuovo, non contenente l'etichetta.\\
+Se $y_{i}$ \`e di tipo testuale si parla di classificazione, quando invece \`e di tipo numerico si parla di regressione. Se indichiamo con C il numero delle classi a cui pu\`{o} appartenere l'output: $y\in \{1,...,C\}$, se $C=2$ la classificazione sar\`{a} binaria (in questo caso spesso $y\in \{0,1\}$); se $C>2$ sar\`{a} multiclasse.\\
+
+\subsection{Regressione}\label{regressione}
+La Regressione prevede il valore futuro di un dato, avendo noto il suo valore attuale. Un esempio \`e la previsione della quotazione delle valute o delle azioni di una societ\`{a}. Nel marketing viene utilizzato per prevedere il tasso di risposta di una campagna sulla base di un dato profilo di clienti; nell'ambito commerciale per stimare come varia il fatturato dell'azienda al mutare della strategia. Questo avviene costruendo una funzione che meglio si adatta ai punti che descrivono la distribuzione delle Y, in funzione delle X, precedentemente osservate. Ovvero: osservati n esempi per cui $f(x_i)=y_i$, $\forall i=1,\cdots ,n$ si cerca di prevedere il valore di $\hat{y}$, dato un nuovo valore $\hat{x}$, tramite la stima della funzione $f$.
+
+\subsection{Classificazione}\label{classificazione}
+La Classificazione viene usata quando \`e necessario decidere a quale categoria appartiene un determinato dato. Per esempio, data una foto, capire a quale categoria appartiene. In questa tesi vogliamo classificare immagini, pi\'{u} precisamente: capire a quale tipo di monumento corrisponde una determinata immagine.\\ 
+Questo tipo di algoritmo deve specificare a quale delle k categorie appartiene un input. Viene creata una funzione $f:\mathbb{R}^{n} \rightarrow \{ 1,\cdots,k\}$ e quando $y=f(x)$, il modello assegna l'input descritto dal vettore $x$ ad una categoria identificata dal codice numerico $y$.\\
+Esistono altre varianti dell'attivit\`{a} di classificazione, ad esempio, dove $f$ genera una distribuzione di probabilit\`{a} su classi.\\
+
+\section{Apprendimento non supervisionato}
+Gli algoritmi di apprendimento non supervisionato vengono utilizzati per risolvere problemi di raggruppamento.
+All'algoritmo viene passato solo l'input: $D={\{ x_{i}\}}^{N}_{i=1}$ e cerca una relazione tra i dati per capire se e come essi siano collegati tra di loro. Non contenendo alcuna informazione preimpostata, l'algoritmo \`e chiamato a creare una \lq \lq nuova conoscenza" (\textit{knowledge discovery}). A differenza del caso supervisionato, questo apprendimento non ha una classificazione o un risultato finale con il quale determinare se il risultato \`e attendibile, ma generalizza le caratteristiche dei dati e in base ad esse attribuisce ad un input un output: serve generalmente ad estrarre informazioni non ancora note, \lq \lq creando" esso stesso delle classi in cui dividere i dati, dette \textit{cluster}, da cui prende il nome la tecnica di \textit{clustering}. Si definisce una misura di similarit\`{a} che se applicata ad un insieme di esempi, descritti da una serie di attributi, partiziona l'insieme in cluster, dove gli esempi appertenenti allo stesso cluster sono simili, mentre esempi appartenenti a cluster differenti sono dissimili. Il problema dela tecnica di clustering \`e trovare la caratteristica per cui si vuole raggruppare l'insieme e trovare una misura a lei adatta.\\
+
+\section{Apprendimento per rinforzo}
+Gli algoritmi di apprendimento per rinforzo vengono utilizzati per risolvere problemi di regressione.
+Lo scopo di questo algoritmo \`e di realizzare un sistema in grado di apprendere ed adattarsi ai cambiamenti dell'ambiente in cui si trovano, attraverso la distribuzione di una \lq \lq ricompensa" detta rinforzo, data dalla valutazione delle prestazioni. Questi algoritmi sono costruiti sull'idea che i risultati corretti dovrebbero essere ricordati, per mezzo di un segnale di rinforzo, in modo che diventino pi\`{u} probabili e quindi pi\`{u} facilmente riottenuti nelle volte future; viceversa se il rusultato \`e errato , il segnale sar\`{a} una penalit\`{a}, ovvero si avr\`{a} una probabilit\`{a} pi\`{u} bassa legata a quel determinato output \cite{rinforzo}. \\
+
+\chapter{Reti neurali artificiali}\label{cap:reti}
+Le reti neurali sono i modelli di deep learning per eccellenza. Sono un sistema di elaborazione di informazioni ispirato al funzionamento del sistema nervoso umano.\\
+La rete \`e strutturata come un grafo orientato. I nodi sono raggruppati in strati (\textit{layers}): il primo strato contiene i nodi di input  $x_1,\cdots,x_n$, connessi con lo strato successivo, dove ad ogni arco \`e associato un peso $w_i$. L'ultimo strato contiene i nodi di output. Gli strati tra il primo e l'ultimo strato sono chiamati strati nasconti (\textit{hidden layers}). La lunghezza complessiva del percorso determina la profondit\'{a} del modello, da cui deriva il nome dell'apprendimento: \lq \lq deep learning".\\
+In base all'architettura scelta, esistono vari modelli di  reti neurali;
+la scelta dell'architettura della rete \`e molto importante, poich\'{e} in base al numero di nodi usati per ogni strato ed alla profondit\'{a}, il costo computazionale cresce o diminuisce: per esempio la scelta di un'architettura poco profonda e con una elevata quantit\'{a} di nodi per strato, causa un costo computazionale elevato ed un massiccio utilizzo della memoria.\\
+In una rete neurale, ogni neurone artificiale, rappresentato da un nodo, diventa attivo se la quantit\`{a} totale di segnale che riceve supera la soglia di attivazione, definita dalla cosiddetta funzione di attivazione. Se un nodo diventa attivo, emette un segnale che viene trasmesso lungo i canali di trasmissione fino all'altra unit\`{a} a cui \`e collegato.
+\newpage
+\begin{figure}[!ht]
+\centering
+\includegraphics[scale=0.8]{neurone.eps}
+\caption{Modello non lineare di un neurone artificiale.}
+\label{neurone}
+\end{figure}
+
+La figura \ref{neurone}, indipendentemente dal modello di rete utilizzato, mostra l'elaborazione eseguita da un neurone artificiale.\\
+Siano $x_1,\cdots,x_n$ i dati in input, rappresentati dagli $n$ nodi del primo strato, nel k-esimo neurone l'informazione viene elaborata come:
+$$y_{(k)}=f(b_{(k)}+\sum_{i=1}^n w_{(k)i}\cdot x_{(k-1)i})$$
+dove:\\
+\begin{itemize}
+\item $y_{(k)}$ \`e l'output generato dal neurone k;
+\item $b_{(k)}$ \`e il valore soglia del neurone k;
+\item $w_{(k)i}$ \`e il peso associato all'arco che collega il nodo i-esimo al neurone $k$;
+\item $f(\cdot)$ \`e la funzione di attivazione.
+\end{itemize}
+Il motivo principale per cui vengono scelte le reti neurali \`e la possibilit\'{a} di parallelizzare i calcoli.
+\newpage
+\section{Funzioni di attivazione}
+La funzione di attivazione \`e una funzione usata per normalizzare, quindi limitare, l'ampiezza dell' output, per non consumare eccessiva memoria e di velocizzare il processo di calcolo.\\
+Generalmente le reti neurali sono utilizzate per implementare funzioni complesse e le funzioni di attivazione non lineari consentono loro di approssimare funzioni arbitrariamente complesse. Le funzioni maggiormente utilizzate a tale scopo sono 3:
+\begin{figure}[!h]
+\includegraphics[scale=0.7]{funzioniAttivazione}
+\caption{Grafici delle funzioni di attivazione pi\`{u} usate.}
+\end{figure}
+
+\section{Addestramento di una rete}
+Come visto in \ref{Costruzione}, per addestrare un algoritmo si ha bisogno di una funzione di perdita e di un metodo per minimizzare l'errore di valutazione.\\
+L'addestramento di una rete neurale si basa sugli stessi principi:\\
+si definisce una mappa: $$y=f(x,\theta)$$ e si cerca il valore del parametro $\theta$ che pi\`{u} accuratamente approssima la funzione.
+Bisogna quindi trovare dei parametri che minimizzano la funzione di perdita:
+$$L[y,f^*(x,\theta)]$$
+ovvero, trovare $\hat{\theta}$ tali che:
+$$\hat{\theta}=\argmin_{\theta} \left\{ \frac{1}{n} \sum_{i=1}^{n} L[y_i,f^*(x_i,\theta)] \right\}$$
+Questo processo \`e necessario per approssimare una determinata funzione $f^*$, che descrive il comportamento della rete.\\
+Durante l'addestramento, la rete viene provata pi\`{u} volte, ogni volta con un input diverso, fino a che l'errore di addestramento \`e molto piccolo. In questa fase, ad ogni iterazione viene passato in input un insieme di addestramento, viene fissato un valore $\theta_{0}$ iniziale, e tramite la funzione di perdita, si calcola l'errore di addestramento. In questo modo la rete ha il valore di quanto ciascun neurone di output sia lontano dal proprio valore atteso, e in che direzione (positiva o negativa).\\
+
+\subsection{Algoritmo di back propagation}\label{back-prop}
+Si consideri una rete neuronale composta da L strati, dove l'output \`e composto da un valore solamente.
+L'algoritmo di back propagation si divide in due fasi:
+\begin{itemize}
+\item propagazione in avanti (\textit{forward propagation});
+\item propagazione all'indietro (\textit{backward propagation})
+\end{itemize}
+\textbf{Forward propagation}
+Durante la propagazione in avanti, si calcolano tutti i valori dei nodi presenti nella rete $a_{i}^k$:
+\begin{equation}\label{eqbp0}
+a_{i}^{k}=b_{i}^{k}+\sum_{j=1}^{r_{k-1}} w_{ji}^{k}\cdot o_{j}^{k-1}
+\end{equation}
+dove:
+\begin{itemize}
+\item $w_{ij}^{k}$ \`e il peso associato all'arco che collega il nodo i del k-esimo strato con il nodo j;
+\item $b_{i}^{k}$ \`e il valore soglia del nodo i nel k-esimo strato;
+\item $o_{i}^{k}$ \`e l'output del nodo i nel k-esimo strato;
+\item $r_k$ \`e il numero di nodi presenti nel k-esimo strato.
+\end{itemize}
+Calcolato l'ultimo valore $a^{L}$, corrispondente all'output della rete, si esamina l'errore di allenamento tramite la funzione di perdita. Per minimizzare l'errore, basta minimizzare la funzione di perdita, questa operazione sancisce l'inizio della seconda fase: la backward propagation.\\
+\textbf{backward propagation}
+Per ottenere il minimo di una funzione bisogna vedere dove si annulla la sua derivata prima. Trattandosi di una funzione a pi\`{u} variabili, si dovr\`{a} calcolare il gradiente della funzione di perdita: $L[y,f(x,\theta)]$, per farlo  si applica la regola della catena per il calcolo e poich\'{e} $\theta = (W^1,W^2,\cdots ,W^{L-1})$, abbiamo:
+\begin{equation}\label{eqbp1}
+\frac{\partial L}{\partial w_{ij}^k}=\frac{\partial L}{\partial a_j^k}\frac{\partial a_j^k}{\partial w_{ij}^k}.
+\end{equation}
+Il punto di forza di questo algoritmo consiste nell'introdurre una quantit\'{a} di costo (anche chiamata errore):
+\begin{equation}\label{eqbp2}
+\delta_j^k\equiv \frac{\partial L}{\partial a_j^k}
+\end{equation}
+attraverso la quale si calcolano le derivate parziali in modo iterativo, ripercorrendo la rete all'indietro.\\
+Denotando con $g$ la funzione di perdita dello strato nascosto, si ottiene la formula di propagazione all'indietro:
+\begin{equation}
+\delta_j^k=g^{\prime}(a_j^k)\sum_{l=1}^{r_{k+1}}w_{jl}^{k+1}\delta_l{k+1}
+\end{equation} 
+e la derivata parziale della funzione di perdita, rispetto ai pesi degli strati nascosti $w_{ij}^{k+1}$ , $1\leq k < L$, si ottiene con:
+\begin{equation}
+\frac{\partial L}{\partial w_{ij}^k}=\delta_j^k o_i^{k-1}=g^{\prime}(a_j^k)o_i^{k-1}\sum_{l=1}^{r_{k+1}}w_{jl}^{k+1}\delta_l{k+1}
+\end{equation}
+Ora pu\'{o} avvenire l'aggiornamento dei pesi tramite il metodo SGD (Stochastic Gradient Descent), ovvero in formule:
+\begin{equation}\label{eqbp4}
+w_{ij}^{k+1}=w_{ij}^k + \eta \frac{\partial L}{\partial w_{ij}}
+\end{equation}
+dove $\eta \in (0,1]$ rappresenta il fattore di apprendimento (\textit{learning rate}).\\
+La scelta del fattore di apprendimento influenza molto il comportamento dell'algoritmo in quanto, se si scelgono valori troppo piccoli la convergenza sar\`{a} lenta, mentre se si scelgono valori troppo grandi si rischia di avere una rete instabile con comportamento oscillatorio.\\
+Un metodo semplice per incrementare il fattore di apprendimento, senza il rischio di rendere la rete instabile, \`{e} quello di modificare la regola di aggiornamento inserendo nell'equazione \ref{eqbp4} un ulteriore parametro $\alpha$ (detto momento), ottenendo:
+\begin{equation}
+w_{ij}^{k+1}=\alpha w_{ij}^k + \eta \frac{\partial C}{\partial w_{ij}}.
+\end{equation}
+Se si espande ricorsivamente la formula si ottiene:
+\begin{equation}
+w_{ij}^{k+1}=\eta \sum_{l=1}{k+1}\alpha_{k+1-l}\frac{\partial L}{\partial w_{ij}^l}
+\end{equation}
+Inserendo il momento si ha il vantaggio che se la derivata parziale tende a mantenere lo stesso segno su iterazioni consecutive, grazie alla sommatoria, l'aggiornamento produce valori pi\'{u} ampi e quindi tende ad accelerare nelle discese del gradiente. Se invece la derivata ha segni opposti ad iterazioni consecutive, la sommatoria tende a diminuire l'ampiezza dell'aggiornamento, in questo modo non si corre il rischio di avere dei loop infiniti nel caso di minimi locali della funzione d'errore.\\
+A tal proposito generalmente i criteri di arresto dell'algoritmo possono essere:
+\begin{itemize}
+\item $\lVert \nabla L\rVert < \epsilon$
+\item $L[y,f(x,\theta)]=0$;
+\item $L_i[y,f(x,\theta_i)]-L_j[y,f(x,\theta_j)]<<\epsilon^{\prime}$
+\end{itemize}
+dove $L_i$ e $L_j$ sono due epoche consecutive. Un'epoca corrisponde alle due fasi di propagazione necessarie per un aggiornamento dei pesi.
+\subsection*{Il problema del Vanish Gradient}
+Come accennato in precedenza, l'uso del metodo del gradiente va applicato con attenzione e parametri adatti, altrimenti si incorre nel fenomeno detto \lq \lq sparizione del gradiente", ovvero del \textit{vanish gradient}.\\
+Si ipotizzi di avere una rete profonda semplice, ovvero con 3 livelli nascosti e con un solo neurone in ogni strato:
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.5]{vanish}
+\caption{Rete neurale semplice costituita da 3 strati con: $w_j$ pesi, $b_j$ i valori soglia e C funzione di costo.}
+\label{fig:vanish}
+\end{figure}
+
+Applicando l'eq \ref{eqbp0} per il calcolo dell'output di un nodo, alla rete rappresentata in figura \ref{fig:vanish}, si ottiene:
+\begin{equation}
+a_j=\sigma(w_j a_{j-1} +b_j)
+\end{equation}
+dove $\sigma$ \`e la funzione di attivazione Sigmoid.\\
+Si \`e indicato con C una funziona di costo, per sottolineare che il costo \`e una funzione dell'output della rete (in questo caso $a_4$).\\
+Se C ha un valore basso l'output sar\'{a} vicino a quello desiderato, viceversa per alti valori di C l'output calcolato si allontaner\'{a} dal risultato che ci si auspicava.\\
+Il gradiente associato al primo strato viene calcolato applicando la regola della catena ottenendo la seguente formula:
+\begin{equation}\label{eqstima}
+\frac{\partial C}{\partial b_1}= \frac{\partial C}{\partial a_4} w_4 \sigma ' (z_4) w_3 \sigma ' (z_3) w_2 \sigma '(z_2) \sigma '(z_1).
+\end{equation}
+Si noti che l'equazione \ref{eqstima} \`e il prodotto di termini della forma: $w_j  \sigma '(z_j)$, fatta eccezione per il primo termine.\\
+Tipicamente, i valori iniziali dei pesi vengono ricavati dai valori che pu\'{o} assumere una distribuzione normale avente media 0 e deviazione standard 1, allora: $$|w_j|<1,\qquad \forall j.$$
+La derivata raggiunge il massimo in 0: $\sigma '(0)=\frac{1}{4}$, quindi ogni termine dell'equazione \`e tale che $$|w_j \sigma '(z_j)| < \frac{1}{4}, \qquad \forall j,$$ si ottiene la stima del tipo:
+\begin{equation}
+\frac{\partial C}{\partial b_1}= \frac{\partial C}{\partial a_4} \underbrace{w_4 \sigma '(z_4)}_{<\frac{1}{4}} \underbrace{w_3 \sigma '(z_3)}_{< \frac{1}{4}} \underbrace{w_2 \sigma '(z_2)}_{< \frac{1}{4}}\underbrace{\sigma '(z_1)}_{< 1} \nonumber
+\end{equation}
+Questo comportamento implica che, con l'aumentare della profondit\'{a} della rete, il valore del gradiente tende a diminuire di un fattore di $\frac{1}{4}$ per ogni strato, fino a tendere a 0 prematuramente; ovvero a \lq \lq scomparire" da un certo strato in poi.\\
+L'utilizzo della funzione di attivazione ReLu risolve il problema, grazie alla sua caratteristica di avere il gradiente sempre pari a 1. Questo comporta che , non solo il gradiente non subisce una diminuzione progressiva in ogni strato, ma mantiene il suo valore inalterato.\\
+$ReLu(z)=z_{+}=max(0,z)$, il che comporta che alcuni neuroni non vengono attivati e quindi non influenzeranno in alcun modo l'algoritmo scelto per individuare i pesi ottimali per la rete.\\
+Ne consegue che  $ReLu'(z)=1$ per ogni nodo rimasto attivo.\\
+
+\section{Reti Deep Feed-forward}
+Le reti Feed-forward sono le reti neurali profonde con la struttura pi\`{u} semplice, composte da almeno uno strato nascosto. La loro struttura \`e rappresentata da un grafo aciclico diretto in un'unica direzione, dove ogni nodo di uno strato \`e connesso con tutti i nodi dello strato successivo e nessun nodo \`e connesso con un nodo appartanente allo stesso strato.
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.37]{network-neurale}
+\caption{modello di rete deep feedforward con uno strato}\label{rete}
+\end{figure}
+
+Questo tipo di reti sono di solito rappresentate dalla composizione di pi\`{u} funzioni, dal momento che l'output di un nodo non pu\'{o} essere passato in input ad una funzione gi\`{a} eseguita. Nel caso di una rete con L strati avremo che  la relazione che lega il vettore di input $x$ con quello di output $y$ risulta essere:
+\begin{equation}
+y=f(x,\theta)=g_o(\theta_{L-1}g_{L-1}(\cdots \theta_{2}g_{2}(\theta_{1}x)))
+\end{equation}
+Lo scopo della rete \`e sempre di approssimare $f(x)$ ad una funzione $f^*$ e questo \`e possibile grazie all'addestramento.
+
+\section{ImageNet}\label{ImageNet}
+In Internet oramai sono presenti milioni di milioni di immagini e di video, usati per i modelli e gli algoritmi pi\'{u} sofisticati e robusti, per aiutare gli utenti ad indicizzare, recuperare, organizzare e interagire con questi dati.
+Un esempio banale \`e la ricerca di immagini su Google.\\
+Di solito i motori di ricerca possono trovare una determinata immagine solo se il testo inserito corrisponde al testo con cui \`e stato etichettato.\\
+\`{E} stato creato \textit{ImageNet}: un grande database visivo contenente oltre 14 milioni di immagini etichettate, progettato per l'utilizzo nella ricerca di software per il riconoscimento di oggetti visivi.\\
+ImageNet si basa sulla struttura gerarchica fornita da un altro database: \textit{WordNet} \cite{wordnet}.\\
+Un'immagine digitale \`e formata da diversi quadratini disposti in modo regolare su una griglia di punti equidistanti. Questi quadratini sono detti \textit{pixel (picture elements)} e determinano la dimensione e la risoluzione di un'immagine. 
+In ogni pixel risiede un'informazione espressa in bit riguardante (generalmente) il colore, che rappresenta il livello di intensit\'{a} dei colori fondamentali.\\
+Il modello pi\'{u} utilizzato \`e quello RGB, dove per ogni pixel vengono utilizzati 3 byte:
+\begin{itemize}
+\item 1 byte per la componente rossa (R)
+\item 1 byte per la componente verde (G)
+\item 1 byte per la componente blu (B)
+\end{itemize}
+ma ne esistono anche altri come, ad esempio, CMYK che considera come colori fondamentali: ciano, magenta, giallo e nero.\\
+Tipicamente nel dataset di ImageNet la dimensione media delle immagini \`e di circa $400 \times 350$ pixel.
+\section{Reti Neurali Convoluzionali - CNNs}
+Le reti neurali convoluzionali (\textit{Convolutional Neural Networks}) sono un tipo particolare di reti neurali a strati che usano, in almeno uno dei loro strati, la convoluzione al posto della classica moltiplicazione tra matrici.
+\begin{defin}
+Siano $f,g\in L^1(\mathbb{R})$, si definisce convoluzione tra f e g come:
+\begin{equation}\label{eqconvoluzione}
+(f*g)(t):= \int_{-\infty}^{\infty} f(\tau)g(t-\tau)d\tau=y(t)
+\end{equation}
+\end{defin}
+Tramite l'eq. \ref{eqconvoluzione}, se si conosce la funzione di risposta g(t) e il segnale di entrata f(t), si pu\`{o} esprimere il segnale di uscita y(t), che nelle reti convoluzionali rappresenta il filtro di convoluzione (\textit{feature map}) e la funzione di risposta \`e detta \textit{ \lq \lq kernel"}.
+Si ricorda che per \textit{segnale} si intende una grandezza fisica qualsiasi a cui \`e associata un'informazione.\\
+Nelle reti neurali i segnali non sono descritti da funzioni continue ma da funzioni discrete, in quanto l'input passato ad un neurone \`e un valore discreto ben preciso.\\
+Si necessita qundi delle seguenti definizioni:
+\begin{defin}
+I \textit{segnali discreti} sono definiti come funzioni di variabili indipendenti che possono assumere solo un insieme finito di valori discreti.\\
+Un segnale discreto nel tempo x, consiste in una sequenza di numeri indicata con 
+$$x_n \qquad oppure \qquad x(n) ,\quad n\in \mathbb{Z}$$
+\end{defin}
+\begin{defin}
+Siano $f(n)$ e $g(n)$ due sequenze, si definisce la loro convoluzione discreta come:
+\end{defin}
+\begin{equation} \label{eqconvoluzionediscreta}
+f(n)*g(n)=\sum_{k=-\infty}^{\infty}x(k)g(n-k)=y(k)
+\end{equation}
+Nel nostro problema di analisi di immagini, data un'immagine di dimensione M $\times$ N pixel l'eq\ref{eqconvoluzionediscreta} diventa:
+\begin{equation}
+(f*g)(x,y)=\sum_{i=0}^M \sum_{j=0}^N f(x,y)g(x-i,y-j)
+\end{equation}
+La caratteristica principale per cui le reti convoluzionali sono maggiormente indicate per l'elaborazione di immagini \`e la loro struttura, basata sull'elaborazione di dati nella forma di array multipli.\\
+Come descritto nel paragrafo \ref{ImageNet} \`e facilmente intuibile come ogni dimensione caratterizzante un'immagine pu\'{o} essere vista come un array multidimensionale, ovvero un tensore.\\
+I neuroni di ciascun livello sono organizzate in griglie o volumi 3D.\\
+L'altezza e la larghezza rappresentano i pixel, mentre la profondit\`{a} le caratteristiche dell'oggetto, chiamate \textit{feature map}.
+\begin{figure}[!h]
+\centering
+\includegraphics{Immagine3D}
+\caption{Esempio di rappresentazione di un'immagine in formato RGB in una CNN.}
+\end{figure}
+\newpage
+\subsection{Struttura di una CNNs}
+Alla base di questa tipologia di reti neurali ci sono 3 concetti:
+\begin{enumerate}
+\item connettivit\`{a} locale (\textit{sparse interactions})
+\item condivisione dei parametri
+\item alternanza di strati di convoluzione e di \textit{pooling}
+\end{enumerate}
+La \textbf{connettivit\`{a} locale} consiste nello sfruttare le correlazioni spaziali presenti all'interno dei dati di input e viene applicata tra neuroni di strati adiacenti. Questo \`e possibile applicando un kernel pi\`{u} piccolo dell'input che, tramite l'operazione di convoluzione, dar\`{a} in output un numero minore di neuroni. Ne consegue una forte riduzione del numero di connessioni tra i nodi della rete.\\
+Nelle prossime sezioni sar\`{a} pi\`{u} chiaro cosa questo voglia dire, ma se si considera, ad esempio, un'immagine e su di essa ci si focalizzi su un singolo pixel, in base alle correlazioni con i pixel circostanti si possono ricavare informazioni locali sull'immagine (ad esempio bordi, colori, forme geometriche, ecc...).\\
+Attraverso la \textbf{condivisione dei parametri} si utilizza lo stesso parametro per pi\'{u} di una funzione in un modello, permettendo alla rete di apprendere un insieme di parametri invece che insiemi separati di parametri per ogni posizione, questo comporta che l'algoritmo deve tenere in memoria un numero minore di parametri.\\
+L'architettura di una rete convoluzionale \`e formata, tipicamente, da tre tipi di strati:
+\begin{enumerate}
+\item convoluzionali;
+\item pooling;
+\item totalmente connessi.
+\end{enumerate}
+Uno strato tipico di una rete convoluzionale consiste di tre fasi .Nella prima fase lo strato esegue diverse convoluzioni in parallelo per produrre un set di attivazioni lineari. Nella seconda fase, ogni attivazione lineare viene eseguita attraverso una funzione di attivazione non lineare. Nella terza fase, si esegue  una funzione di  pooling per modificare ulteriormente l'output dello strato.
+\subsubsection{Strati convoluzionali}
+Lo scopo dello strato convoluzionale (\textit{convolutional layer}) \`e quello di rilevare delle particolari caratteristiche all'interno di un oggetto, grazie ad un'analisi locale. Questo compito \`e affidato al kernel della convoluzione, detto anche filtro, che si comporta come una finestra bidimensionale composta da pesi che scorre su tutto l'input. Di ogni porzione di input viene calcolata la sua convoluzione con il kernel, producendo cos\`{\i} un output di dimensioni ridotte rispetto all'input. Questo output viene chiamato \textit{feature map} e racchiude le caratteristiche che il filtro cercava ed \`e qui che i pesi sono condivisi: i neuroni di una stessa feature map processano porzioni diverse dell' input nello stesso modo.\\
+Il kernel ha due iperparametri, chiamati passo (\textit{stride}) e dimensione (\textit{size}). La size  pu\`{o} essere qualsiasi dimensione di un rettangolo, mentre lo stride \`e il numero di pixel che si fanno scorrere tra due computazioni della finestra di kernel. Se lo stride ha lunghezza 1, il filtro si sposta di un pixel alla volta, se ha lunghezza 2, i filtri saltano 2 pixel alla volta durante lo scorrimento, producendo un'immagine con dimensione dimezzata.
+
+Un altro modo per regolare la dimensione delle feature map \`e tramite l'aggiunta di un bordo al volume di input, inserendo tutti valori nulli in proosimita del bordo. Con il parametro \textit{Padding} si denota lo spessore in pixel del bordo. L'uso di questo parametro ha il vantaggio di mantenere le dimensioni spaziali costanti dopo lo strato convoluzionale, migliorando le prestazioni. Questo perch\'{e} se gli strati non azzerassero gli input e realizzassero solo convoluzioni valide, allora la dimensione dei volumi si ridurrebbe di una piccola quantit\`{a} ad ogni convoluzione, in questo modo le informazioni ai bordi si perderebbero troppo rapidamente.\\
+Sia $W_{out}$ la dimensione orizzontale (verticale) delle feature map di output e $W_{in}$ la corrispondente dimensione nell'input. Sia inoltre F la dimensione (orizzontale) del filtro e K il numero di filtri da utilizzare.\\
+Vale la seguente relazione:
+\begin{equation}
+W_{out}=\frac{W_{in} -F+2\cdot Padding}{Stride}+1
+\end{equation}
+e la profondit\`{a} dell'output sar\`{a} pari a K.
+
+\subsubsection{Strati di pooling}
+Lo scopo degli strati di pooling \`e quello di unire caratteristiche simili (in quanto vicine) in una sola, per ridurre progressivamente la dimensione spaziale della rappresentazione. Di conseguenza si riduce anche la quantit\`{a} di parametri, che potebbero comportare un sovradattamento della rete.\\
+Ogni strato appartenente alla profondit\`{a} dell'input viene suddiviso in piccoli quadrati, chiamati \textit{subsampling}, di dimensione  $r \times r$, con $r\in \mathbb{N}$ e  per ogni quadrato viene calcolato indipendentemente o il valore massimo (Max) o  la media (Avg) dei suoi neuroni.\\
+Max e Avg sono gli operatori di aggregazione maggiormente utilizzati e sono invarianti per piccole tralslazioni. L'invarianza per traslazione \`e molto utile in quanto se una caratteristica \`e interessante in una parte dell'immagine, presumibilmnete lo sar\`{a} anche se \`e posizionata in un altro spazio.\\
+Passata in input un'immagine di volume $W_{in} \times H_{in} \times D$, lo strato di pooling di dimensione $F\times F$ e stride S produce un volume di dimensioni $W_{out} \times H_{out} \times D$, dove:
+\begin{equation}
+W_{out}=\frac{W_{in} - F}{S}+1
+\end{equation}
+Alternando ripetutamente queste due tipologie di strati, si arriva ad una configurazione spaziale unita dell'immagine di piccole dimensioni. In quest'ultima prospettiva  si passa a strati totalmente connessi, specialmente nell'ultimo strato dove l'output deve necessariamente essere una delle possibili classi.
+
+\chapter{Shazarch}
+L'obiettivo di questa tesi, come detto pi\`{u} volte, \`{e} di trovare l'architettura ottimale per un modello di Deep Learning capace di riconoscere, quindi classificare, immagini di resti e monumenti presenti nell'area archeologica del Foro Romano a Roma. Vista la difficolt\`{a}, anche per un occhio umano, di riconoscere alcuni reperti si \`e pensato di inserire anche le informazioni relative alla geolocalizzazione di questi ultimi.\\
+Questo modello \`e finalizzato alla creazione di un'applicazione Android, chiamata Shazarch, in grado di permettere al turista in visita al Foro Romano, di inquadrare l'oggetto di interesse e sapere cosa sta visualizzando in quel momento. Per fare questo si necessita di un modello di classificazione di deep learning, addestrato con un dataset di immagini provenienti dal sito archeologico e delle coordinate geografiche dei singoli monumenti. Si sta parlando di un algoritmo di apprendimento supervisionato, quindi il dataset che si utilizza deve contenere delle variabili rappresentanti le caratteristiche dell'oggetto da riconsocere, tra cui naturalmente anche un'etichetta. L'etichetta corrisponde alla classe di appartenenza dell'oggetto che, nel nostro caso, corrisponde ad un numero $n\in \{0,\cdots,29\}$, in quanto i reperti che la rete \`e in grado di riconoscere sono 30.\\
+Per quanto riguarda le altre variabili si sono considerati i valori dei pixel delle immagini in formato RGB e di dimensione $3024\times 4032$.\\
+\textbf{Costruzione dataset}\\
+Il dataset di immagini deve essere abbastanza grande per far s\`{\i} che l'algoritmo abbia abbastanza immagini su cui addestrarsi e anche per verificare la sua accuratezza, si ricorda infatti che l'insieme di addestramento e di test(e/o di validazione) formano una partizione dell'insieme totale di partenza.\\
+Il dataset utilizzato \`e composto da circa 40000 immagini, di cui una piccola parte originali, ovvero scattate fisicamente sul posto, le restanti sono state generate artificialmente tramite la libreria Augmentor. Successivamente l'insieme di dati \`e stato diviso in modo che l'$80\%$ andasse a costituire l'insieme di addestramento e il $20\%$ quello di validazione. Come architettura per il modello si \`e optato per l'architettura pre-esistente mobileNet, descritta nel dettaglio nella sezione \ref{sez:mobileNet}, addestrata tramite il meotodo di discesa del gradiente (SGD) settato con il parametro di learning rate=0.1, dove nella fase di back propagation (\ref{back-prop})  batch size=100.
+Una volta addestrata la rete, tensorflow salva il modello all'interno di un file, successivamente convertito con estensione \lq \lq .lite". Questa conversione trasforma il modello in uno di tipo TensorFlow Lite, un formato che permette di utilizzare Android Studio: un ambiente di sviluppo integrato (IDE) per lo sviluppo per la piattaforma Android. All'interno del codice Java, linguaggio con cui si programma un'applicazione Android, sono state inserite le coordinate di geolocalizzazione.\\
+Sono stati implementati due metodi per considerare le posizioni GPS del visitatore.  Ad ogni metodo corrisponde un'applicazione. Una, chiamata \lq \lq GPS", considera la distanza tra il dispositivo ed il monumento osservato.\\
+L'altra applicazione sviluppata, chiamata \lq \lq GPS Alarm", invece considera una circonferenza di raggio 20metri, centrata in un monumento che ne delimita la sua area \lq \lq protetta". Se il visitatore non si trova all'interno di quest'area la probabilit\`{a} di osservare il monumento corrispondente ad essa \`e pari a zero, altrimenti \`e 1. Questo solo per poter considerare solo i reperti che \`e ragionevole pensare un turista possa voler inquadrare. Naturalmente questi approcci non permettono di classificare un monumento da una distanza maggiore di quella considerata, anzi produrr\`{a} una classificazione errata, in quanto verranno considerate solo i monumenti in cui le coordinate del visitatore si trovano all'interno delle loro aree protette.\\
+Ora che sono note la struttura e la logica con cui \` stata progettata Shazarch, si possono approfondire alcuni aspetti accennati in questa fase. 
+
+\section{MobileNet}\label{sez:mobileNet}
+MobileNet \`e un'architettura rilasciata da Google e resa disponibile open source, contenente una famiglia di modelli di computer vision per dispositivi mobili per TensorFlow. La particolarit\`{a} di questa architettura \`e l'uso di convoluzioni separabili per costruire reti neurali profonde leggere.\\
+Le convoluzioni separabili sono delle convoluzioni formate da due convoluzioni: una convoluzione in profondit\`{a} \`e una convoluzione con un filtro di dimensione $1\times 1$ chiamata convoluzione puntuale.
+La convoluzione in profondit\`{a} applica un singolo filtro a ciascun canale di ingresso e all'output generato viene applicato il filtro della convoluzione puntuale. Riassumendo: la convoluzione standard consente di filtrare e combinare gli input in un nuovo set di output in un unico passaggio, mentre la convoluzione separabile lo fa in due passaggi, ognuno svolto da uno strato di convoluzione diverso.\\
+Questa fattorizzazione ha l'effetto di ridurre drasticamente il calcolo e la dimensione del modello. Uno strato convoluzionale standard ha un costo computazionale pari a:
+$$D_K \cdot D_K \cdot M \cdot N \cdot D_F \cdot D_F$$
+mentre nella convoluzione separabile:
+$$ D_K\cdot D_k\cdot M\cdot D_F\cdot D_F + M\cdot N \cdot D_F \cdot D_F$$
+Se si fa il rapporto dei costi computazionali dei due approcci, si ottiene una riduzione del calcolo di:
+\begin{equation}
+\frac{D_k\cdot D_k\cdot M\cdot D_F\cdot D_F + M\cdot N \cdot D_F \cdot D_F}{D_k\cdot D_k\cdot M\cdot N \cdot D_F \cdot D_F}=\frac{1}{N}+\frac{1}{D_K^2}
+\end{equation}
+L'architettura di MobileNet \`e quindi costituita da un primo strato con una convoluzione standard e da 12 convoluzioni separabili tutti implementati con una funzione di attivazione ReLu con batchnorm.\\
+Dopo questi strati \`e presente un altro strato di convoluzione separabile, seguito da uno strato di Avg pooling (calcola la media dei suoi neuroni) che riduce la risoluzione spaziale ad 1 ed  infine lo strato di output fortemente connesso con funzione di attivazione Softmax per la classificazione.
+Ricapitolando, l'architettura ha:
+\begin{itemize}
+\item primo strato con convoluzione standard;
+\item 26 strati nascosti con convoluzione separabile:
+\item ultimo strato di output forteente connesso.
+\end{itemize} 
+per un totale di 28 strati, in quanto ogni strato nascosto \`e composto da una convoluzione separabile, che corrisponde a due strati consecutivi (convoluzione di profondit\`{a} e convoluzione puntuale).\\
+A partire da quaest'architettura si possono costruire modelli pi\`{u} piccoli e meno dispendiosi dal punto di vista computazionale, introducendo un \lq \lq moltiplicatore di larghezza" $\alpha$ e un \lq \lq moltiplicatore di risoluzione" $\rho$.\\
+Il ruolo del moltiplicatore di larghezza \`e quello di assottigliare uniformemente una rete su ciascun livello, mentre il moltiplicatore di risoluzione $\rho$ serve a ridurre la dimensione dell'immagine. Viene infatti applicato all'immagine di input in modo che la rappresentazione interna di ogni livello viene successivamente ridotta dallo stesso moltiplicatore. Aggiungendo questi due parametri il nuovo costo computazionale della rete \`e:
+\begin{equation}
+D_K \cdot D_K  \cdot \alpha M\cdot \rho D_F\cdot \rho D_F + \alpha M\cdot \alpha N \cdot \rho D_F \cdot \rho D_F
+\end{equation}
+con $\alpha , \rho \in (0,1]$ \cite{mobileNet}. \\
+Per creare Shazarch \`{e} stata utilizzata l'architettura \lq \lq standard" di mobileNet, ovvero dove gli iperparametri $\alpha$ e $\rho$ sono uguali a 1.\\
+Inoltre si riocrda che la dimensione delle foto, con cui era stato costruito il dataset, era di $3024\times 4032$ pixels, mentre imageNet accetta solo immagini di dimensioni $224\times 224$, $192\times 192$, $160\times 160$ o $128\times 128$ pixels, quindi le immagini del dataset sono state ridimensionate in modo da soddisfare la dimensione richiesta. Questo ha comportato una perdita parziale di informazioni sulle immagini, ma era un prezzo da pagare per creare un'applicazione adattabile su un dispositivo mobile che non dispone di una memoria molto capiente.
+
+\section{TensorFlow}
+TensorFlow (TF) \`{e} una libreria software open source, sviluppata da Google, utilizzata per implementare l'apprendimento automatico e i sistemi di deep learning. Essa fornisce API native in linguaggio: Python, C/C++, Java, Go, e RUST.\\
+Per questo lavoro \`{e} stato utilizzato il linguaggio di programmazione Python.\\
+In generale un algoritmo scritto in TF rispetta la seguente struttura:
+\begin{enumerate}
+\item Importare ed analizzare l'insieme di dati;
+\item Creare colonne di caratteristiche per descrivere i dati;
+\item Selezionare il tipo di modello;
+\item Provare il modello;
+\item Valutare l'efficacia del modello;
+\item Lasciare che il modello addestrato faccia previsioni (test).
+\end{enumerate}
+Questa struttura \`{e} in linea con la descrizione di un generico algoritmo di apprendimento, descritto in (\ref{Costruzione}). La vera innovazione di TF risiede nella descrizione del modello, poich\'{e} lo fa costruendo un grafico computazionale: \textit{Data Flow Graph}. In questo grafico ogni nodo rappresenta l'istanza di un'operazione matematica, mentre ogni spigolo rappresenta un tensore, su cui vengono eseguite le operazioni.
+\begin{defin}
+Un \textbf{tensore} in TF \`{e} una matrice n-dimensionale di tipi di dati di base (es: float32, int32,string, ecc..). Viene chiamato tf.Tensor ed \`{e} descritto da tre parametri:
+\begin{enumerate}
+\item grado  (\textit{rank});
+\item corpo (\textit{shape});
+\item tipo (\textit{type}).
+\end{enumerate}
+\end{defin}
+Il \textbf{grado} di un oggetto tf.Tensor \`{e} il suo numero di dimensioni.\\
+Il \textbf{corpo} di un tf.Tensore \`{e} il numero di elementi in ogni dimensione. TF automaticamente deduce il corpo durante la costruzione del grafico.\\
+Il \textbf{tipo} \`{e} il tipo di dato a cui appartongono gli elementi del tensore.\\
+I principali tipi di tensori sono:
+\begin{itemize}
+\item Variabili (\textit{tf.Variable}): i parametri dell'algoritmo che verranno cambiati per ottimizzare l'algoritmo;
+\item Costanti (\textit{tf.constant});
+\item Segnaposto(\textit{tf.placeholder}): consentono di inserire dati e di creare operazioni per costruire il grafico computazionale, possono dipendere da altri dati ad esempio il risultato previsto di un calcolo. Possono essere usati pi\`{u} volte e non dare lo stesso risultato;
+\item Tensore sparso (\textit{tf.SparseTensor}).
+\end{itemize}
+
+\subsection{Shazarch}
+Di seguito si riporta il codice utilizzato per creare il modello per l'applicazione Shazarch.\\
+Per prima cosa si \`e ampliato il dataset di partenza, tramite la generazione di foto artificiali con Augmentor \cite{Augmentor}.\\
+Una volta creato il dataset, si crea l'elenco delle etichette, che in questo caso corrisppondevano al nome delle cartelle che contenevano le immagini. Si crea un dizionario che associa un numero ad una classe. Si ridimensionano le immagini e si crea il modello mobileNet:
+\begin{lstlisting}[language={Python},tabsize=2,basicstyle=\footnotesize]
+base_model=MobileNet(input_shape=(224,224,3),include_top=False,
+			input_tensor=Input(shape=(224,224,3)),pooling=None)
+\end{lstlisting}
+dove:
+\begin{list}{-}{}
+\item input\_shape \`e il formato delle immagini passate in input alla rete;
+\item include\_top specifica se  includere lo strato completamente connesso nella parte iniziale della rete;
+\item input\_tensor \`e la dimensione dell'input dell'immagine del modello;
+\item pooling specifica se applicare il pooling finale, si pu\`{o} settare solo se include\_top=False.
+\end{list}
+Per questa configurazione sono stati settati $\alpha ,\rho =1$, che rappresentano rispettivamente il moltiplicatore di larghezza e di risoluzione. Non compaiono tra gli argomenti perch\`e, se omessi, sono settati gi\`{a} ad 1 di default. Discorso analogo per il valore relativo al dropout, che  di default vale $0.001$.\\
+Si definscono le ultime operazioni da applicare all'output della rete, questo passaggio pu\`{o} essere inteso come un ultimo strato che, va a completare l'architettura. Infine si crea il modello e lo si allena.\\
+Ricapitolando, di seguito viene riportato l'intero codice:
+\begin{lstlisting}[language={Python},tabsize=2,basicstyle=\footnotesize]
+from __future__ import print_function
+import os
+import matplotlib.image as mping
+from os import listdir
+from os.path import join
+import numpy as np
+import glob
+import tensorflow as tf
+from keras.models import Model
+from keras.applications.mobilenet import preprocess_input,decode_predictions
+from keras.applications.mobilenet import MobileNet
+from keras.layers import Dense, GlobalAvgPool2D, Input, Dropout
+from keras.callbacks import ModelCheckpoint, CSVLogger
+from keras.callbacks import ReduceLROnPlateau, LearningRateScheduler
+from keras.optimizers import SGD
+from keras.regularizers import l2
+import keras.backend as K
+from keras.utils.np_utils import to_categorical
+
+_files = glob.glob('/percosdo/della/cartella/dataset/*')
+labels = []
+for f in _files:
+    labels.append(f.split('/')[-1])
+print(labels)
+with open('/percordo/dove/salvare/file/label.txt',"a+") as f:
+    for each in labels:
+        f.write(each+'\n')
+    f.close() 
+assert(len(labels)==30)
+
+train_path = '/percosdo/della/cartella/Train/'
+valid_path = '/percosdo/della/cartella/Validation/'
+
+class_to_ix = {}
+ix_to_class = {}
+classes = [l.strip() for l in labels]
+class_to_ix = dict(zip(classes,range(len(classes))))
+ix_to_class = dict(zip(range(len(classes)),classes))
+class_to_ix = {v:k for k,v in ix_to_class.items()}
+
+def load_images(path):
+    all_imgs = []
+    all_classes = []
+    for i, subdir in enumerate(listdir(path)):
+        imgs = listdir(join(path,subdir))
+        class_ix = class_to_ix[subdir]
+        print("{} - {} - {}".format(i,class_ix,subdir))
+        for img_name in imgs:
+            img_rr = mping.imread(join(path,subdir,img_name))
+            if img_rr.shape==(224,224,3):
+                all_imgs.append(img_rr)
+                all_classes.append(class_ix)
+            else:
+                print("ERROR")
+    print("All images : {}".format(len(all_imgs)))
+    return np.array(all_imgs),np.array(all_classes)
+    
+X_train, Y_train = load_images(train_path)
+X_val, Y_val = load_images(valid_path)
+
+n_classes = len(labels)
+n_classes
+Y_train_cat = to_categorical(Y_train, n_classes)
+Y_val_cat = to_categorical(Y_val, n_classes)
+
+session = tf.Session()
+K.set_session(session)
+base_model=MobileNet(input_shape=(224,224,3),include_top=False,
+				input_tensor=Input(shape=(224,224,3)),pooling=None)
+out = base_model.output
+out = GlobalAvgPool2D(name='avg_pools26')(out)
+out = Dropout(0.4)(out)
+y_pred=Dense(n_classes,activation='softmax',kernel_initializer='random_uniform',
+				kernel_regularizer=l2(.0005),name='last_layers26')(out)
+model = Model(inputs=base_model.input,outputs=y_pred)
+optimizer = SGD(lr=.01,momentum=.9)
+model.compile(optimizer=optimizer,loss='categorical_crossentropy',
+			metrics=['accuracy'])
+checkpointer=ModelCheckpoint(filepath='/percosdo/dove/salvare/file/model.
+			{epoch:02d}-{val_loss:.2f}.hdf5', verbose=1, save_best_only=True)
+csv_logger = CSVLogger('/percosdo/dove/salvare/file/model.log')
+def schedule(epoch):
+    if epoch < 15:
+        return .01
+    elif epoch < 28:
+        return .002
+    else:
+        return .0004
+    
+lr_sheduler = LearningRateScheduler(schedule)
+model.fit(X_train,Y_train_cat,batch_size=100,epochs=10000,verbose=2,
+			callbacks=[lr_sheduler,csv_logger,checkpointer],
+			validation_data=(X_val,Y_val_cat),shuffle=True)
+\end{lstlisting}
+Il modello appena creato \`e di tipo tensorflow, ma per poterlo esportare, in modo che possa essere sfruttato, ha bisogno di essere convertito. In questo caso si necessita di un formato di tipo tensorflowLite, che \`e compatibile con AndroidStudio: l'ambiente di sviluppo scelto per creare l'applicazione. Nel prossimo paragrafo verr\`{a} illustrato l'utilizzo di AndroidStudio.
+\section{AndroidStudio}
+Android Studio \`e un ambiente di sviluppo integrato (IDE),open source, per lo sviluppo per la piattaforma Android.\\
+Alla base di ogni applicazione Android ci sono quattro tipi di componenti: Activity, Service, Content Provider e BroadcastReceiver. \\
+Un'\textbf{Activity} \`e un'interfaccia utente. Ogni volta che si usa un'App, generalmente, si interagisce con una o pi\`{u} schermate, mediante le quali si consultano dati o si immettono input. Essa \`e il punto di partenza di ogni applicazione ed \`e la componente con cui l'utente ha il contatto pi\`{u} diretto.\\
+Un \textbf{Service} svolge un lavoro, generalemente lungo e continuato, che viene svolto interamente in \textit{background} senza bisogno di interazione diretta con l'utente. I Service hanno un'importanza basilare nella programmazione proprio perch\'{e}, spesso, preparano i dati che le activity devono mostrare all'utente, permettendo una reattivit\`{a} maggiore nel momento della visualizzazione.\\
+Un \textbf{Content Provider} nasce con lo scopo della condivisione di dati tra applicazioni, permettendo di condividere, nel sistema, contenuti custoditi in un database, su un file o reperibili mediante accessi in Rete.\\
+Un \textbf{Broadcast Receiver} \`e un componente che reagisce ad un invio di messaggi a livello di sistema, con cui Android notifica l'avvenimento di un determinato evento, ad esempio l'arrivo di un SMS o di una chiamata. Questi componenti sono utili per la gestione istantanea di determinate circostanze speciali.\\
+Un \textbf{Intent} \`e un oggetto che associa due componenti separate, come due attivit\`{a}, in seguito dell'invocazione di una per l'altra. Esso rappresenta infatti l'intento di fare qualcosa, senza che la componente chiamante cessi la sua esistenza.
+Un \textbf{Fragment} \`e strettamente legato alla propria activity, dalla quale riceve eventi in input, che possono essere elaborati mentre l'attivit\`{a} \`e in esecuzione. La particolarit\`{a} di questo componente risiede nel fatto che, un Fragment pu\`{o} avere un'interfaccia utente totalmente sua, sempre per\`{o} all'interno di quella dell'activity. Si pu\`{o} pensare ad esso come un frammento dell'Activity, indipendente da essa, un esempio \`e dato da i menu a tendina al lato della schermata di un'applicazione.\\
+All'interno di AndroidStudio il linguaggio utilizzato \`e quello Java, per le parti delle componenti principali. Mentre le parti che descrivono l' \lq \lq estetica" dell'applicazione, ovvero i \textit{layout}, sono scritti in .xml.\\
+Quando si inizia un progetto Android, la prima cosa da fare \`e istanziare l'activity principale, senza la quale non pu\`{o} essere costruita un'applicazione.\\
+La mainActivty, dal punto di vista del codice,  \`e una classe che estende la super classe Activity e dalla quale eredita dei metodi che verranno implementati tramite \textit{override}. In generale ci\`{o} che collegher\`{a} i layer con la classe sar\`{a} il documento, in formato .xml, chiamato: AndoridManifest. Esso raccoglie le informazioni necessarie al sistema per far girare qualsiasi porzione di codice all'interno dell'applicazione. Tra le altre cose il Manifest si occupa delle seguenti cose:
+\begin{itemize}
+\item Da un nome al package Java dell'applicazione, che \`e anche un identificatore univoco della stessa;
+\item Descrive le componenti dell'applicazione, nomina le classi e pubblica le loro \lq \lq competenze";
+\item Determina quali sono i processi che ospiteranno i componenti dell'applicazione;
+\item Dichiara i permessi ai quali pu\`{o} accedere l'app, e i permessi necessari alle altre app per interagire con essa;
+\item Dichiara il livello minimo di API Android che l'app richiede;
+\item Elenca le librerie necessarie all'app per girare.
+\end{itemize}
+Per questi motivi, il Manifest pu\`{o} essere visto come il vero cuore di un'applicazione android.\\
+\subsection{Shazarch}
+L'applicazione creata si basa su 4 cartelle principali:
+\begin{enumerate}
+\item manifests;
+\item java;
+\item assets;
+\item res.
+\end{enumerate}
+Nella cartella manifests risiede l'AndoridManifest.xml citato poco fa.\\
+La cartella java racchiude tutte le classi e le interfacce utilizzate per creare le componenti. Nello specifico racchiude le classi:
+\begin{list}{-}{}
+\item AutoFitTextureView: ridimensiona la schermata alla dimensione del dispositivo ospitante;
+\item CFragment: crea l'interfaccia con cui l'utente interagisce;
+\item Classifier: importa il modello di classificazione tensorflowLite e ne rielabora l'output;
+\item GPS: riceve le informazioni sulla geolocalizzazione e opera su di esse;
+\item LogoView: fa visualizzare il risultato della classificazione;
+\item MainActivity: lancia e gestisce le classi CFragment e GPS;
+\item Splash: Crea la schermata di apertura dell'applicazione e lancia la MainActivity.
+\end{list} 
+Insieme alle classi risiedono anche le interfacce:
+\begin{list}{-}{}
+\item GPSActivity: necessaria per tutte quelle parti di codice che utilizzano un oggetto di tipo GPS;
+\item ParentView: necessaria per la classe LogoView.
+\end{list}
+Nella cartella assets, si inseriscono tutti i file che l'applicazione deve caricare. Qui va inserito, ad esempio, il modello addestrato.\\
+All'interno di res risiedono cartelle riguardanti l'impaginazione, lo stile ed il formato del testo, animazioni ecc...\\
+Per capire quale fosse l'architettura ottimale, sono state realizzate 3 applicazioni:
+\begin{itemize}
+\item Archlite: senza coordinate di geolocalizzazione;
+\item GPS: con coordinate di geolocalizzazione, considera la distanza tra monumento e osservatore; 
+\item Alarm: con coordinate di geolocalizzazione, considera la presenza del visitatore intorno al monumento.
+\end{itemize}
+Introdcendo l'acceso al dispositivo GPS, bisogna inserire nell'AndoridManifest la richiesta ai permessi:
+\begin{lstlisting}
+<uses-permission android:name="android.permission.
+			ACCESS_FINE_LOCATION"/>
+<uses-feature android:name="android.hardware.location.gps"/>
+\end{lstlisting}
+altrimenti l'applicazione non potrebbe funzionare. La scelta della geolocalizzazione tramite dispositivo GPS  \`e dovuta dal fatto che entrambe le applicazioni devono funzionare senza una connessione dati attiva.
+
+
+\section{Conclusioni}
+Attraverso la piattaforma NVIDIA DGX-1, fornita dal dipartimento di Roma3, \`e stato addestrato il modello di depp learning costruito. Le applicazioni Archlite e GPS sono state testate direttamente sul sito archeologico del Foro Romano. Durante il test sono state fatte all'incirca 400 rilevazioni per 13 siti su 30, una media di 30 foto a reperto, diversificate sia per angolatura che per distanza dal soggetto.\\
+I risultati ottenuti hanno mostrato un'architettura non ancora ottimale: entrambi i modelli hanno un'accuratezza del $52\%$  e una diversificazione tra le due applicazioni da migliorare. Evidentemente la densit\`{a} di probabilit\`{a}, calcolata basandosi sulla distanza tra il monumento ed il dispositivo, va aumentata di qualche ordine di grandezza. La GPS provata si basa sulla distribuzione uniforme su un intervallo (0,d), dove d  \`e la distanza, che  \`e lineare.\\ 
+In GPS, l'etichetta predetta ha una probabilit\`{a} maggiore di \lq \lq match" con l'etichetta effettiva, in confronto ad Archlite, quando ci si trova in prossimit\`{a} del sito, come mostrato nella figura: \ref{fig:vicina}.
+\newpage
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=55mm]{archLite2}
+\qquad\qquad
+\includegraphics[width=55mm]{GPS2}
+\caption{Schermata catturata ai piedi del Tempio di Saturno, a sinistra: il risultato dell'app ArchLite, a destra: il risultato dell'app GPS}
+\label{fig:vicina}
+\end{figure}
+Viceversa la probabilit\`{a} \`e pi\`{u} bassa quando la foto risulta \lq \lq panoramica", ovvero quando il sito di interesse \`e lontano dall'obiettivo della fotocamera. Si \`e osservato che nei casi in cui si  \`e vicini al sito, se la predizione \`e corretta, la probabilit\`{a} registrata \`e sempre molto alta, mentre quando la previsione \`e errata, l'app GPS registra una probabilit\`{a} pi\`{u} bassa, si veda la figura \ref{fig:panoramica}. Denotando un comportamento coerente con la \lq \lq filosofia" con cui \`e stato costruito.
+
+\newpage
+\begin{figure}[!hb]
+\centering
+\includegraphics[width=55mm]{archLite}
+\qquad\qquad
+\includegraphics[width=55mm]{GPS}
+\caption{Schermata catturata della Basilica Emilia, erroneamente classificata. A sinistra la predizione dell'app ArchLite, a destra l'app GPS.}
+\label{fig:panoramica}
+\end{figure}
+Si \`e riscontrato un fenomeno di overfitting: l'etichetta corrispondente alla \lq \lq Domus Augustana" \`e spesso tra i risultati pi\`{u} probabili, se non il pi\`{u} probabile. Il fenomeno si \`e verificato in quanto, l'area della Domus Augustana \`molto vasta, perci\`{o} il numero di foto necessarie al riconoscimento sono pi\`{u} numerose. La rete quindi \`e stata allenata troppo con queste immagini e tende a riconoscere sopratutto loro. Proprio a causa di questo comportamento, i risultati sono stati inficiati dalla predominanza di questa etichetta. Nei casi in cui il valore predetto non corrisponde a quello effettivo, la Domus Augustana compare come risultato pi\`{u} probabile nel $50\%$ dei casi. Come nella figura (\ref{fig:panoramica}) dove, invece di classificare l'immagine come la Basilica Emilia, l'errore di predizione \`e ricaduto sulla Domus Augustana.\\
+Quando il modello viene testato, tramite il suo insieme di validazione, su DGX l'accuratezza \`e molto elevata, misurando in alcuni casi anche il $100\%$ di accuratezza. Mentre durante il test ai Fori l'accuratezza \`e molto bassa: $53\%$ per entrambe le applicazioni ma, nell'analizzare i valori di probabilit\`{a} registrati, GPS sembra essere (seppur di poco) pi\`{u} attendibile, anche se lontana dall'essere ottimale, ma ci sono margini di miglioramento possibili.
+
+
+\clearpage
+\addcontentsline{toc}{chapter}{Bibliografia}
+\nocite{*}
+\bibliographystyle{unsrt}
+\bibliography{bibliografia}
+
+\end{document}

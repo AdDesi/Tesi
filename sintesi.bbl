@@ -1,0 +1,81 @@
+\begin{thebibliography}{10}
+
+\bibitem{Samuel}
+Arthur Samuel.
+\newblock
+  \url{https://www.ibm.com/developerworks/community/blogs/jfp/entry/What_Is_Machine_Learning?lang=en},
+  1959.
+
+\bibitem{analogia}
+Shehzad Noor~Taus Priyo.
+\newblock
+  \url{https://towardsdatascience.com/intro-to-deep-learning-d5caceedcf85},
+  2017.
+
+\bibitem{NFL}
+David~H. Wolper and William~G. Macready.
+\newblock No free lunch theorems for optimization, 1996.
+
+\bibitem{an}
+Roberto Ferretti.
+\newblock Appunti del corso di analisi numerica.
+
+\bibitem{errval}
+Ryan Tibshirani.
+\newblock Error and validation.
+
+\bibitem{clustering}
+Wikipedia.
+\newblock Clustering.
+\newblock \url{https://it.wikipedia.org/wiki/Clustering}, 2018.
+
+\bibitem{rinforzo}
+Frank~L Lewis.
+\newblock {\em Reinforcement learning and approximate dynamic programming for
+  feedback control}.
+\newblock Wiley, 2013.
+
+\bibitem{wordnet}
+Sito~Ufficiale dell'Universit\'{a}~di Princetone.
+\newblock What is wordnet?
+\newblock \url{https://wordnet.princeton.edu/}.
+
+\bibitem{mobileNet}
+Andreetto Howard Menglong Chen Kalenichenko Wang~Weyand and Adam.
+\newblock {\em MobileNets: Efficient Convolutional Neural Networks for Mobile
+  Vision Applications}, 2017.
+
+\bibitem{Augmentor}
+Marcus D.Bloice.
+\newblock \url{https://augmentor.readthedocs.io/en/master/}, 2016.
+
+\bibitem{deep}
+Ian Goodfellow, Yoshua Bengio, and Aaron Courville.
+\newblock {\em Deep Learning}.
+\newblock MIT Press, 2016.
+
+\bibitem{machine}
+K.P. Murphy.
+\newblock {\em Machine Learning: A Probabilistic Perspective}.
+\newblock Adaptive computation and machine learning. MIT Press, 2012.
+
+\bibitem{imagenet}
+Kai~Li Jia Deng Wei Dong Richard~Socher, Li-Jia~Li and Li~Fei-Fei.
+\newblock Imagenet: A large-scale hierarchical image database.
+\newblock {\em Dept. of Computer Science, Princeton University, USA}, 2010.
+
+\bibitem{TensorFlow}
+TensorFlow.
+\newblock \url{https://www.tensorflow.org}.
+
+\bibitem{getting}
+Giancarlo Zaccone.
+\newblock {\em Getting Started with TensorFlow}.
+\newblock Packt Publishing Ltd, 2016.
+
+\bibitem{vision}
+Rajalingappaa Shanmugamani.
+\newblock {\em Deep learning for computer vision}.
+\newblock Packt Publishing Ltd, 2018.
+
+\end{thebibliography}

@@ -1,0 +1,24 @@
+\BOOKMARK [1][-]{section*.2}{Introduzione}{}% 1
+\BOOKMARK [0][-]{chapter.1}{Algoritmi di apprendimento}{}% 2
+\BOOKMARK [1][-]{section.1.1}{Costruzione di un algoritmo}{chapter.1}% 3
+\BOOKMARK [1][-]{section.1.2}{Apprendimento supervisionato}{chapter.1}% 4
+\BOOKMARK [2][-]{subsection.1.2.1}{Regressione}{section.1.2}% 5
+\BOOKMARK [2][-]{subsection.1.2.2}{Classificazione}{section.1.2}% 6
+\BOOKMARK [1][-]{section.1.3}{Apprendimento non supervisionato}{chapter.1}% 7
+\BOOKMARK [1][-]{section.1.4}{Apprendimento per rinforzo}{chapter.1}% 8
+\BOOKMARK [0][-]{chapter.2}{Reti neurali artificiali}{}% 9
+\BOOKMARK [1][-]{section.2.1}{Funzioni di attivazione}{chapter.2}% 10
+\BOOKMARK [1][-]{section.2.2}{Addestramento di una rete}{chapter.2}% 11
+\BOOKMARK [2][-]{subsection.2.2.1}{Algoritmo di back propagation}{section.2.2}% 12
+\BOOKMARK [1][-]{section.2.3}{Reti Deep Feed-forward}{chapter.2}% 13
+\BOOKMARK [1][-]{section.2.4}{ImageNet}{chapter.2}% 14
+\BOOKMARK [1][-]{section.2.5}{Reti Neurali Convoluzionali - CNNs}{chapter.2}% 15
+\BOOKMARK [2][-]{subsection.2.5.1}{Struttura di una CNNs}{section.2.5}% 16
+\BOOKMARK [0][-]{chapter.3}{Shazarch}{}% 17
+\BOOKMARK [1][-]{section.3.1}{MobileNet}{chapter.3}% 18
+\BOOKMARK [1][-]{section.3.2}{TensorFlow}{chapter.3}% 19
+\BOOKMARK [2][-]{subsection.3.2.1}{Shazarch}{section.3.2}% 20
+\BOOKMARK [1][-]{section.3.3}{AndroidStudio}{chapter.3}% 21
+\BOOKMARK [2][-]{subsection.3.3.1}{Shazarch}{section.3.3}% 22
+\BOOKMARK [1][-]{section.3.4}{Conclusioni}{chapter.3}% 23
+\BOOKMARK [0][-]{figure.3.2}{Bibliografia}{}% 24
